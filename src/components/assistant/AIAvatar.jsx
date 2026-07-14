@@ -1,26 +1,31 @@
 import React from 'react';
-import { BrainCircuit, Radio, WifiOff, Settings } from 'lucide-react';
+import { BrainCircuit, Radio, WifiOff, Settings, AlertCircle, Database } from 'lucide-react';
 
 export function AIAvatar({ offlineMode, isKeyConfigured, onOpenSettings }) {
   // Determine connection status text and icon
   let statusBadge = null;
 
-  if (offlineMode || !isKeyConfigured) {
-    if (!navigator.onLine) {
-      statusBadge = (
-        <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs">
-          <WifiOff className="w-3.5 h-3.5" />
-          <span className="font-medium hidden sm:inline">Offline Mode</span>
-        </div>
-      );
-    } else {
-      statusBadge = (
-        <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs">
-          <WifiOff className="w-3.5 h-3.5" />
-          <span className="font-medium hidden sm:inline">Local Fallback</span>
-        </div>
-      );
-    }
+  if (!navigator.onLine) {
+    statusBadge = (
+      <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs">
+        <WifiOff className="w-3.5 h-3.5" />
+        <span className="font-medium hidden sm:inline">Offline Mode</span>
+      </div>
+    );
+  } else if (!isKeyConfigured) {
+    statusBadge = (
+      <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-red-500/10 border border-red-500/20 text-red-400 text-xs">
+        <Settings className="w-3.5 h-3.5" />
+        <span className="font-medium hidden sm:inline">Configuration Required</span>
+      </div>
+    );
+  } else if (offlineMode) {
+    statusBadge = (
+      <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs">
+        <BrainCircuit className="w-3.5 h-3.5" />
+        <span className="font-medium hidden sm:inline">Local Knowledge Base</span>
+      </div>
+    );
   } else {
     statusBadge = (
       <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs">
@@ -39,8 +44,8 @@ export function AIAvatar({ offlineMode, isKeyConfigured, onOpenSettings }) {
             <BrainCircuit className="w-5 h-5 text-cyan-400" />
           </div>
           {/* Status Indicator Dot */}
-          <span className={`absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full border-2 border-surface-container-lowest flex items-center justify-center ${offlineMode || !isKeyConfigured ? 'bg-amber-500' : 'bg-emerald-500'}`}>
-            <span className={`absolute w-full h-full rounded-full opacity-75 animate-ping ${offlineMode || !isKeyConfigured ? 'bg-amber-400' : 'bg-emerald-400'}`}></span>
+          <span className={`absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full border-2 border-surface-container-lowest flex items-center justify-center ${!navigator.onLine || offlineMode ? 'bg-amber-500' : !isKeyConfigured ? 'bg-red-500' : 'bg-emerald-500'}`}>
+            <span className={`absolute w-full h-full rounded-full opacity-75 animate-ping ${!navigator.onLine || offlineMode ? 'bg-amber-400' : !isKeyConfigured ? 'bg-red-400' : 'bg-emerald-400'}`}></span>
           </span>
         </div>
  

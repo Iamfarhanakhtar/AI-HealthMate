@@ -101,22 +101,34 @@ export const geminiService = {
         yield textChunk;
       }
     } catch (error) {
-      console.error("Gemini stream error:", error);
+      console.error("[Gemini API Error] Chat communication failure:", {
+        status: error.status,
+        message: error.message
+      });
       
       // Parse rate limit or generic API errors
       if (error.status === 429 || error.message?.includes('429')) {
+        console.warn("[Gemini API] Rate limit exceeded (429).");
         throw new Error("RATE_LIMIT");
       }
+      if (error.status === 403 || error.message?.includes('403') || error.message?.includes('leaked')) {
+        console.error("[Gemini API] API Key forbidden or leaked (403).");
+        throw new Error("INVALID_KEY");
+      }
       if (error.message?.includes('quota') || error.message?.includes('limit')) {
+        console.warn("[Gemini API] Quota exceeded.");
         throw new Error("QUOTA_EXCEEDED");
       }
       if (error.message?.includes('API key') || error.message?.includes('key not valid')) {
+        console.error("[Gemini API] Invalid API Key.");
         throw new Error("INVALID_KEY");
       }
       if (error.status === 404 || error.message?.includes('not found')) {
+        console.error("[Gemini API] Model not found (404).");
         throw new Error("INVALID_KEY"); // Map to invalid key so UI falls back gracefully
       }
       
+      console.error("[Gemini API] Network or unknown failure.");
       throw new Error("NETWORK_FAILURE");
     }
   }
