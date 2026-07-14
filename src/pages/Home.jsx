@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import LoadingScreen from '../components/landing/LoadingScreen';
+import React from 'react';
 import ScrollReveal from '../components/UI/ScrollReveal';
 
 // Landing Sections (Storyflow narrative)
@@ -12,12 +11,6 @@ import AIAssistantPreview from '../components/landing/AIAssistantPreview';
 import CallToAction from '../components/landing/CallToAction';
 
 function Home() {
-  const [isLoading, setIsLoading] = useState(true);
-
-  if (isLoading) {
-    return <LoadingScreen onComplete={() => setIsLoading(false)} />;
-  }
-
   return (
     <div className="w-full">
       {/* 1. Hero */}

@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import Button from '../UI/Button';
 import Container from '../UI/Container';
+
+const ThreeSphere = lazy(() => import('../ThreeSphere'));
 
 function Hero() {
   const navigate = useNavigate();
@@ -95,15 +97,21 @@ function Hero() {
             <div className="absolute w-56 h-56 rounded-full bg-primary/5 filter blur-3xl -top-10 -left-10"></div>
             <div className="absolute w-44 h-44 rounded-full bg-tertiary-container/5 filter blur-3xl -bottom-10 -right-10"></div>
 
-            {/* Simulated 3D Sphere Placeholder */}
-            <div className="w-48 h-48 rounded-full border-2 border-dashed border-primary/30 flex items-center justify-center relative animate-[spin_40s_linear_infinite] mb-6">
-              <div className="w-36 h-36 rounded-full border border-dashed border-[#36ffc4]/40 flex items-center justify-center animate-[spin_20s_linear_infinite_reverse]">
-                <div className="w-24 h-24 rounded-full bg-gradient-to-tr from-primary/10 to-tertiary-container/10 border border-white/10 flex items-center justify-center shadow-lg">
-                  <span className="material-symbols-outlined text-primary text-4xl animate-pulse">
-                    hologram
-                  </span>
+            {/* Lazy Loaded 3D Sphere */}
+            <div className="w-full flex-1 flex items-center justify-center min-h-[200px] mb-6">
+              <Suspense fallback={
+                <div className="w-48 h-48 rounded-full border-2 border-dashed border-primary/30 flex items-center justify-center relative animate-[spin_40s_linear_infinite]">
+                  <div className="w-36 h-36 rounded-full border border-dashed border-[#36ffc4]/40 flex items-center justify-center animate-[spin_20s_linear_infinite_reverse]">
+                    <div className="w-24 h-24 rounded-full bg-gradient-to-tr from-primary/10 to-tertiary-container/10 border border-white/10 flex items-center justify-center shadow-lg">
+                      <span className="material-symbols-outlined text-primary text-4xl animate-pulse">
+                        hologram
+                      </span>
+                    </div>
+                  </div>
                 </div>
-              </div>
+              }>
+                <ThreeSphere />
+              </Suspense>
             </div>
 
             {/* Layout Extension Info Slots */}
