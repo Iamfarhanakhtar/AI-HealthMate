@@ -62,8 +62,10 @@ export const geminiService = {
   sendMessageStream: async function* (userMessage, historyMessages = []) {
     const apiKey = getGeminiApiKey();
     if (!apiKey) {
+      console.warn("[Gemini API] Request attempted but API key is missing.");
       throw new Error("API_KEY_MISSING");
     }
+    console.debug("[Gemini API] Key found. Sending request to Gemini...");
 
     let modelInstance;
     try {

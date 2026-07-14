@@ -210,7 +210,7 @@ function Assistant() {
                 type="password"
                 value={apiKeyInput}
                 onChange={(e) => setApiKeyInput(e.target.value)}
-                placeholder="Paste your AIzaSy... API Key here"
+                placeholder="Paste your Gemini API Key here"
                 className="w-full bg-surface-container border border-outline-variant/30 focus:border-cyan-500/50 rounded-xl px-4 py-2.5 text-xs text-white outline-none transition-all"
               />
               <p className="text-[10px] text-on-surface-variant leading-relaxed">
