@@ -17,6 +17,7 @@ function CommunityFeedback() {
   
   const [formData, setFormData] = useState({
     name: '',
+    email: '',
     location: '',
     feedback: '',
     rating: 0,
@@ -30,6 +31,12 @@ function CommunityFeedback() {
 
   const validate = () => {
     const newErrors = {};
+    if (!formData.name.trim()) {
+      newErrors.name = "Name is required.";
+    }
+    if (formData.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim())) {
+      newErrors.email = "Please enter a valid email address.";
+    }
     if (!formData.feedback.trim()) {
       newErrors.feedback = "Health concerns or feedback is required.";
     }
@@ -50,9 +57,10 @@ function CommunityFeedback() {
       setSubmitError(null);
       
       const newEntry = { 
-        name: formData.name,
-        location: formData.location,
-        message: formData.feedback, // mapping 'feedback' to 'message' as requested
+        name: formData.name.trim(),
+        email: formData.email.trim(),
+        location: formData.location.trim(),
+        message: formData.feedback.trim(), // mapping 'feedback' to 'message' as requested
         rating: formData.rating,
         consent: formData.consent
       };
@@ -65,7 +73,7 @@ function CommunityFeedback() {
         
         // Only if successful, show success screen
         setIsSubmitted(true);
-        setFormData({ name: '', location: '', feedback: '', rating: 0, consent: false });
+        setFormData({ name: '', email: '', location: '', feedback: '', rating: 0, consent: false });
       } catch (err) {
         console.error("Firestore write failed:", err);
         setSubmitError("Could not save feedback online. Saved locally instead.");
@@ -76,7 +84,7 @@ function CommunityFeedback() {
           localStorage.setItem('healthmate_feedback', JSON.stringify([...prevFeedback, { ...newEntry, id: Date.now(), date: new Date().toISOString() }]));
           
           setIsSubmitted(true);
-          setFormData({ name: '', location: '', feedback: '', rating: 0, consent: false });
+          setFormData({ name: '', email: '', location: '', feedback: '', rating: 0, consent: false });
         } catch (localErr) {
           console.error("Local storage also failed:", localErr);
         }
@@ -119,14 +127,35 @@ function CommunityFeedback() {
           ) : (
             <form onSubmit={handleSubmit} className="flex flex-col gap-5" noValidate>
               
-              {/* Optional Fields */}
+              {/* Personal Details */}
               <div className="flex flex-col gap-4">
-                <Input 
-                  label="Your Name (Optional)" 
-                  placeholder="e.g. Ramesh Patel" 
-                  value={formData.name}
-                  onChange={(e) => setFormData({...formData, name: e.target.value})}
-                />
+                <div>
+                  <Input 
+                    label="Your Name *" 
+                    placeholder="e.g. Ramesh Patel" 
+                    value={formData.name}
+                    onChange={(e) => {
+                      setFormData({...formData, name: e.target.value});
+                      if (errors.name) setErrors({...errors, name: null});
+                    }}
+                    aria-invalid={!!errors.name}
+                  />
+                  {errors.name && <span className="text-red-400 text-xs font-semibold mt-1 block">{errors.name}</span>}
+                </div>
+                <div>
+                  <Input 
+                    label="Email Address (Optional)" 
+                    placeholder="e.g. ramesh@example.com"
+                    type="email"
+                    value={formData.email}
+                    onChange={(e) => {
+                      setFormData({...formData, email: e.target.value});
+                      if (errors.email) setErrors({...errors, email: null});
+                    }}
+                    aria-invalid={!!errors.email}
+                  />
+                  {errors.email && <span className="text-red-400 text-xs font-semibold mt-1 block">{errors.email}</span>}
+                </div>
                 <Input 
                   label="Village / School Location (Optional)" 
                   placeholder="e.g. Sonapur High School" 
