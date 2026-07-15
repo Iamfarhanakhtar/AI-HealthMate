@@ -152,16 +152,25 @@ export function useChat() {
   }, [currentConversationId, saveToStorage]);
 
   // Handle offline fallback responses
-  const handleOfflineFallback = useCallback(async (queryText, targetMsgId) => {
+  const handleOfflineFallback = useCallback(async (queryText, targetMsgId, reason = 'offline') => {
     try {
       await new Promise(resolve => setTimeout(resolve, 800));
       const localGuide = offlineService.getResponse(queryText);
       
+      let customDisclaimer = localGuide.disclaimer;
+      if (reason === 'missing_key') {
+        customDisclaimer = "AI is not configured. Please add VITE_GEMINI_API_KEY.";
+      } else if (reason === 'api_error' || reason === 'rate_limit' || reason === 'unknown') {
+        customDisclaimer = "Live AI is temporarily unavailable. Showing local educational guidance.";
+      } else if (reason === 'offline') {
+        customDisclaimer = "Offline Mode: no internet connection is active.";
+      }
+      
       const finalOfflineMsg = {
         id: targetMsgId,
         sender: 'assistant',
-        content: `[SUMMARY]\n${localGuide.summary}\n\n[KEY_POINTS]\n${localGuide.keyPoints.map(p => `- ${p}`).join('\n')}\n\n[PREVENTION]\n${localGuide.prevention.map(p => `- ${p}`).join('\n')}\n\n[CONSULT]\n${localGuide.consult}\n\n[DISCLAIMER]\n${localGuide.disclaimer}`,
-        parsedContent: localGuide,
+        content: `[SUMMARY]\n${localGuide.summary}\n\n[KEY_POINTS]\n${localGuide.keyPoints.map(p => `- ${p}`).join('\n')}\n\n[PREVENTION]\n${localGuide.prevention.map(p => `- ${p}`).join('\n')}\n\n[CONSULT]\n${localGuide.consult}\n\n[DISCLAIMER]\n${customDisclaimer}`,
+        parsedContent: { ...localGuide, disclaimer: customDisclaimer },
         timestamp: new Date().toISOString(),
         isStreaming: false,
         rating: null
@@ -249,9 +258,11 @@ export function useChat() {
     // Append placeholder
     setMessages(prev => [...prev, assistantPlaceholder]);
 
-    // Check offline state or API configuration
-    if (offlineMode || !isGeminiConfigured()) {
-      await handleOfflineFallback(userText, assistantMsgId);
+    if (!navigator.onLine) {
+      await handleOfflineFallback(userText, assistantMsgId, 'offline');
+      return;
+    } else if (!isGeminiConfigured()) {
+      await handleOfflineFallback(userText, assistantMsgId, 'missing_key');
       return;
     }
 
@@ -312,19 +323,16 @@ export function useChat() {
     } catch (err) {
       console.error("Chat communication failure:", err);
       
-      let clientErrorMsg = "Unable to connect. Please check your network or try again.";
+      let reason = 'unknown';
       if (err.message === 'RATE_LIMIT') {
-        clientErrorMsg = "We are receiving high traffic. Please wait a moment before asking again.";
+        reason = 'rate_limit';
       } else if (err.message === 'API_KEY_MISSING' || err.message === 'INVALID_KEY') {
-        clientErrorMsg = "Gemini API key is not configured correctly. Falling back to local offline responses.";
-        setOfflineMode(true);
-        await handleOfflineFallback(userText, assistantMsgId);
-        return;
+        reason = 'missing_key';
+      } else {
+        reason = 'api_error';
       }
 
-      setError(clientErrorMsg);
-      // Remove assistant placeholder on error
-      setMessages(prev => prev.filter(m => m.id !== assistantMsgId));
+      await handleOfflineFallback(userText, assistantMsgId, reason);
     } finally {
       setIsLoading(false);
     }
