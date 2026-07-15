@@ -109,7 +109,7 @@ function Explore() {
                       className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 cursor-pointer"
                     >
                       <div className="flex items-center gap-4">
-                        <span className="material-symbols-outlined text-4xl text-primary p-3 bg-white/5 rounded-xl">
+                        <span className="material-symbols-outlined text-4xl text-primary p-3 bg-white/5 rounded-xl" aria-hidden="true">
                           {article.icon}
                         </span>
                         <div className="text-left">
@@ -151,7 +151,7 @@ function Explore() {
                           {/* Symptoms */}
                           <div className="flex flex-col gap-3">
                             <h3 className="font-title-md text-[15px] font-bold text-[#e3d4ff] flex items-center gap-2">
-                              <span className="material-symbols-outlined text-[18px]">emergency</span>
+                              <span className="material-symbols-outlined text-[18px]" aria-hidden="true">emergency</span>
                               Symptoms to Watch
                             </h3>
                             <ul className="space-y-1.5">
@@ -167,7 +167,7 @@ function Explore() {
                           {/* Prevention */}
                           <div className="flex flex-col gap-3">
                             <h3 className="font-title-md text-[15px] font-bold text-[#36ffc4] flex items-center gap-2">
-                              <span className="material-symbols-outlined text-[18px]">verified</span>
+                              <span className="material-symbols-outlined text-[18px]" aria-hidden="true">verified</span>
                               Prevention Actions
                             </h3>
                             <ul className="space-y-1.5">
@@ -183,7 +183,7 @@ function Explore() {
                           {/* Home Care / Triage Advice */}
                           <div className="flex flex-col gap-3">
                             <h3 className="font-title-md text-[15px] font-bold text-primary flex items-center gap-2">
-                              <span className="material-symbols-outlined text-[18px]">clinical_notes</span>
+                              <span className="material-symbols-outlined text-[18px]" aria-hidden="true">clinical_notes</span>
                               Care Instructions
                             </h3>
                             <ul className="space-y-1.5">
@@ -204,7 +204,7 @@ function Explore() {
             })
           ) : (
             <div className="text-center py-16 text-on-surface-variant">
-              <span className="material-symbols-outlined text-5xl opacity-40">find_in_page</span>
+              <span className="material-symbols-outlined text-5xl opacity-40" aria-hidden="true">find_in_page</span>
               <p className="mt-2 text-body-md">No topics found matching your query.</p>
             </div>
           )}

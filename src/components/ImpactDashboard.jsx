@@ -96,7 +96,7 @@ function ImpactDashboard() {
             >
               <div className="absolute inset-0 bg-gradient-to-br from-white/[0.01] to-white/[0.03] pointer-events-none"></div>
               
-              <span className={`material-symbols-outlined text-4xl ${stat.color} p-3 rounded-full bg-white/5`}>
+              <span className={`material-symbols-outlined text-4xl ${stat.color} p-3 rounded-full bg-white/5`} aria-hidden="true">
                 {stat.icon}
               </span>
               

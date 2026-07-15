@@ -44,7 +44,7 @@ function WhyHealthcare() {
           </div>
 
           <div className="relative p-8 rounded-2xl border border-[#36ffc4]/15 bg-gradient-to-br from-[#36ffc4]/5 to-transparent text-left">
-            <span className="material-symbols-outlined text-[#36ffc4] text-4xl mb-4">
+            <span className="material-symbols-outlined text-[#36ffc4] text-4xl mb-4" aria-hidden="true">
               health_and_safety
             </span>
             <h3 className="font-title-md text-lg font-bold text-secondary mb-2">
@@ -66,7 +66,7 @@ function WhyHealthcare() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {challenges.map((chal, index) => (
               <GlassPanel key={index} className="p-6 text-left flex flex-col gap-3 relative">
-                <span className="material-symbols-outlined text-primary text-3xl p-2 bg-white/5 rounded-lg w-fit">
+                <span className="material-symbols-outlined text-primary text-3xl p-2 bg-white/5 rounded-lg w-fit" aria-hidden="true">
                   {chal.icon}
                 </span>
                 <h4 className="font-title-md text-[16px] font-bold text-secondary">

@@ -196,6 +196,7 @@ function Assistant() {
               </div>
               <button 
                 onClick={() => setShowSettingsModal(false)}
+                aria-label="Close settings"
                 className="p-1 rounded-lg hover:bg-surface-container text-on-surface-variant hover:text-white cursor-pointer"
               >
                 <X className="w-4 h-4" />

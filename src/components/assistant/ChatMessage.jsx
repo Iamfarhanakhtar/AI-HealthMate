@@ -80,6 +80,7 @@ export function ChatMessage({ message, onRate, onSpeak, isSpeaking }) {
               <button
                 onClick={handleCopy}
                 title="Copy response"
+                aria-label="Copy response to clipboard"
                 className="p-1.5 rounded-lg hover:bg-white/5 text-on-surface-variant hover:text-white transition-colors cursor-pointer"
               >
                 {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
@@ -87,6 +88,7 @@ export function ChatMessage({ message, onRate, onSpeak, isSpeaking }) {
               <button
                 onClick={() => onSpeak(message.content)}
                 title="Read aloud"
+                aria-label="Read response aloud"
                 className={`p-1.5 rounded-lg hover:bg-white/5 transition-colors cursor-pointer ${isSpeaking ? 'text-cyan-400 animate-pulse bg-cyan-500/10' : 'text-on-surface-variant hover:text-white'}`}
               >
                 <Volume2 className="w-3.5 h-3.5" />
@@ -174,6 +176,7 @@ export function ChatMessage({ message, onRate, onSpeak, isSpeaking }) {
               onClick={() => onRate(id, 'like')}
               className={`p-1.5 rounded hover:bg-white/5 transition-colors cursor-pointer ${rating === 'like' ? 'text-emerald-400 bg-emerald-500/10 border border-emerald-500/20' : 'text-on-surface-variant'}`}
               title="Helpful"
+              aria-label="Mark response as helpful"
             >
               <ThumbsUp className="w-3.5 h-3.5" />
             </button>
@@ -181,6 +184,7 @@ export function ChatMessage({ message, onRate, onSpeak, isSpeaking }) {
               onClick={() => onRate(id, 'dislike')}
               className={`p-1.5 rounded hover:bg-white/5 transition-colors cursor-pointer ${rating === 'dislike' ? 'text-red-400 bg-red-500/10 border border-red-500/20' : 'text-on-surface-variant'}`}
               title="Not helpful"
+              aria-label="Mark response as not helpful"
             >
               <ThumbsDown className="w-3.5 h-3.5" />
             </button>

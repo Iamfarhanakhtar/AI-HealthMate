@@ -105,7 +105,7 @@ function Quizzes() {
                   onClick={() => startQuiz(quiz.id)}
                   variant="primary"
                   className="w-full sm:w-auto"
-                  iconRight={<span className="material-symbols-outlined text-sm font-bold">play_arrow</span>}
+                  iconRight={<span className="material-symbols-outlined text-sm font-bold" aria-hidden="true">play_arrow</span>}
                 >
                   Start Assessment
                 </Button>
@@ -129,7 +129,7 @@ function Quizzes() {
                 onClick={resetQuiz}
                 className="text-xs text-on-surface-variant hover:text-primary transition-colors flex items-center gap-1 mb-6 cursor-pointer"
               >
-                <span className="material-symbols-outlined text-[16px]">arrow_back</span>
+                <span className="material-symbols-outlined text-[16px]" aria-hidden="true">arrow_back</span>
                 Cancel Quiz
               </button>
 
@@ -214,7 +214,7 @@ function Quizzes() {
                       onClick={nextQuestion}
                       variant="primary"
                       className="mt-6 w-full sm:w-auto ml-auto block"
-                      iconRight={<span className="material-symbols-outlined text-sm">arrow_forward</span>}
+                      iconRight={<span className="material-symbols-outlined text-sm" aria-hidden="true">arrow_forward</span>}
                     >
                       {currentQuestionIndex + 1 === activeQuiz.questions.length ? "Finish Quiz" : "Next Question"}
                     </Button>
@@ -235,7 +235,7 @@ function Quizzes() {
             className="max-w-2xl mx-auto"
           >
             <GlassPanel className="p-6 md:p-8 text-center">
-              <span className="material-symbols-outlined text-5xl text-primary p-4 bg-white/5 rounded-full mb-4">
+              <span className="material-symbols-outlined text-5xl text-primary p-4 bg-white/5 rounded-full mb-4" aria-hidden="true">
                 workspace_premium
               </span>
               <h2 className="font-headline-lg text-2xl text-secondary font-bold">
@@ -341,7 +341,7 @@ function Quizzes() {
                   }}
                   className="text-xs text-on-surface-variant hover:text-primary transition-colors flex items-center gap-1 mt-10 mx-auto cursor-pointer"
                 >
-                  <span className="material-symbols-outlined text-[16px]">arrow_back</span>
+                  <span className="material-symbols-outlined text-[16px]" aria-hidden="true">arrow_back</span>
                   Back to Quiz Dashboard
                 </button>
               )}

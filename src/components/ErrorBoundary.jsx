@@ -19,7 +19,7 @@ class ErrorBoundary extends Component {
       return (
         <div className="min-h-[50vh] flex items-center justify-center p-6">
           <div className="glass-panel max-w-md p-8 rounded-2xl border border-red-500/20 text-center shadow-xl">
-            <span className="material-symbols-outlined text-red-400 text-5xl mb-4">
+            <span className="material-symbols-outlined text-red-400 text-5xl mb-4" aria-hidden="true">
               running_with_errors
             </span>
             <h2 className="text-xl font-bold text-secondary">Something went wrong</h2>

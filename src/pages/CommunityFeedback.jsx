@@ -63,7 +63,7 @@ function CommunityFeedback() {
         <GlassPanel className="p-6">
           {isSubmitted ? (
             <div className="flex flex-col items-center justify-center py-10 text-center gap-4 animate-fade-in" role="alert" aria-live="polite">
-              <span className="material-symbols-outlined text-5xl text-emerald-400">check_circle</span>
+              <span className="material-symbols-outlined text-5xl text-emerald-400" aria-hidden="true">check_circle</span>
               <h3 className="text-xl font-bold text-emerald-400">Thank You!</h3>
               <p className="text-sm text-on-surface-variant">Your feedback has been successfully submitted and will help us improve.</p>
               <Button variant="secondary" onClick={() => setIsSubmitted(false)} className="mt-4">
@@ -122,7 +122,7 @@ function CommunityFeedback() {
                       className="focus:outline-none focus:ring-2 focus:ring-primary/50 rounded-full"
                       aria-label={`${star} Star${star > 1 ? 's' : ''}`}
                     >
-                      <span className={`material-symbols-outlined text-2xl transition-colors ${formData.rating >= star ? 'text-amber-400 fill-amber-400' : 'text-on-surface-variant/40'}`}
+                      <span aria-hidden="true" className={`material-symbols-outlined text-2xl transition-colors ${formData.rating >= star ? 'text-amber-400 fill-amber-400' : 'text-on-surface-variant/40'}`}
                             style={{ fontVariationSettings: formData.rating >= star ? "'FILL' 1" : "'FILL' 0" }}>
                         star
                       </span>
@@ -147,7 +147,7 @@ function CommunityFeedback() {
                       aria-invalid={!!errors.consent}
                     />
                     <div className="w-5 h-5 rounded border-2 border-outline-variant flex items-center justify-center peer-checked:border-primary peer-checked:bg-primary transition-all peer-focus:ring-2 peer-focus:ring-primary/50 group-hover:border-primary">
-                      {formData.consent && <span className="material-symbols-outlined text-on-primary text-[16px] font-bold">check</span>}
+                      {formData.consent && <span className="material-symbols-outlined text-on-primary text-[16px] font-bold" aria-hidden="true">check</span>}
                     </div>
                   </div>
                   <span className="text-xs text-on-surface-variant leading-relaxed">

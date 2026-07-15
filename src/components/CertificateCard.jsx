@@ -95,7 +95,7 @@ function CertificateCard({
 
         {/* Certificate Frame Content */}
         <div className="border border-white/5 p-6 md:p-8 rounded-xl flex flex-col items-center relative z-10 gap-6">
-          <span className="material-symbols-outlined text-primary text-5xl animate-pulse">
+          <span className="material-symbols-outlined text-primary text-5xl animate-pulse" aria-hidden="true">
             workspace_premium
           </span>
 
@@ -137,7 +137,7 @@ function CertificateCard({
         onClick={handlePrint}
         variant="primary"
         className="w-full sm:w-auto"
-        iconLeft={<span className="material-symbols-outlined text-sm">print</span>}
+        iconLeft={<span className="material-symbols-outlined text-sm" aria-hidden="true">print</span>}
       >
         Print Certificate
       </Button>

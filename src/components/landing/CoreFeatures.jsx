@@ -54,7 +54,7 @@ function CoreFeatures() {
               className="flex flex-col justify-between items-start gap-4 min-h-[180px]"
             >
               <div className="flex gap-4 items-center w-full">
-                <span className={`material-symbols-outlined text-3xl ${feat.color} p-2 bg-white/5 rounded-lg`}>
+                <span className={`material-symbols-outlined text-3xl ${feat.color} p-2 bg-white/5 rounded-lg`} aria-hidden="true">
                   {feat.icon}
                 </span>
                 <h3 className="font-title-md text-lg font-bold text-secondary text-left">

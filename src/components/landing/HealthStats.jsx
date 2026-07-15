@@ -54,7 +54,7 @@ function HealthStats() {
               key={idx}
               className="p-6 flex flex-col justify-between items-center text-center gap-3 relative"
             >
-              <span className={`material-symbols-outlined text-3xl ${stat.color} p-3 rounded-full bg-white/5`}>
+              <span className={`material-symbols-outlined text-3xl ${stat.color} p-3 rounded-full bg-white/5`} aria-hidden="true">
                 {stat.icon}
               </span>
               

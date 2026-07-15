@@ -95,7 +95,7 @@ function ChatModal() {
         className="fixed bottom-8 right-8 z-50 w-16 h-16 rounded-full bg-surface-container-high border border-primary/20 shadow-[0_0_20px_rgba(0,242,255,0.25)] flex items-center justify-center hover:scale-110 hover:shadow-[0_0_30px_rgba(0,242,255,0.45)] transition-all group backdrop-blur-xl cursor-pointer"
         aria-label="Open AI Health Assistant"
       >
-        <span className="material-symbols-outlined text-primary text-3xl group-hover:rotate-12 transition-transform duration-300">
+        <span className="material-symbols-outlined text-primary text-3xl group-hover:rotate-12 transition-transform duration-300" aria-hidden="true">
           smart_toy
         </span>
       </button>
@@ -126,6 +126,7 @@ function ChatModal() {
               </div>
               <button
                 onClick={() => setIsOpen(false)}
+                aria-label="Close chat window"
                 className="p-1 rounded hover:bg-white/10 text-on-surface-variant hover:text-primary transition-colors cursor-pointer"
               >
                 <X size={18} />
@@ -201,6 +202,7 @@ function ChatModal() {
               <button
                 onClick={handleSend}
                 disabled={!inputValue.trim()}
+                aria-label="Send message"
                 className="p-2.5 rounded-full bg-primary text-on-primary hover:shadow-[0_0_12px_rgba(0,242,255,0.3)] disabled:opacity-50 disabled:shadow-none transition-all cursor-pointer"
               >
                 <Send size={14} />

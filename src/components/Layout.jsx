@@ -41,7 +41,7 @@ function Layout({ children }) {
 
       {/* Floating AI Chatbot FAB Placeholder */}
       <div className="fixed bottom-8 right-8 z-50 w-14 h-14 rounded-full bg-surface-container-high border border-primary/20 shadow-lg flex items-center justify-center cursor-pointer hover:scale-105 active:scale-95 transition-all">
-        <span className="material-symbols-outlined text-primary text-2xl">
+        <span className="material-symbols-outlined text-primary text-2xl" aria-hidden="true">
           smart_toy
         </span>
       </div>

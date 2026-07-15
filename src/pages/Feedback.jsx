@@ -80,7 +80,7 @@ function Feedback() {
         <div className="lg:col-span-5">
           <GlassPanel glowVariant="cyan" className="p-6">
             <h3 className="font-title-md text-lg text-secondary font-bold mb-6 flex items-center gap-2">
-              <span className="material-symbols-outlined text-primary">rate_review</span>
+              <span className="material-symbols-outlined text-primary" aria-hidden="true">rate_review</span>
               Submit Report / Review
             </h3>
 
@@ -221,7 +221,7 @@ function Feedback() {
         {/* Feedback Listing Bulletin (7 cols) */}
         <div className="lg:col-span-7 flex flex-col gap-6">
           <h3 className="font-title-md text-lg text-secondary font-bold flex items-center gap-2">
-            <span className="material-symbols-outlined text-primary">forum</span>
+            <span className="material-symbols-outlined text-primary" aria-hidden="true">forum</span>
             Community Reports Bulletin
           </h3>
 

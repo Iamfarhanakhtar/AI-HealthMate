@@ -58,14 +58,14 @@ function Hero() {
             <Button
               onClick={() => navigate('/assistant')}
               variant="primary"
-              iconLeft={<span className="material-symbols-outlined text-sm">smart_toy</span>}
+              iconLeft={<span className="material-symbols-outlined text-sm" aria-hidden="true">smart_toy</span>}
             >
               Try AI Assistant
             </Button>
             <Button
               onClick={() => navigate('/health-library')}
               variant="secondary"
-              iconRight={<span className="material-symbols-outlined text-sm">arrow_forward</span>}
+              iconRight={<span className="material-symbols-outlined text-sm" aria-hidden="true">arrow_forward</span>}
             >
               Explore Library
             </Button>
@@ -103,7 +103,7 @@ function Hero() {
                 <div className="w-48 h-48 rounded-full border-2 border-dashed border-primary/30 flex items-center justify-center relative animate-[spin_40s_linear_infinite]">
                   <div className="w-36 h-36 rounded-full border border-dashed border-[#36ffc4]/40 flex items-center justify-center animate-[spin_20s_linear_infinite_reverse]">
                     <div className="w-24 h-24 rounded-full bg-gradient-to-tr from-primary/10 to-tertiary-container/10 border border-white/10 flex items-center justify-center shadow-lg">
-                      <span className="material-symbols-outlined text-primary text-4xl animate-pulse">
+                      <span className="material-symbols-outlined text-primary text-4xl animate-pulse" aria-hidden="true">
                         hologram
                       </span>
                     </div>

@@ -26,7 +26,7 @@ function AIAssistantPreview() {
             {/* Header placeholder */}
             <div className="flex justify-between items-center pb-3 border-b border-white/5">
               <div className="flex items-center gap-2">
-                <span className="material-symbols-outlined text-primary text-xl">
+                <span className="material-symbols-outlined text-primary text-xl" aria-hidden="true">
                   smart_toy
                 </span>
                 <span className="text-xs font-bold text-secondary uppercase tracking-wider">
@@ -58,7 +58,7 @@ function AIAssistantPreview() {
           <Button
             onClick={() => navigate('/assistant')}
             variant="primary"
-            iconRight={<span className="material-symbols-outlined text-sm">smart_toy</span>}
+            iconRight={<span className="material-symbols-outlined text-sm" aria-hidden="true">smart_toy</span>}
           >
             Launch Active AI Companion
           </Button>

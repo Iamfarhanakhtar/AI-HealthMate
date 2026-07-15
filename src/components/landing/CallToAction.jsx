@@ -16,7 +16,7 @@ function CallToAction() {
           <div className="absolute -bottom-24 -right-24 w-80 h-80 rounded-full bg-tertiary-container/5 filter blur-3xl"></div>
           
           <div className="relative z-10 flex flex-col items-center gap-6 max-w-xl mx-auto">
-            <span className="material-symbols-outlined text-primary text-5xl animate-pulse">
+            <span className="material-symbols-outlined text-primary text-5xl animate-pulse" aria-hidden="true">
               campaign
             </span>
             
@@ -31,7 +31,7 @@ function CallToAction() {
             <Button
               onClick={() => navigate('/awareness-session')}
               variant="tertiary"
-              iconLeft={<span className="material-symbols-outlined text-sm">school</span>}
+              iconLeft={<span className="material-symbols-outlined text-sm" aria-hidden="true">school</span>}
             >
               Start Guided Session Mode
             </Button>

@@ -752,6 +752,7 @@ function AwarenessSession() {
               <div className="flex gap-2">
                 <button
                   onClick={() => setShowNotes(prev => !prev)}
+                  aria-label="Toggle speaker notes"
                   className={`p-2.5 rounded-xl border text-xs font-semibold transition-all cursor-pointer ${
                     showNotes 
                       ? 'bg-cyan-500/15 border-cyan-500/40 text-cyan-300' 
@@ -763,6 +764,7 @@ function AwarenessSession() {
 
                 <button
                   onClick={toggleFullscreen}
+                  aria-label="Toggle fullscreen"
                   className="p-2.5 rounded-xl bg-surface-container border border-outline-variant/30 text-on-surface hover:text-white cursor-pointer"
                 >
                   {isFullscreen ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}

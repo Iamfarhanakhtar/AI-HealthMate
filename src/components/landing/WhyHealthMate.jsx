@@ -51,7 +51,7 @@ function WhyHealthMate() {
               key={idx}
               className="flex flex-col justify-between items-start gap-4 min-h-[200px]"
             >
-              <span className={`material-symbols-outlined text-3xl ${disc.color} p-2 bg-white/5 rounded-lg`}>
+              <span className={`material-symbols-outlined text-3xl ${disc.color} p-2 bg-white/5 rounded-lg`} aria-hidden="true">
                 {disc.icon}
               </span>
               <div className="text-left flex flex-col gap-1">
