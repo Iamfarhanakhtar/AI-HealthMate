@@ -2,6 +2,8 @@ import React, { useState, useContext } from 'react';
 import MaterialIcon from '../components/UI/MaterialIcon';
 
 import { PlatformContext } from '../context/PlatformContext';
+import { useFirebaseUser } from '../hooks/useFirebaseUser';
+
 import SectionTitle from '../components/UI/SectionTitle';
 import Container from '../components/UI/Container';
 import GlassPanel from '../components/UI/GlassPanel';
@@ -11,6 +13,7 @@ import Button from '../components/UI/Button';
 
 function CommunityFeedback() {
   const { addFeedback } = useContext(PlatformContext);
+  const { user, loading: authLoading } = useFirebaseUser();
   
   const [formData, setFormData] = useState({
     name: '',
@@ -22,6 +25,8 @@ function CommunityFeedback() {
   
   const [errors, setErrors] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState(null);
 
   const validate = () => {
     const newErrors = {};
@@ -38,20 +43,46 @@ function CommunityFeedback() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (validate()) {
-      // Store in localStorage
-      const prevFeedback = JSON.parse(localStorage.getItem('healthmate_feedback') || '[]');
-      const newEntry = { ...formData, id: Date.now(), date: new Date().toISOString() };
-      localStorage.setItem('healthmate_feedback', JSON.stringify([...prevFeedback, newEntry]));
+      setIsSubmitting(true);
+      setSubmitError(null);
       
-      // Update global context metrics
-      if (addFeedback) addFeedback(newEntry);
-      
-      setIsSubmitted(true);
-      // Reset form
-      setFormData({ name: '', location: '', feedback: '', rating: 0, consent: false });
+      const newEntry = { 
+        name: formData.name,
+        location: formData.location,
+        message: formData.feedback, // mapping 'feedback' to 'message' as requested
+        rating: formData.rating,
+        consent: formData.consent
+      };
+
+      try {
+        if (addFeedback) {
+          // Await the Firestore call via context
+          await addFeedback(newEntry);
+        }
+        
+        // Only if successful, show success screen
+        setIsSubmitted(true);
+        setFormData({ name: '', location: '', feedback: '', rating: 0, consent: false });
+      } catch (err) {
+        console.error("Firestore write failed:", err);
+        setSubmitError("Could not save feedback online. Saved locally instead.");
+        
+        // Fallback to local storage
+        try {
+          const prevFeedback = JSON.parse(localStorage.getItem('healthmate_feedback') || '[]');
+          localStorage.setItem('healthmate_feedback', JSON.stringify([...prevFeedback, { ...newEntry, id: Date.now(), date: new Date().toISOString() }]));
+          
+          setIsSubmitted(true);
+          setFormData({ name: '', location: '', feedback: '', rating: 0, consent: false });
+        } catch (localErr) {
+          console.error("Local storage also failed:", localErr);
+        }
+      } finally {
+        setIsSubmitting(false);
+      }
     }
   };
 
@@ -65,10 +96,23 @@ function CommunityFeedback() {
         <GlassPanel className="p-6">
           {isSubmitted ? (
             <div className="flex flex-col items-center justify-center py-10 text-center gap-4 animate-fade-in" role="alert" aria-live="polite">
-              <MaterialIcon icon="check_circle" className="text-5xl text-emerald-400" />
-              <h3 className="text-xl font-bold text-emerald-400">Thank You!</h3>
-              <p className="text-sm text-on-surface-variant">Your feedback has been successfully submitted and will help us improve.</p>
-              <Button variant="secondary" onClick={() => setIsSubmitted(false)} className="mt-4">
+              {submitError ? (
+                <>
+                  <MaterialIcon icon="cloud_off" className="text-5xl text-amber-400" />
+                  <h3 className="text-xl font-bold text-amber-400">Saved Locally</h3>
+                  <p className="text-sm text-on-surface-variant">{submitError}</p>
+                </>
+              ) : (
+                <>
+                  <MaterialIcon icon="check_circle" className="text-5xl text-emerald-400" />
+                  <h3 className="text-xl font-bold text-emerald-400">Feedback submitted successfully.</h3>
+                  <p className="text-sm text-on-surface-variant">Your feedback has been successfully submitted and will help us improve.</p>
+                </>
+              )}
+              <Button variant="secondary" onClick={() => {
+                setIsSubmitted(false);
+                setSubmitError(null);
+              }} className="mt-4">
                 Submit Another Response
               </Button>
             </div>
@@ -159,7 +203,14 @@ function CommunityFeedback() {
                 {errors.consent && <span className="text-red-400 text-xs font-semibold ml-8">{errors.consent}</span>}
               </div>
 
-              <Button type="submit" variant="primary" className="mt-2">Submit Feedback</Button>
+              <Button 
+                type="submit" 
+                variant="primary" 
+                className="mt-2"
+                disabled={authLoading || isSubmitting || !user}
+              >
+                {authLoading || !user ? "Connecting cloud sync..." : (isSubmitting ? "Submitting..." : "Submit Feedback")}
+              </Button>
             </form>
           )}
         </GlassPanel>

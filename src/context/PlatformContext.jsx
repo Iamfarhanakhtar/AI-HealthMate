@@ -68,7 +68,7 @@ export const PlatformProvider = ({ children }) => {
   const toggleSymptom = (symptom) => {};
   const runTriage = () => {};
   const clearTriage = () => {};
-  const addFeedback = (feedbackData) => {
+  const addFeedback = async (feedbackData) => {
     // 1. Update local metrics state
     setImpactMetrics(prev => ({
       ...prev,
@@ -82,12 +82,17 @@ export const PlatformProvider = ({ children }) => {
     if (auth.currentUser) {
       const feedbackToSave = {
         id: `fb_${Date.now()}`,
-        date: new Date().toISOString(),
         ...feedbackData
       };
-      saveFeedback(auth.currentUser.uid, feedbackToSave).catch(err => {
+      
+      try {
+        await saveFeedback(auth.currentUser.uid, feedbackToSave);
+      } catch (err) {
         console.error("Failed to save feedback to Firestore:", err);
-      });
+        throw err;
+      }
+    } else {
+      throw new Error("User not authenticated with Firebase.");
     }
   };
   const incrementAIQuestions = () => {};
