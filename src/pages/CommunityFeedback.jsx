@@ -1,4 +1,6 @@
 import React, { useState, useContext } from 'react';
+import MaterialIcon from '../components/UI/MaterialIcon';
+
 import { PlatformContext } from '../context/PlatformContext';
 import SectionTitle from '../components/UI/SectionTitle';
 import Container from '../components/UI/Container';

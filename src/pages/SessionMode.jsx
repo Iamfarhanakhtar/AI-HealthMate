@@ -1,4 +1,6 @@
 import React, { useState, useContext } from 'react';
+import MaterialIcon from '../components/UI/MaterialIcon';
+
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Play, ArrowRight, X, Heart, ShieldAlert, Award, Send, CheckCircle } from 'lucide-react';

@@ -1,4 +1,6 @@
 import React, { useState, useContext } from 'react';
+import MaterialIcon from '../components/UI/MaterialIcon';
+
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, AlertTriangle, ArrowRight, ShieldCheck, Heart } from 'lucide-react';
 import { PlatformContext } from '../context/PlatformContext';

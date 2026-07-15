@@ -1,4 +1,6 @@
 import React, { Suspense, lazy } from 'react';
+import MaterialIcon from '../UI/MaterialIcon';
+
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import Button from '../UI/Button';

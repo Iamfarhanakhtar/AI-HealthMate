@@ -1,4 +1,6 @@
 import React, { useRef } from 'react';
+import MaterialIcon from './UI/MaterialIcon';
+
 import Button from './UI/Button';
 
 function CertificateCard({
