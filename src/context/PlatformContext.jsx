@@ -1,4 +1,7 @@
 import React, { createContext, useState } from 'react';
+import { auth } from '../lib/firebase';
+import { saveFeedback } from '../services/firestoreService';
+
 
 export const PlatformContext = createContext();
 
@@ -66,6 +69,7 @@ export const PlatformProvider = ({ children }) => {
   const runTriage = () => {};
   const clearTriage = () => {};
   const addFeedback = (feedbackData) => {
+    // 1. Update local metrics state
     setImpactMetrics(prev => ({
       ...prev,
       feedbackReceived: prev.feedbackReceived + 1,
@@ -73,6 +77,18 @@ export const PlatformProvider = ({ children }) => {
         ? Number(((prev.averageRating * prev.feedbackReceived + Number(feedbackData.rating)) / (prev.feedbackReceived + 1)).toFixed(1))
         : prev.averageRating
     }));
+
+    // 2. Persist feedback to Firestore
+    if (auth.currentUser) {
+      const feedbackToSave = {
+        id: `fb_${Date.now()}`,
+        date: new Date().toISOString(),
+        ...feedbackData
+      };
+      saveFeedback(auth.currentUser.uid, feedbackToSave).catch(err => {
+        console.error("Failed to save feedback to Firestore:", err);
+      });
+    }
   };
   const incrementAIQuestions = () => {};
   const startSession = (data) => {};

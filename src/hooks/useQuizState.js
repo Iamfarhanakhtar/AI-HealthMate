@@ -1,5 +1,8 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { quizQuestions } from '../utils/quizData';
+import { auth } from '../lib/firebase';
+import { saveQuizAttempt, getUserQuizHistory } from '../services/firestoreService';
+
 
 const HISTORY_KEY = 'ai_healthmate_quiz_history_v1';
 const ACHIEVEMENTS_KEY = 'ai_healthmate_quiz_achievements_v1';
@@ -38,17 +41,47 @@ export function useQuizState() {
   const [unlockedAchievements, setUnlockedAchievements] = useState([]);
   const [participantName, setParticipantName] = useState("");
 
-  // Load local data on mount
+  // Load local data on mount and merge with Firestore
   useEffect(() => {
     try {
       const storedHistory = localStorage.getItem(HISTORY_KEY);
-      if (storedHistory) setQuizHistory(JSON.parse(storedHistory));
+      let localHistory = [];
+      if (storedHistory) {
+        localHistory = JSON.parse(storedHistory);
+        setQuizHistory(localHistory);
+      }
 
       const storedAchievements = localStorage.getItem(ACHIEVEMENTS_KEY);
       if (storedAchievements) setUnlockedAchievements(JSON.parse(storedAchievements));
 
       const storedName = localStorage.getItem(NAME_KEY);
       if (storedName) setParticipantName(storedName);
+
+      // Fetch from Firestore if user is authenticated
+      const unsubscribe = auth.onAuthStateChanged(async (user) => {
+        if (user) {
+          try {
+            const remoteHistory = await getUserQuizHistory(user.uid);
+            if (remoteHistory && remoteHistory.length > 0) {
+              // Simple merge: keep unique attempts based on ID
+              const combined = [...remoteHistory];
+              localHistory.forEach(localItem => {
+                if (!combined.find(c => c.id === localItem.id)) {
+                  combined.push(localItem);
+                  // Optionally push local up to firestore here (migration), but keeping it simple
+                  saveQuizAttempt(user.uid, localItem).catch(console.error);
+                }
+              });
+              const sorted = combined.sort((a, b) => new Date(b.date) - new Date(a.date));
+              setQuizHistory(sorted);
+              localStorage.setItem(HISTORY_KEY, JSON.stringify(sorted));
+            }
+          } catch (err) {
+            console.error("Failed to sync remote quiz history:", err);
+          }
+        }
+      });
+      return () => unsubscribe();
     } catch (e) {
       console.error(e);
     }
@@ -201,7 +234,16 @@ export function useQuizState() {
     // Update history
     const updatedHistory = [newAttempt, ...quizHistory];
     setQuizHistory(updatedHistory);
-    localStorage.setItem(HISTORY_KEY, JSON.stringify(updatedHistory));
+    try {
+      localStorage.setItem(HISTORY_KEY, JSON.stringify(updatedHistory));
+    } catch(e) { console.error(e); }
+
+    // Save to Firestore in background
+    if (auth.currentUser) {
+      saveQuizAttempt(auth.currentUser.uid, newAttempt).catch(err => {
+        console.error("Failed to save quiz attempt to Firestore:", err);
+      });
+    }
 
     // Unlock Achievements checking
     checkAchievements(newAttempt, updatedHistory);

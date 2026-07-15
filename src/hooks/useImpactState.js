@@ -1,4 +1,8 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
+import { auth } from '../lib/firebase';
+import { db } from '../lib/firebase';
+import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
+
 
 const FEEDBACK_KEY = 'ai_healthmate_community_feedback';
 const QUIZ_HISTORY_KEY = 'ai_healthmate_quiz_history_v1';
@@ -37,6 +41,20 @@ export function useImpactState() {
       console.error(e);
     }
   }, []);
+  // Sync progress to Firestore periodically
+  useEffect(() => {
+    if (!auth.currentUser) return;
+    
+    const progressRef = doc(db, 'users', auth.currentUser.uid, 'progress', 'current');
+    setDoc(progressRef, {
+      quizCount: quizHistory.length,
+      bookmarkCount: bookmarks.length,
+      chatMessageCount: chatCount,
+      lastActive: serverTimestamp()
+    }, { merge: true }).catch(console.error);
+    
+  }, [quizHistory.length, bookmarks.length, chatCount]);
+
 
   // Submit Feedback
   const submitFeedback = useCallback((formData) => {
