@@ -39,12 +39,15 @@ function SceneController() {
     return () => observer.disconnect();
   }, [gl]);
 
+  const timeRef = useRef(0);
+
   // 3. Render frame loop (Mouse lerp and camera depth movements)
-  useFrame(({ clock }) => {
+  useFrame((state, delta) => {
     // Performance: Early exit if out of view or tab is hidden
     if (!isVisible || document.hidden) return;
 
-    const time = clock.elapsedTime;
+    timeRef.current += delta;
+    const time = timeRef.current;
 
     // Slow idle camera orbit movement
     const idleX = Math.sin(time * 0.15) * 0.3;

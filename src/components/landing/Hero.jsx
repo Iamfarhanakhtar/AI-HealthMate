@@ -58,14 +58,14 @@ function Hero() {
             <Button
               onClick={() => navigate('/assistant')}
               variant="primary"
-              iconLeft={<span className="material-symbols-outlined text-sm" aria-hidden="true">smart_toy</span>}
+              iconLeft={<span className="material-symbols-outlined text-sm" aria-hidden="true">&#xf06c;</span>}
             >
               Try AI Assistant
             </Button>
             <Button
               onClick={() => navigate('/health-library')}
               variant="secondary"
-              iconRight={<span className="material-symbols-outlined text-sm" aria-hidden="true">arrow_forward</span>}
+              iconRight={<span className="material-symbols-outlined text-sm" aria-hidden="true">&#xe5c8;</span>}
             >
               Explore Library
             </Button>

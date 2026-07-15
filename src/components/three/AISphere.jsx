@@ -4,8 +4,11 @@ import { useFrame } from '@react-three/fiber';
 function AISphere() {
   const innerRef = useRef();
 
-  useFrame(({ clock }) => {
-    const time = clock.elapsedTime;
+  const timeRef = useRef(0);
+
+  useFrame((state, delta) => {
+    timeRef.current += delta;
+    const time = timeRef.current;
     if (innerRef.current) {
       innerRef.current.rotation.y = -time * 0.25;
       // Core pulsing amplitude

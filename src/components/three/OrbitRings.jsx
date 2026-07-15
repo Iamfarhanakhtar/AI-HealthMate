@@ -4,9 +4,11 @@ import { useFrame } from '@react-three/fiber';
 function OrbitRings() {
   const ring1Ref = useRef();
   const ring2Ref = useRef();
+  const timeRef = useRef(0);
 
-  useFrame(({ clock }) => {
-    const time = clock.elapsedTime;
+  useFrame((state, delta) => {
+    timeRef.current += delta;
+    const time = timeRef.current;
     if (ring1Ref.current) {
       ring1Ref.current.rotation.y = time * 0.18;
       ring1Ref.current.rotation.x = time * 0.08;

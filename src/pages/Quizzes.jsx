@@ -214,7 +214,7 @@ function Quizzes() {
                       onClick={nextQuestion}
                       variant="primary"
                       className="mt-6 w-full sm:w-auto ml-auto block"
-                      iconRight={<span className="material-symbols-outlined text-sm" aria-hidden="true">arrow_forward</span>}
+                      iconRight={<span className="material-symbols-outlined text-sm" aria-hidden="true">&#xe5c8;</span>}
                     >
                       {currentQuestionIndex + 1 === activeQuiz.questions.length ? "Finish Quiz" : "Next Question"}
                     </Button>
