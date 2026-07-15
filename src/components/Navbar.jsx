@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 
 function Navbar() {
   const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
+  const openBtnRef = useRef(null);
+  const closeBtnRef = useRef(null);
+  const previousFocusRef = useRef(null);
 
   const links = [
     { label: "Home", path: "/" },
@@ -35,12 +38,17 @@ function Navbar() {
     return () => window.removeEventListener('keydown', handleEsc);
   }, []);
 
-  // Prevent scrolling when mobile menu is open
+  // Prevent scrolling and manage focus when mobile menu is open
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
+      previousFocusRef.current = document.activeElement;
+      setTimeout(() => closeBtnRef.current?.focus(), 100);
     } else {
       document.body.style.overflow = 'unset';
+      if (previousFocusRef.current) {
+        previousFocusRef.current.focus();
+      }
     }
     return () => {
       document.body.style.overflow = 'unset';
@@ -85,9 +93,10 @@ function Navbar() {
 
             {/* Mobile Menu Toggle */}
             <button
+              ref={openBtnRef}
               className="lg:hidden p-2 text-on-surface flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-primary/50 rounded-lg"
               onClick={() => setIsOpen(true)}
-              aria-label="Open mobile menu"
+              aria-label="Open navigation menu"
               aria-expanded={isOpen}
             >
               <span className="material-symbols-outlined text-2xl" aria-hidden="true">&#xe5d2;</span>
@@ -125,9 +134,10 @@ function Navbar() {
               <div className="flex items-center justify-between p-6 border-b border-white/10">
                 <span className="font-display-lg text-lg font-bold text-primary">Menu</span>
                 <button
+                  ref={closeBtnRef}
                   onClick={() => setIsOpen(false)}
                   className="p-2 text-on-surface-variant hover:text-white focus:outline-none focus:ring-2 focus:ring-primary/50 rounded-lg transition-colors"
-                  aria-label="Close menu"
+                  aria-label="Close navigation menu"
                 >
                   <span className="material-symbols-outlined text-2xl" aria-hidden="true">&#xe5cd;</span>
                 </button>
