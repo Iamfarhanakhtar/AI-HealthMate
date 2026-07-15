@@ -56,7 +56,7 @@ export function ChatInput({ onSendMessage, isLoading, isListening, onToggleListe
               : 'bg-surface-container border-outline-variant/20 hover:border-cyan-500/30 text-on-surface-variant hover:text-white'
           }`}
         >
-          {isListening ? <MicOff className="w-5 h-5" /> : <Mic className="w-5 h-5" />}
+          {isListening ? <MicOff className="w-5 h-5" aria-hidden="true" /> : <Mic className="w-5 h-5" aria-hidden="true" />}
         </button>
 
         {/* Text Area Input */}
@@ -91,7 +91,7 @@ export function ChatInput({ onSendMessage, isLoading, isListening, onToggleListe
               : 'bg-surface-container/60 border border-outline-variant/15 text-outline'
           }`}
         >
-          <Send className="w-5 h-5" />
+          <Send className="w-5 h-5" aria-hidden="true" />
         </button>
       </form>
 

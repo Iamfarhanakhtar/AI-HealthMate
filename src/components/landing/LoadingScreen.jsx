@@ -47,7 +47,7 @@ function LoadingScreen({ onComplete }) {
             className="flex items-center gap-3"
           >
             <span className="material-symbols-outlined text-primary text-5xl text-glow" aria-hidden="true">
-              psychiatry
+              &#xe123;
             </span>
             <span className="font-display-lg text-2xl font-bold text-primary tracking-tight text-glow">
               AI HealthMate

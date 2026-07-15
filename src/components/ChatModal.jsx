@@ -96,7 +96,7 @@ function ChatModal() {
         aria-label="Open AI Health Assistant"
       >
         <span className="material-symbols-outlined text-primary text-3xl group-hover:rotate-12 transition-transform duration-300" aria-hidden="true">
-          smart_toy
+          &#xf06c;
         </span>
       </button>
 

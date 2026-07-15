@@ -83,7 +83,7 @@ export function ChatMessage({ message, onRate, onSpeak, isSpeaking }) {
                 aria-label="Copy response to clipboard"
                 className="p-1.5 rounded-lg hover:bg-white/5 text-on-surface-variant hover:text-white transition-colors cursor-pointer"
               >
-                {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" aria-hidden="true" /> : <Copy className="w-3.5 h-3.5" aria-hidden="true" />}
               </button>
               <button
                 onClick={() => onSpeak(message.content)}
@@ -91,7 +91,7 @@ export function ChatMessage({ message, onRate, onSpeak, isSpeaking }) {
                 aria-label="Read response aloud"
                 className={`p-1.5 rounded-lg hover:bg-white/5 transition-colors cursor-pointer ${isSpeaking ? 'text-cyan-400 animate-pulse bg-cyan-500/10' : 'text-on-surface-variant hover:text-white'}`}
               >
-                <Volume2 className="w-3.5 h-3.5" />
+                <Volume2 className="w-3.5 h-3.5" aria-hidden="true" />
               </button>
             </div>
           )}
@@ -178,7 +178,7 @@ export function ChatMessage({ message, onRate, onSpeak, isSpeaking }) {
               title="Helpful"
               aria-label="Mark response as helpful"
             >
-              <ThumbsUp className="w-3.5 h-3.5" />
+              <ThumbsUp className="w-3.5 h-3.5" aria-hidden="true" />
             </button>
             <button
               onClick={() => onRate(id, 'dislike')}
@@ -186,7 +186,7 @@ export function ChatMessage({ message, onRate, onSpeak, isSpeaking }) {
               title="Not helpful"
               aria-label="Mark response as not helpful"
             >
-              <ThumbsDown className="w-3.5 h-3.5" />
+              <ThumbsDown className="w-3.5 h-3.5" aria-hidden="true" />
             </button>
           </div>
         )}

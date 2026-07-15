@@ -124,7 +124,7 @@ function CommunityFeedback() {
                     >
                       <span aria-hidden="true" className={`material-symbols-outlined text-2xl transition-colors ${formData.rating >= star ? 'text-amber-400 fill-amber-400' : 'text-on-surface-variant/40'}`}
                             style={{ fontVariationSettings: formData.rating >= star ? "'FILL' 1" : "'FILL' 0" }}>
-                        star
+                        &#xf09a;
                       </span>
                     </button>
                   ))}
