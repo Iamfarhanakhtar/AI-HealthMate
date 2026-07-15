@@ -32,7 +32,7 @@ function ParticleField() {
 
   useFrame(({ clock }) => {
     if (pointsRef.current) {
-      const time = clock.getElapsedTime();
+      const time = clock.elapsedTime;
       // Slow rotation of the point cloud
       pointsRef.current.rotation.y = time * (reduced ? 0.01 : 0.03);
       pointsRef.current.rotation.x = time * (reduced ? 0.005 : 0.015);

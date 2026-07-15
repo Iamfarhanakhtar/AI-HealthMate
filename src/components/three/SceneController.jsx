@@ -44,7 +44,7 @@ function SceneController() {
     // Performance: Early exit if out of view or tab is hidden
     if (!isVisible || document.hidden) return;
 
-    const time = clock.getElapsedTime();
+    const time = clock.elapsedTime;
 
     // Slow idle camera orbit movement
     const idleX = Math.sin(time * 0.15) * 0.3;

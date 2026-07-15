@@ -6,7 +6,7 @@ function OrbitRings() {
   const ring2Ref = useRef();
 
   useFrame(({ clock }) => {
-    const time = clock.getElapsedTime();
+    const time = clock.elapsedTime;
     if (ring1Ref.current) {
       ring1Ref.current.rotation.y = time * 0.18;
       ring1Ref.current.rotation.x = time * 0.08;

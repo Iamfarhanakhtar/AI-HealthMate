@@ -5,7 +5,7 @@ function AISphere() {
   const innerRef = useRef();
 
   useFrame(({ clock }) => {
-    const time = clock.getElapsedTime();
+    const time = clock.elapsedTime;
     if (innerRef.current) {
       innerRef.current.rotation.y = -time * 0.25;
       // Core pulsing amplitude
