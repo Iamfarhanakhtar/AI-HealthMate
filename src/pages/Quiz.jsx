@@ -1,20 +1,15 @@
 import React, { useMemo } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { 
   Award, 
   BookOpen, 
-  HelpCircle, 
   Flame, 
   ShieldAlert, 
-  CheckCircle,
   Activity,
-  Plus,
   Play,
   RotateCcw,
   Sparkles,
-  ClipboardCheck,
-  Globe,
-  Clock
+  ClipboardCheck
 } from 'lucide-react';
 
 import useQuizState, { ACHIEVEMENTS_LIST } from '../hooks/useQuizState';

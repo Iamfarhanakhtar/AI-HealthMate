@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef, useContext } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Send, X, Bot, User, ShieldAlert } from 'lucide-react';
 import { PlatformContext } from '../context/PlatformContext';
-import Button from './UI/Button';
 
 function ChatModal() {
   const { incrementAIQuestions } = useContext(PlatformContext);

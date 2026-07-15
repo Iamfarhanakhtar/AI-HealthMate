@@ -1,6 +1,5 @@
 import React, { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Stethoscope, 
   PlusCircle, 
@@ -15,9 +14,6 @@ import {
   Printer, 
   AlertTriangle,
   Globe,
-  Plus,
-  BookOpen,
-  X,
   FileText
 } from 'lucide-react';
 

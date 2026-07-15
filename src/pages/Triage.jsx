@@ -2,12 +2,11 @@ import React, { useState, useContext } from 'react';
 import MaterialIcon from '../components/UI/MaterialIcon';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, AlertTriangle, ArrowRight, ShieldCheck, Heart } from 'lucide-react';
+import { Search, AlertTriangle, ArrowRight, ShieldCheck, ChevronUp, ChevronDown } from 'lucide-react';
 import { PlatformContext } from '../context/PlatformContext';
 import { firstAid } from '../utils/healthData';
 import GlassPanel from '../components/UI/GlassPanel';
 import Button from '../components/UI/Button';
-import ProgressBar from '../components/UI/ProgressBar';
 
 function Triage() {
   const {

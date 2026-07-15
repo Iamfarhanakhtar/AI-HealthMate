@@ -3,9 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { 
   ArrowLeft, 
   BrainCircuit, 
-  HelpCircle, 
-  Flame, 
-  ShieldAlert, 
   CheckCircle,
   FileText,
   Bookmark,
@@ -15,7 +12,7 @@ import {
 
 export function ArticleViewer({ article, onClose, language, bookmarked, onToggleBookmark }) {
   const navigate = useNavigate();
-  const { id, meta, title, sections } = article;
+  const { meta, title, sections } = article;
   const displayTitle = language === 'en' ? title.en : title.hi;
 
   // Track scroll position for active section anchors inside article viewer

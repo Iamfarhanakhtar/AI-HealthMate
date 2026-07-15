@@ -2,7 +2,7 @@ import React from 'react';
 import { BookOpen, ShieldAlert, ArrowRight, ShieldCheck, Heart, Sparkles, Droplet } from 'lucide-react';
 
 export function HealthCard({ article, onOpen, language }) {
-  const { id, meta, title, sections } = article;
+  const { meta, title, sections } = article;
   const displayTitle = language === 'en' ? title.en : title.hi;
   
   // Custom description or fallback overview text
@@ -11,44 +11,28 @@ export function HealthCard({ article, onOpen, language }) {
 
   // Select category badge colors & icons
   let badgeColor = "text-cyan-400 bg-cyan-500/10 border-cyan-500/20";
-  let iconColor = "text-cyan-400";
-  let Icon = BookOpen;
 
   switch (meta.category) {
     case "Infectious Diseases":
       badgeColor = "text-red-400 bg-red-500/10 border-red-500/20";
-      iconColor = "text-red-400";
-      Icon = ShieldAlert;
       break;
     case "Lifestyle Diseases":
       badgeColor = "text-amber-400 bg-amber-500/10 border-amber-500/20";
-      iconColor = "text-amber-400";
-      Icon = Heart;
       break;
     case "Nutrition & Child Care":
       badgeColor = "text-emerald-400 bg-emerald-500/10 border-emerald-500/20";
-      iconColor = "text-emerald-400";
-      Icon = ShieldCheck;
       break;
     case "Water & Hygiene":
       badgeColor = "text-blue-400 bg-blue-500/10 border-blue-500/20";
-      iconColor = "text-blue-400";
-      Icon = Droplet;
       break;
     case "First Aid":
       badgeColor = "text-rose-400 bg-rose-500/10 border-rose-500/20";
-      iconColor = "text-rose-400";
-      Icon = Sparkles;
       break;
     case "Women's Health":
       badgeColor = "text-pink-400 bg-pink-500/10 border-pink-500/20";
-      iconColor = "text-pink-400";
-      Icon = Heart;
       break;
     case "Mental Health":
       badgeColor = "text-violet-400 bg-violet-500/10 border-violet-500/20";
-      iconColor = "text-violet-400";
-      Icon = Sparkles;
       break;
     default:
       break;

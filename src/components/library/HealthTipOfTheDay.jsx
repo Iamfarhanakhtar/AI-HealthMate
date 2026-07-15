@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Sparkles, Calendar, Languages } from 'lucide-react';
+import { Sparkles, Calendar } from 'lucide-react';
 
 const DAILY_TIPS = [
   {
