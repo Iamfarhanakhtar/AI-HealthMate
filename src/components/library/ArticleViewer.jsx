@@ -7,7 +7,9 @@ import {
   FileText,
   Bookmark,
   Sparkles,
-  Award
+  Award,
+  HelpCircle,
+  ShieldAlert
 } from 'lucide-react';
 
 export function ArticleViewer({ article, onClose, language, bookmarked, onToggleBookmark }) {

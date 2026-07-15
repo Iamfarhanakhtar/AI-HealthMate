@@ -14,7 +14,8 @@ import {
   Printer, 
   AlertTriangle,
   Globe,
-  FileText
+  FileText,
+  X
 } from 'lucide-react';
 
 import useGuideState from '../hooks/useGuideState';

@@ -9,7 +9,8 @@ import {
   Play,
   RotateCcw,
   Sparkles,
-  ClipboardCheck
+  ClipboardCheck,
+  Clock
 } from 'lucide-react';
 
 import useQuizState, { ACHIEVEMENTS_LIST } from '../hooks/useQuizState';
