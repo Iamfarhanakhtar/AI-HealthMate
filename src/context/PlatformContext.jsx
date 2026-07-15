@@ -65,7 +65,15 @@ export const PlatformProvider = ({ children }) => {
   const toggleSymptom = (symptom) => {};
   const runTriage = () => {};
   const clearTriage = () => {};
-  const addFeedback = (feedbackData) => {};
+  const addFeedback = (feedbackData) => {
+    setImpactMetrics(prev => ({
+      ...prev,
+      feedbackReceived: prev.feedbackReceived + 1,
+      averageRating: feedbackData.rating 
+        ? Number(((prev.averageRating * prev.feedbackReceived + Number(feedbackData.rating)) / (prev.feedbackReceived + 1)).toFixed(1))
+        : prev.averageRating
+    }));
+  };
   const incrementAIQuestions = () => {};
   const startSession = (data) => {};
   const nextSessionStep = () => {};
