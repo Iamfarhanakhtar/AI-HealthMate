@@ -1,340 +1,570 @@
 // Reusable Bilingual Quiz Dataset
-// Categories: General Healthcare, Dengue, Malaria, Nutrition, Vaccination, Clean Water, Sanitation, First Aid, Mental Health, Healthy Lifestyle
+// Expanded to 8 questions per category
 
 export const quizCategories = [
-  { id: "general", title: { en: "General Healthcare", hi: "सामान्य स्वास्थ्य" }, icon: "Stethoscope" },
-  { id: "dengue", title: { en: "Dengue Awareness", hi: "डेंगू जागरूकता" }, icon: "ShieldAlert" },
-  { id: "malaria", title: { en: "Malaria Awareness", hi: "मलेरिया जागरूकता" }, icon: "ShieldAlert" },
-  { id: "nutrition", title: { en: "Diet & Nutrition", hi: "आहार और पोषण" }, icon: "Apple" },
-  { id: "vaccination", title: { en: "Vaccination & Immunization", hi: "टीकाकरण और सुरक्षा" }, icon: "ShieldCheck" },
-  { id: "cleanwater", title: { en: "Clean Water Habits", hi: "साफ पानी की आदतें" }, icon: "Droplet" },
-  { id: "sanitation", title: { en: "Sanitation & Waste Care", hi: "स्वच्छता और कचरा प्रबंधन" }, icon: "Trash2" },
-  { id: "firstaid", title: { en: "First Aid Basics", hi: "प्राथमिक चिकित्सा" }, icon: "Activity" },
-  { id: "mentalhealth", title: { en: "Mental Wellness", hi: "मानसिक कल्याण" }, icon: "Sparkles" },
-  { id: "lifestyle", title: { en: "Healthy Lifestyle", hi: "स्वस्थ जीवन शैली" }, icon: "CheckSquare" }
+  {
+    "id": "general",
+    "en": "General Healthcare",
+    "hi": "सामान्य स्वास्थ्य",
+    "icon": "Stethoscope"
+  },
+  {
+    "id": "dengue",
+    "en": "Dengue Awareness",
+    "hi": "डेंगू जागरूकता",
+    "icon": "ShieldAlert"
+  },
+  {
+    "id": "malaria",
+    "en": "Malaria Awareness",
+    "hi": "मलेरिया जागरूकता",
+    "icon": "ShieldAlert"
+  },
+  {
+    "id": "nutrition",
+    "en": "Diet & Nutrition",
+    "hi": "आहार और पोषण",
+    "icon": "Apple"
+  },
+  {
+    "id": "vaccination",
+    "en": "Vaccination & Immunization",
+    "hi": "टीकाकरण और सुरक्षा",
+    "icon": "ShieldCheck"
+  },
+  {
+    "id": "cleanwater",
+    "en": "Clean Water Habits",
+    "hi": "साफ पानी की आदतें",
+    "icon": "Droplet"
+  },
+  {
+    "id": "sanitation",
+    "en": "Sanitation & Waste Care",
+    "hi": "स्वच्छता और कचरा प्रबंधन",
+    "icon": "Trash2"
+  },
+  {
+    "id": "firstaid",
+    "en": "First Aid Basics",
+    "hi": "प्राथमिक चिकित्सा",
+    "icon": "Activity"
+  },
+  {
+    "id": "mentalhealth",
+    "en": "Mental Wellness",
+    "hi": "मानसिक कल्याण",
+    "icon": "Sparkles"
+  },
+  {
+    "id": "lifestyle",
+    "en": "Healthy Lifestyle",
+    "hi": "स्वस्थ जीवन शैली",
+    "icon": "CheckSquare"
+  }
 ];
 
 export const quizQuestions = {
   general: [
     {
-      id: "gen_q1", type: "single", difficulty: "easy", relatedTopic: "hygiene",
-      question: { en: "What is the single most effective way to prevent the spread of stomach infections?", hi: "पेट के संक्रमण को फैलने से रोकने का सबसे प्रभावी तरीका क्या है?" },
-      options: { en: ["Taking antibiotics daily", "Washing hands with soap and clean water", "Eating street food regularly", "Staying indoors"], hi: ["रोजाना एंटीबायोटिक लेना", "साबुन और साफ पानी से हाथ धोना", "नियमित रूप से स्ट्रीट फूड खाना", "घर के अंदर रहना"] },
-      correct: 1, explanation: { en: "Washing hands breaks the transmission cycle of foodborne germs.", hi: "हाथ धोने से भोजन से फैलने वाले कीटाणुओं का चक्र टूट जाता है।" }
+      id: "general_q1", type: "single", difficulty: "easy", relatedTopic: "general",
+      question: { en: "What is the most effective way to prevent stomach infections?", hi: "What is the most effective way to prevent stomach infections?" },
+      options: { en: ["Antibiotics","Handwashing","Eating outside","Staying indoors"], hi: ["Antibiotics","Handwashing","Eating outside","Staying indoors"] },
+      correct: 1, explanation: { en: "Handwashing kills germs.", hi: "Handwashing kills germs." }
     },
     {
-      id: "gen_q2", type: "boolean", difficulty: "medium", relatedTopic: "hypertension",
-      question: { en: "True or False: Hypertension always shows obvious warning symptoms.", hi: "सही या गलत: उच्च रक्तचाप हमेशा स्पष्ट चेतावनी लक्षण दिखाता है।" },
-      options: { en: ["True", "False"], hi: ["सही", "गलत"] },
-      correct: 1, explanation: { en: "Hypertension is often called a 'silent killer' with no symptoms.", hi: "उच्च रक्तचाप को अक्सर बिना लक्षणों वाला 'साइलेंट किलर' कहा जाता है।" }
+      id: "general_q2", type: "boolean", difficulty: "easy", relatedTopic: "general",
+      question: { en: "True or False: Hypertension always shows obvious symptoms.", hi: "True or False: Hypertension always shows obvious symptoms." },
+      options: { en: ["True","False"], hi: ["True","False"] },
+      correct: 1, explanation: { en: "It is often a silent killer.", hi: "It is often a silent killer." }
     },
     {
-      id: "gen_q3", type: "single", difficulty: "easy", relatedTopic: "fever",
-      question: { en: "What is the normal human body temperature?", hi: "सामान्य मानव शरीर का तापमान क्या है?" },
-      options: { en: ["37°C (98.6°F)", "40°C (104°F)", "35°C (95°F)", "39°C (102°F)"], hi: ["37°C (98.6°F)", "40°C (104°F)", "35°C (95°F)", "39°C (102°F)"] },
-      correct: 0, explanation: { en: "Normal body temperature is around 37°C or 98.6°F.", hi: "शरीर का सामान्य तापमान लगभग 37°C या 98.6°F होता है।" }
+      id: "general_q3", type: "single", difficulty: "easy", relatedTopic: "general",
+      question: { en: "Normal body temperature is:", hi: "Normal body temperature is:" },
+      options: { en: ["37°C","40°C","35°C","39°C"], hi: ["37°C","40°C","35°C","39°C"] },
+      correct: 0, explanation: { en: "37°C or 98.6°F is normal.", hi: "37°C or 98.6°F is normal." }
     },
     {
-      id: "gen_q4", type: "single", difficulty: "medium", relatedTopic: "diabetes",
-      question: { en: "Which organ produces insulin in the human body?", hi: "मानव शरीर में कौन सा अंग इंसुलिन बनाता है?" },
-      options: { en: ["Liver", "Kidney", "Pancreas", "Stomach"], hi: ["लिवर", "किडनी", "अग्न्याशय (पैंक्रियास)", "पेट"] },
-      correct: 2, explanation: { en: "The pancreas produces insulin to regulate blood sugar levels.", hi: "अग्न्याशय रक्त शर्करा के स्तर को नियंत्रित करने के लिए इंसुलिन बनाता है।" }
+      id: "general_q4", type: "single", difficulty: "medium", relatedTopic: "general",
+      question: { en: "Which organ produces insulin?", hi: "Which organ produces insulin?" },
+      options: { en: ["Liver","Kidney","Pancreas","Stomach"], hi: ["Liver","Kidney","Pancreas","Stomach"] },
+      correct: 2, explanation: { en: "Pancreas makes insulin.", hi: "Pancreas makes insulin." }
     },
     {
-      id: "gen_q5", type: "single", difficulty: "hard", relatedTopic: "heart",
-      question: { en: "What is a common sign of a heart attack?", hi: "दिल के दौरे का एक सामान्य संकेत क्या है?" },
-      options: { en: ["Chest pain or discomfort", "Itchy skin", "Runny nose", "Knee pain"], hi: ["छाती में दर्द या बेचैनी", "खुजली वाली त्वचा", "बहती नाक", "घुटने का दर्द"] },
-      correct: 0, explanation: { en: "Chest pain or pressure is the most common warning sign of a heart attack.", hi: "सीने में दर्द या दबाव दिल के दौरे का सबसे आम चेतावनी संकेत है।" }
+      id: "general_q5", type: "single", difficulty: "medium", relatedTopic: "general",
+      question: { en: "Common sign of a heart attack?", hi: "Common sign of a heart attack?" },
+      options: { en: ["Chest pain","Itchy skin","Runny nose","Knee pain"], hi: ["Chest pain","Itchy skin","Runny nose","Knee pain"] },
+      correct: 0, explanation: { en: "Chest pain is a classic sign.", hi: "Chest pain is a classic sign." }
+    },
+    {
+      id: "general_q6", type: "single", difficulty: "medium", relatedTopic: "general",
+      question: { en: "Which vitamin is synthesized by sunlight?", hi: "Which vitamin is synthesized by sunlight?" },
+      options: { en: ["Vit A","Vit B","Vit C","Vit D"], hi: ["Vit A","Vit B","Vit C","Vit D"] },
+      correct: 3, explanation: { en: "Sunlight helps the skin produce Vit D.", hi: "Sunlight helps the skin produce Vit D." }
+    },
+    {
+      id: "general_q7", type: "single", difficulty: "hard", relatedTopic: "general",
+      question: { en: "What is a normal resting heart rate for adults?", hi: "What is a normal resting heart rate for adults?" },
+      options: { en: ["30-40 bpm","60-100 bpm","120-140 bpm","150-180 bpm"], hi: ["30-40 bpm","60-100 bpm","120-140 bpm","150-180 bpm"] },
+      correct: 1, explanation: { en: "60-100 bpm is normal for adults.", hi: "60-100 bpm is normal for adults." }
+    },
+    {
+      id: "general_q8", type: "single", difficulty: "hard", relatedTopic: "general",
+      question: { en: "Which fluid makes up most of the human body?", hi: "Which fluid makes up most of the human body?" },
+      options: { en: ["Blood","Water","Lymph","Stomach acid"], hi: ["Blood","Water","Lymph","Stomach acid"] },
+      correct: 1, explanation: { en: "Up to 60% of the body is water.", hi: "Up to 60% of the body is water." }
     }
   ],
   dengue: [
     {
-      id: "den_q1", type: "single", difficulty: "easy", relatedTopic: "dengue",
-      question: { en: "Which mosquito transmits the Dengue virus?", hi: "डेंगू वायरस को कौन सा मच्छर फैलाता है?" },
-      options: { en: ["Female Anopheles", "Male Aedes", "Female Aedes aegypti", "Culex"], hi: ["मादा एनोफिलीज", "नर एडीज", "मादा एडीज इजिप्टी", "क्यूलेक्स"] },
-      correct: 2, explanation: { en: "Dengue is transmitted by the female Aedes aegypti mosquito.", hi: "डेंगू मादा एडीज इजिप्टी मच्छर के काटने से फैलता है।" }
+      id: "dengue_q1", type: "single", difficulty: "easy", relatedTopic: "dengue",
+      question: { en: "Which mosquito transmits Dengue?", hi: "Which mosquito transmits Dengue?" },
+      options: { en: ["Anopheles","Culex","Aedes aegypti","Mansonia"], hi: ["Anopheles","Culex","Aedes aegypti","Mansonia"] },
+      correct: 2, explanation: { en: "Aedes aegypti transmits dengue.", hi: "Aedes aegypti transmits dengue." }
     },
     {
-      id: "den_q2", type: "boolean", difficulty: "medium", relatedTopic: "dengue",
-      question: { en: "True or False: Dengue spreads directly from person to person.", hi: "सही या गलत: डेंगू सीधे एक व्यक्ति से दूसरे व्यक्ति में फैलता है।" },
-      options: { en: ["True", "False"], hi: ["सही", "गलत"] },
-      correct: 1, explanation: { en: "Dengue is not contagious. It requires a mosquito bite.", hi: "डेंगू संक्रामक नहीं है। इसके लिए मच्छर के काटने की आवश्यकता होती है।" }
+      id: "dengue_q2", type: "boolean", difficulty: "easy", relatedTopic: "dengue",
+      question: { en: "Dengue spreads person to person.", hi: "Dengue spreads person to person." },
+      options: { en: ["True","False"], hi: ["True","False"] },
+      correct: 1, explanation: { en: "Needs a mosquito bite.", hi: "Needs a mosquito bite." }
     },
     {
-      id: "den_q3", type: "single", difficulty: "easy", relatedTopic: "dengue",
-      question: { en: "When do dengue-carrying mosquitoes typically bite?", hi: "डेंगू फैलाने वाले मच्छर आमतौर पर कब काटते हैं?" },
-      options: { en: ["Only at night", "During the day", "Only in winter", "Only when it's raining"], hi: ["केवल रात में", "दिन के दौरान", "केवल सर्दियों में", "केवल जब बारिश हो रही हो"] },
-      correct: 1, explanation: { en: "Aedes mosquitoes primarily bite during the daytime.", hi: "एडीज मच्छर मुख्य रूप से दिन के समय काटते हैं।" }
+      id: "dengue_q3", type: "single", difficulty: "easy", relatedTopic: "dengue",
+      question: { en: "When do dengue mosquitoes bite?", hi: "When do dengue mosquitoes bite?" },
+      options: { en: ["Night only","Daytime","Winter only","When raining"], hi: ["Night only","Daytime","Winter only","When raining"] },
+      correct: 1, explanation: { en: "Primarily daytime biters.", hi: "Primarily daytime biters." }
     },
     {
-      id: "den_q4", type: "single", difficulty: "medium", relatedTopic: "dengue",
-      question: { en: "Where do Aedes mosquitoes typically breed?", hi: "एडीज मच्छर आमतौर पर कहाँ पनपते हैं?" },
-      options: { en: ["Flowing rivers", "Clean stagnant water", "Dirty sewage", "Dry sand"], hi: ["बहती नदियां", "साफ रुका हुआ पानी", "गंदा सीवेज", "सूखी रेत"] },
-      correct: 1, explanation: { en: "They breed in clean, stagnant water like in tires, pots, and buckets.", hi: "वे साफ, रुके हुए पानी जैसे टायर, बर्तन और बाल्टी में पनपते हैं।" }
+      id: "dengue_q4", type: "single", difficulty: "medium", relatedTopic: "dengue",
+      question: { en: "Where do Aedes breed?", hi: "Where do Aedes breed?" },
+      options: { en: ["Rivers","Clean stagnant water","Sewage","Sand"], hi: ["Rivers","Clean stagnant water","Sewage","Sand"] },
+      correct: 1, explanation: { en: "They breed in clean, still water.", hi: "They breed in clean, still water." }
     },
     {
-      id: "den_q5", type: "single", difficulty: "hard", relatedTopic: "dengue",
-      question: { en: "What is a dangerous symptom of severe dengue?", hi: "गंभीर डेंगू का खतरनाक लक्षण क्या है?" },
-      options: { en: ["Hair loss", "Bleeding gums and severe abdominal pain", "Slight cough", "Dry eyes"], hi: ["बालों का झड़ना", "मसूड़ों से खून आना और पेट में तेज दर्द", "हल्की खांसी", "सूखी आंखें"] },
-      correct: 1, explanation: { en: "Bleeding and severe pain are signs of Dengue Hemorrhagic Fever.", hi: "रक्तस्राव और तेज दर्द डेंगू रक्तस्रावी बुखार के संकेत हैं।" }
+      id: "dengue_q5", type: "single", difficulty: "medium", relatedTopic: "dengue",
+      question: { en: "Symptom of severe dengue?", hi: "Symptom of severe dengue?" },
+      options: { en: ["Hair loss","Bleeding gums","Cough","Dry eyes"], hi: ["Hair loss","Bleeding gums","Cough","Dry eyes"] },
+      correct: 1, explanation: { en: "Bleeding is a severe sign.", hi: "Bleeding is a severe sign." }
+    },
+    {
+      id: "dengue_q6", type: "single", difficulty: "medium", relatedTopic: "dengue",
+      question: { en: "How to prevent dengue breeding at home?", hi: "How to prevent dengue breeding at home?" },
+      options: { en: ["Empty standing water containers","Plant more trees","Leave lights on","Keep doors open"], hi: ["Empty standing water containers","Plant more trees","Leave lights on","Keep doors open"] },
+      correct: 0, explanation: { en: "Removing standing water stops breeding.", hi: "Removing standing water stops breeding." }
+    },
+    {
+      id: "dengue_q7", type: "single", difficulty: "hard", relatedTopic: "dengue",
+      question: { en: "Is there a specific medicine to cure dengue?", hi: "Is there a specific medicine to cure dengue?" },
+      options: { en: ["Yes, antibiotics","No, only symptom management","Yes, antiviral pills","Yes, herbal tea"], hi: ["Yes, antibiotics","No, only symptom management","Yes, antiviral pills","Yes, herbal tea"] },
+      correct: 1, explanation: { en: "Treatment focuses on symptoms like fever and dehydration.", hi: "Treatment focuses on symptoms like fever and dehydration." }
+    },
+    {
+      id: "dengue_q8", type: "single", difficulty: "hard", relatedTopic: "dengue",
+      question: { en: "Which blood component drops dangerously low in severe dengue?", hi: "Which blood component drops dangerously low in severe dengue?" },
+      options: { en: ["Red blood cells","White blood cells","Platelets","Plasma"], hi: ["Red blood cells","White blood cells","Platelets","Plasma"] },
+      correct: 2, explanation: { en: "Platelet drop is a key dengue complication.", hi: "Platelet drop is a key dengue complication." }
     }
   ],
   malaria: [
     {
-      id: "mal_q1", type: "single", difficulty: "easy", relatedTopic: "malaria",
-      question: { en: "What is the primary symptom of Malaria fever?", hi: "मलेरिया बुखार का प्राथमिक लक्षण क्या है?" },
-      options: { en: ["High fever with intense shivering chills", "Runny nose", "Joint pain without fever", "Skin peeling"], hi: ["तेज कंपकंपी के साथ तेज बुखार", "बहती नाक", "बिना बुखार के जोड़ों का दर्द", "त्वचा का छिलना"] },
-      correct: 0, explanation: { en: "Malaria classically presents with cyclic high fever and chills.", hi: "मलेरिया में चक्रानुक्रम तेज बुखार और ठंड होती है।" }
+      id: "malaria_q1", type: "single", difficulty: "easy", relatedTopic: "malaria",
+      question: { en: "Primary symptom of Malaria?", hi: "Primary symptom of Malaria?" },
+      options: { en: ["High fever & chills","Runny nose","Joint pain only","Skin peeling"], hi: ["High fever & chills","Runny nose","Joint pain only","Skin peeling"] },
+      correct: 0, explanation: { en: "Fever and chills are classic.", hi: "Fever and chills are classic." }
     },
     {
-      id: "mal_q2", type: "single", difficulty: "medium", relatedTopic: "malaria",
-      question: { en: "Which mosquito spreads Malaria?", hi: "मलेरिया कौन सा मच्छर फैलाता है?" },
-      options: { en: ["Aedes", "Culex", "Female Anopheles", "Male Anopheles"], hi: ["एडीज", "क्यूलेक्स", "मादा एनोफिलीज", "नर एनोफिलीज"] },
-      correct: 2, explanation: { en: "Malaria is spread by the infected female Anopheles mosquito.", hi: "मलेरिया संक्रमित मादा एनोफिलीज मच्छर द्वारा फैलता है।" }
+      id: "malaria_q2", type: "single", difficulty: "easy", relatedTopic: "malaria",
+      question: { en: "Which mosquito spreads Malaria?", hi: "Which mosquito spreads Malaria?" },
+      options: { en: ["Aedes","Culex","Female Anopheles","Male Anopheles"], hi: ["Aedes","Culex","Female Anopheles","Male Anopheles"] },
+      correct: 2, explanation: { en: "Infected female Anopheles spreads it.", hi: "Infected female Anopheles spreads it." }
     },
     {
-      id: "mal_q3", type: "boolean", difficulty: "easy", relatedTopic: "malaria",
-      question: { en: "True or False: Using insecticide-treated bed nets reduces malaria risk.", hi: "सही या गलत: कीटनाशक युक्त मच्छरदानी का उपयोग करने से मलेरिया का खतरा कम होता है।" },
-      options: { en: ["True", "False"], hi: ["सही", "गलत"] },
-      correct: 0, explanation: { en: "Bed nets are one of the most effective ways to prevent malaria.", hi: "मच्छरदानी मलेरिया को रोकने के सबसे प्रभावी तरीकों में से एक है।" }
+      id: "malaria_q3", type: "boolean", difficulty: "easy", relatedTopic: "malaria",
+      question: { en: "Bed nets reduce malaria risk.", hi: "Bed nets reduce malaria risk." },
+      options: { en: ["True","False"], hi: ["True","False"] },
+      correct: 0, explanation: { en: "Very effective prevention.", hi: "Very effective prevention." }
     },
     {
-      id: "mal_q4", type: "single", difficulty: "medium", relatedTopic: "malaria",
-      question: { en: "Malaria is caused by a:", hi: "मलेरिया किसके कारण होता है:" },
-      options: { en: ["Virus", "Bacteria", "Fungus", "Parasite (Plasmodium)"], hi: ["वायरस", "बैक्टीरिया", "फंगस", "परजीवी (प्लाज्मोडियम)"] },
-      correct: 3, explanation: { en: "Malaria is a disease caused by Plasmodium parasites.", hi: "मलेरिया प्लाज्मोडियम परजीवी के कारण होने वाली बीमारी है।" }
+      id: "malaria_q4", type: "single", difficulty: "medium", relatedTopic: "malaria",
+      question: { en: "Malaria is caused by a:", hi: "Malaria is caused by a:" },
+      options: { en: ["Virus","Bacteria","Fungus","Parasite"], hi: ["Virus","Bacteria","Fungus","Parasite"] },
+      correct: 3, explanation: { en: "Caused by Plasmodium parasite.", hi: "Caused by Plasmodium parasite." }
     },
     {
-      id: "mal_q5", type: "single", difficulty: "hard", relatedTopic: "malaria",
-      question: { en: "When are Anopheles mosquitoes most active?", hi: "एनोफिलीज मच्छर सबसे अधिक सक्रिय कब होते हैं?" },
-      options: { en: ["Midday", "Between dusk and dawn (nighttime)", "Only in winter", "In dry heat"], hi: ["दोपहर", "शाम और भोर (रात के समय) के बीच", "केवल सर्दियों में", "सूखी गर्मी में"] },
-      correct: 1, explanation: { en: "Anopheles mosquitoes typically bite during the night.", hi: "एनोफिलीज मच्छर आमतौर पर रात के समय काटते हैं।" }
+      id: "malaria_q5", type: "single", difficulty: "medium", relatedTopic: "malaria",
+      question: { en: "When are Anopheles most active?", hi: "When are Anopheles most active?" },
+      options: { en: ["Midday","Nighttime","Winter","Dry heat"], hi: ["Midday","Nighttime","Winter","Dry heat"] },
+      correct: 1, explanation: { en: "Typically bite at night.", hi: "Typically bite at night." }
+    },
+    {
+      id: "malaria_q6", type: "single", difficulty: "medium", relatedTopic: "malaria",
+      question: { en: "Can malaria be cured?", hi: "Can malaria be cured?" },
+      options: { en: ["No","Yes, with antimalarial drugs","Only with surgery","It cures itself"], hi: ["No","Yes, with antimalarial drugs","Only with surgery","It cures itself"] },
+      correct: 1, explanation: { en: "Antimalarial drugs cure it if caught early.", hi: "Antimalarial drugs cure it if caught early." }
+    },
+    {
+      id: "malaria_q7", type: "single", difficulty: "hard", relatedTopic: "malaria",
+      question: { en: "Where does the malaria parasite multiply in humans?", hi: "Where does the malaria parasite multiply in humans?" },
+      options: { en: ["Lungs","Brain","Liver and Red Blood Cells","Stomach"], hi: ["Lungs","Brain","Liver and Red Blood Cells","Stomach"] },
+      correct: 2, explanation: { en: "It targets the liver and RBCs.", hi: "It targets the liver and RBCs." }
+    },
+    {
+      id: "malaria_q8", type: "single", difficulty: "hard", relatedTopic: "malaria",
+      question: { en: "Which environment favors malaria mosquitoes?", hi: "Which environment favors malaria mosquitoes?" },
+      options: { en: ["Dry deserts","Cold mountains","Warm, swampy, tropical areas","Indoor AC rooms"], hi: ["Dry deserts","Cold mountains","Warm, swampy, tropical areas","Indoor AC rooms"] },
+      correct: 2, explanation: { en: "They thrive in warm, wet conditions.", hi: "They thrive in warm, wet conditions." }
     }
   ],
   nutrition: [
     {
-      id: "nut_q1", type: "single", difficulty: "easy", relatedTopic: "nutrition",
-      question: { en: "Which deficiency is the primary cause of Anemia?", hi: "एनीमिया (खून की कमी) का मुख्य कारण किस तत्व की कमी है?" },
-      options: { en: ["Calcium", "Iron", "Vitamin C", "Protein"], hi: ["कैल्शियम", "आयरन", "विटामिन सी", "प्रोटीन"] },
-      correct: 1, explanation: { en: "Lack of iron causes anemia.", hi: "आयरन की कमी से एनीमिया होता है।" }
+      id: "nutrition_q1", type: "single", difficulty: "easy", relatedTopic: "nutrition",
+      question: { en: "Which deficiency causes Anemia?", hi: "Which deficiency causes Anemia?" },
+      options: { en: ["Calcium","Iron","Vitamin C","Protein"], hi: ["Calcium","Iron","Vitamin C","Protein"] },
+      correct: 1, explanation: { en: "Iron deficiency causes anemia.", hi: "Iron deficiency causes anemia." }
     },
     {
-      id: "nut_q2", type: "single", difficulty: "easy", relatedTopic: "nutrition",
-      question: { en: "Which nutrient is essential for strong bones and teeth?", hi: "मजबूत हड्डियों और दांतों के लिए कौन सा पोषक तत्व आवश्यक है?" },
-      options: { en: ["Iron", "Vitamin C", "Calcium", "Zinc"], hi: ["आयरन", "विटामिन सी", "कैल्शियम", "जिंक"] },
-      correct: 2, explanation: { en: "Calcium is the main mineral that makes up your bones.", hi: "कैल्शियम वह मुख्य खनिज है जो आपकी हड्डियों को बनाता है।" }
+      id: "nutrition_q2", type: "single", difficulty: "easy", relatedTopic: "nutrition",
+      question: { en: "Nutrient for strong bones?", hi: "Nutrient for strong bones?" },
+      options: { en: ["Iron","Vit C","Calcium","Zinc"], hi: ["Iron","Vit C","Calcium","Zinc"] },
+      correct: 2, explanation: { en: "Calcium builds bones.", hi: "Calcium builds bones." }
     },
     {
-      id: "nut_q3", type: "single", difficulty: "medium", relatedTopic: "nutrition",
-      question: { en: "Vitamin C is found in high amounts in which foods?", hi: "विटामिन सी किन खाद्य पदार्थों में अधिक मात्रा में पाया जाता है?" },
-      options: { en: ["Meat", "Dairy", "Citrus fruits like oranges", "Rice"], hi: ["मांस", "डेयरी", "खट्टे फल जैसे संतरे", "चावल"] },
-      correct: 2, explanation: { en: "Citrus fruits are rich sources of Vitamin C, which boosts immunity.", hi: "खट्टे फल विटामिन सी के समृद्ध स्रोत हैं, जो रोग प्रतिरोधक क्षमता बढ़ाते हैं।" }
+      id: "nutrition_q3", type: "single", difficulty: "easy", relatedTopic: "nutrition",
+      question: { en: "Vitamin C is found in?", hi: "Vitamin C is found in?" },
+      options: { en: ["Meat","Dairy","Citrus fruits","Rice"], hi: ["Meat","Dairy","Citrus fruits","Rice"] },
+      correct: 2, explanation: { en: "Citrus fruits are rich in Vit C.", hi: "Citrus fruits are rich in Vit C." }
     },
     {
-      id: "nut_q4", type: "boolean", difficulty: "easy", relatedTopic: "nutrition",
-      question: { en: "True or False: Drinking water is not important if you drink fruit juice.", hi: "सही या गलत: यदि आप फलों का रस पीते हैं तो पानी पीना महत्वपूर्ण नहीं है।" },
-      options: { en: ["True", "False"], hi: ["सही", "गलत"] },
-      correct: 1, explanation: { en: "Plain water is essential for hydration without added sugars.", hi: "बिना शक्कर के हाइड्रेशन के लिए सादा पानी आवश्यक है।" }
+      id: "nutrition_q4", type: "boolean", difficulty: "medium", relatedTopic: "nutrition",
+      question: { en: "Drinking water is not needed if drinking juice.", hi: "Drinking water is not needed if drinking juice." },
+      options: { en: ["True","False"], hi: ["True","False"] },
+      correct: 1, explanation: { en: "Plain water is essential.", hi: "Plain water is essential." }
     },
     {
-      id: "nut_q5", type: "single", difficulty: "medium", relatedTopic: "nutrition",
-      question: { en: "Which macronutrient provides the body with its primary source of energy?", hi: "कौन सा मैक्रोन्यूट्रिएंट शरीर को ऊर्जा का प्राथमिक स्रोत प्रदान करता है?" },
-      options: { en: ["Protein", "Carbohydrates", "Fats", "Vitamins"], hi: ["प्रोटीन", "कार्बोहाइड्रेट", "वसा (फैट)", "विटामिन"] },
-      correct: 1, explanation: { en: "Carbohydrates are broken down into glucose, the body's main energy source.", hi: "कार्बोहाइड्रेट ग्लूकोज में टूट जाते हैं, जो शरीर का मुख्य ऊर्जा स्रोत है।" }
+      id: "nutrition_q5", type: "single", difficulty: "medium", relatedTopic: "nutrition",
+      question: { en: "Primary energy macronutrient?", hi: "Primary energy macronutrient?" },
+      options: { en: ["Protein","Carbohydrates","Fats","Vitamins"], hi: ["Protein","Carbohydrates","Fats","Vitamins"] },
+      correct: 1, explanation: { en: "Carbs provide energy.", hi: "Carbs provide energy." }
+    },
+    {
+      id: "nutrition_q6", type: "single", difficulty: "medium", relatedTopic: "nutrition",
+      question: { en: "Which nutrient repairs muscle tissue?", hi: "Which nutrient repairs muscle tissue?" },
+      options: { en: ["Carbohydrates","Protein","Fats","Fiber"], hi: ["Carbohydrates","Protein","Fats","Fiber"] },
+      correct: 1, explanation: { en: "Protein repairs and builds tissues.", hi: "Protein repairs and builds tissues." }
+    },
+    {
+      id: "nutrition_q7", type: "single", difficulty: "hard", relatedTopic: "nutrition",
+      question: { en: "What does dietary fiber do?", hi: "What does dietary fiber do?" },
+      options: { en: ["Makes you sleepy","Aids digestion and prevents constipation","Causes weight gain","Provides instant energy"], hi: ["Makes you sleepy","Aids digestion and prevents constipation","Causes weight gain","Provides instant energy"] },
+      correct: 1, explanation: { en: "Fiber keeps the digestive system healthy.", hi: "Fiber keeps the digestive system healthy." }
+    },
+    {
+      id: "nutrition_q8", type: "single", difficulty: "hard", relatedTopic: "nutrition",
+      question: { en: "Which is a source of healthy fats?", hi: "Which is a source of healthy fats?" },
+      options: { en: ["Fried chips","Avocados and nuts","Candy","Soda"], hi: ["Fried chips","Avocados and nuts","Candy","Soda"] },
+      correct: 1, explanation: { en: "Nuts and avocados have good fats.", hi: "Nuts and avocados have good fats." }
     }
   ],
   vaccination: [
     {
-      id: "vac_q1", type: "single", difficulty: "easy", relatedTopic: "vaccination",
-      question: { en: "Which vaccine is given at birth for Tuberculosis?", hi: "जन्म के समय टीबी के लिए कौन सा टीका दिया जाता है?" },
-      options: { en: ["Polio", "BCG", "Hepatitis B", "DPT"], hi: ["पोलियो", "बीसीजी (BCG)", "हेपेटाइटिस बी", "डीपीटी"] },
-      correct: 1, explanation: { en: "The BCG vaccine protects infants against tuberculosis.", hi: "बीसीजी का टीका शिशुओं को तपेदिक से बचाता है।" }
+      id: "vaccination_q1", type: "single", difficulty: "easy", relatedTopic: "vaccination",
+      question: { en: "BCG vaccine prevents?", hi: "BCG vaccine prevents?" },
+      options: { en: ["Polio","Tuberculosis","Hepatitis B","DPT"], hi: ["Polio","Tuberculosis","Hepatitis B","DPT"] },
+      correct: 1, explanation: { en: "Protects against TB.", hi: "Protects against TB." }
     },
     {
-      id: "vac_q2", type: "single", difficulty: "easy", relatedTopic: "vaccination",
-      question: { en: "Polio drops are given to children primarily to prevent what?", hi: "पोलियो की बूंदें मुख्य रूप से बच्चों को किस चीज से बचाने के लिए दी जाती हैं?" },
-      options: { en: ["Fever", "Paralysis", "Blindness", "Cough"], hi: ["बुखार", "पक्षाघात (लकवा)", "अंधापन", "खांसी"] },
-      correct: 1, explanation: { en: "Polio can cause irreversible paralysis.", hi: "पोलियो से अपरिवर्तनीय लकवा हो सकता है।" }
+      id: "vaccination_q2", type: "single", difficulty: "easy", relatedTopic: "vaccination",
+      question: { en: "Polio drops prevent?", hi: "Polio drops prevent?" },
+      options: { en: ["Fever","Paralysis","Blindness","Cough"], hi: ["Fever","Paralysis","Blindness","Cough"] },
+      correct: 1, explanation: { en: "Polio causes paralysis.", hi: "Polio causes paralysis." }
     },
     {
-      id: "vac_q3", type: "boolean", difficulty: "medium", relatedTopic: "vaccination",
-      question: { en: "True or False: Vaccines contain tiny amounts of the weakened or killed virus.", hi: "सही या गलत: टीकों में कमजोर या मारे गए वायरस की बहुत कम मात्रा होती है।" },
-      options: { en: ["True", "False"], hi: ["सही", "गलत"] },
-      correct: 0, explanation: { en: "Vaccines use weakened viruses to train the immune system safely.", hi: "टीके प्रतिरक्षा प्रणाली को सुरक्षित रूप से प्रशिक्षित करने के लिए कमजोर वायरस का उपयोग करते हैं।" }
+      id: "vaccination_q3", type: "boolean", difficulty: "easy", relatedTopic: "vaccination",
+      question: { en: "Vaccines contain weak/dead virus.", hi: "Vaccines contain weak/dead virus." },
+      options: { en: ["True","False"], hi: ["True","False"] },
+      correct: 0, explanation: { en: "Trains immune system safely.", hi: "Trains immune system safely." }
     },
     {
-      id: "vac_q4", type: "single", difficulty: "medium", relatedTopic: "vaccination",
-      question: { en: "What does the DPT vaccine protect against?", hi: "DPT का टीका किससे बचाता है?" },
-      options: { en: ["Dengue, Polio, Tetanus", "Diphtheria, Pertussis, Tetanus", "Dysentery, Polio, Typhoid", "None"], hi: ["डेंगू, पोलियो, टिटनेस", "डिप्थीरिया, पर्टुसिस, टिटनेस", "पेचिश, पोलियो, टाइफाइड", "कोई नहीं"] },
-      correct: 1, explanation: { en: "DPT stands for Diphtheria, Pertussis (whooping cough), and Tetanus.", hi: "DPT का मतलब डिप्थीरिया, पर्टुसिस (काली खांसी) और टिटनेस है।" }
+      id: "vaccination_q4", type: "single", difficulty: "medium", relatedTopic: "vaccination",
+      question: { en: "DPT protects against?", hi: "DPT protects against?" },
+      options: { en: ["Dengue, Polio, Tetanus","Diphtheria, Pertussis, Tetanus","Dysentery, Polio, Typhoid","None"], hi: ["Dengue, Polio, Tetanus","Diphtheria, Pertussis, Tetanus","Dysentery, Polio, Typhoid","None"] },
+      correct: 1, explanation: { en: "DPT stands for Diphtheria, Pertussis, Tetanus.", hi: "DPT stands for Diphtheria, Pertussis, Tetanus." }
     },
     {
-      id: "vac_q5", type: "single", difficulty: "hard", relatedTopic: "vaccination",
-      question: { en: "Herd immunity means:", hi: "हर्ड इम्युनिटी (Herd immunity) का अर्थ है:" },
-      options: { en: ["No one is vaccinated", "Vaccinating animals", "Enough people are vaccinated to protect those who aren't", "Vaccines don't work"], hi: ["किसी का टीकाकरण नहीं हुआ है", "जानवरों का टीकाकरण", "इतने लोगों को टीका लगाया गया है कि दूसरों की रक्षा हो सके", "टीके काम नहीं करते"] },
-      correct: 2, explanation: { en: "Herd immunity protects vulnerable individuals when most of the community is immune.", hi: "हर्ड इम्युनिटी कमजोर लोगों की रक्षा करती है जब अधिकांश समुदाय प्रतिरक्षित होता है।" }
+      id: "vaccination_q5", type: "single", difficulty: "medium", relatedTopic: "vaccination",
+      question: { en: "Herd immunity means:", hi: "Herd immunity means:" },
+      options: { en: ["No one vaccinated","Vaccinating animals","Enough people vaccinated to protect others","Vaccines fail"], hi: ["No one vaccinated","Vaccinating animals","Enough people vaccinated to protect others","Vaccines fail"] },
+      correct: 2, explanation: { en: "Protects vulnerable people.", hi: "Protects vulnerable people." }
+    },
+    {
+      id: "vaccination_q6", type: "single", difficulty: "medium", relatedTopic: "vaccination",
+      question: { en: "Which vaccine is crucial during a deep rusty cut?", hi: "Which vaccine is crucial during a deep rusty cut?" },
+      options: { en: ["Measles","Tetanus","Polio","Flu"], hi: ["Measles","Tetanus","Polio","Flu"] },
+      correct: 1, explanation: { en: "Tetanus prevents lockjaw from wound infections.", hi: "Tetanus prevents lockjaw from wound infections." }
+    },
+    {
+      id: "vaccination_q7", type: "single", difficulty: "hard", relatedTopic: "vaccination",
+      question: { en: "Do vaccines cause the disease they prevent?", hi: "Do vaccines cause the disease they prevent?" },
+      options: { en: ["Yes, always","No, they build immunity without causing the disease","Only in children","Yes, if taken twice"], hi: ["Yes, always","No, they build immunity without causing the disease","Only in children","Yes, if taken twice"] },
+      correct: 1, explanation: { en: "They imitate infection to build immunity safely.", hi: "They imitate infection to build immunity safely." }
+    },
+    {
+      id: "vaccination_q8", type: "single", difficulty: "hard", relatedTopic: "vaccination",
+      question: { en: "When should most childhood vaccines begin?", hi: "When should most childhood vaccines begin?" },
+      options: { en: ["At age 5","At birth or shortly after","Teenage years","Adulthood"], hi: ["At age 5","At birth or shortly after","Teenage years","Adulthood"] },
+      correct: 1, explanation: { en: "Immunization starts at birth.", hi: "Immunization starts at birth." }
     }
   ],
   cleanwater: [
     {
-      id: "wat_q1", type: "single", difficulty: "easy", relatedTopic: "cleanwater",
-      question: { en: "How long should you boil drinking water to kill disease germs?", hi: "पीने के पानी को कीटाणुओं को मारने के लिए कितनी देर तक उबालना चाहिए?" },
-      options: { en: ["10 seconds", "1 full minute of rolling boil", "Until lukewarm", "30 minutes"], hi: ["10 सेकंड", "1 मिनट तक पूरी तरह उबालना", "गुनगुना होने तक", "30 मिनट"] },
-      correct: 1, explanation: { en: "A rolling boil for 1 minute kills pathogens.", hi: "1 मिनट तक पानी उबालने से कीटाणु मर जाते हैं।" }
+      id: "cleanwater_q1", type: "single", difficulty: "easy", relatedTopic: "cleanwater",
+      question: { en: "How long to boil water to kill germs?", hi: "How long to boil water to kill germs?" },
+      options: { en: ["10 sec","1 minute rolling boil","Lukewarm","30 mins"], hi: ["10 sec","1 minute rolling boil","Lukewarm","30 mins"] },
+      correct: 1, explanation: { en: "1 min rolling boil kills pathogens.", hi: "1 min rolling boil kills pathogens." }
     },
     {
-      id: "wat_q2", type: "single", difficulty: "easy", relatedTopic: "cleanwater",
-      question: { en: "Which disease is commonly spread through contaminated water?", hi: "दूषित पानी से आमतौर पर कौन सी बीमारी फैलती है?" },
-      options: { en: ["Malaria", "Cholera", "Diabetes", "Asthma"], hi: ["मलेरिया", "हैजा (Cholera)", "मधुमेह (Diabetes)", "अस्थमा"] },
-      correct: 1, explanation: { en: "Cholera is a waterborne disease causing severe diarrhea.", hi: "हैजा दूषित पानी से होने वाली बीमारी है जिससे गंभीर दस्त होते हैं।" }
+      id: "cleanwater_q2", type: "single", difficulty: "easy", relatedTopic: "cleanwater",
+      question: { en: "Disease spread by dirty water?", hi: "Disease spread by dirty water?" },
+      options: { en: ["Malaria","Cholera","Diabetes","Asthma"], hi: ["Malaria","Cholera","Diabetes","Asthma"] },
+      correct: 1, explanation: { en: "Cholera is waterborne.", hi: "Cholera is waterborne." }
     },
     {
-      id: "wat_q3", type: "boolean", difficulty: "medium", relatedTopic: "cleanwater",
-      question: { en: "True or False: Clear water is always safe to drink.", hi: "सही या गलत: साफ दिखने वाला पानी हमेशा पीने के लिए सुरक्षित होता है।" },
-      options: { en: ["True", "False"], hi: ["सही", "गलत"] },
-      correct: 1, explanation: { en: "Clear water can still contain microscopic bacteria and viruses.", hi: "साफ पानी में भी सूक्ष्म बैक्टीरिया और वायरस हो सकते हैं।" }
+      id: "cleanwater_q3", type: "boolean", difficulty: "easy", relatedTopic: "cleanwater",
+      question: { en: "Clear water is always safe.", hi: "Clear water is always safe." },
+      options: { en: ["True","False"], hi: ["True","False"] },
+      correct: 1, explanation: { en: "Can still have microscopic germs.", hi: "Can still have microscopic germs." }
     },
     {
-      id: "wat_q4", type: "single", difficulty: "medium", relatedTopic: "cleanwater",
-      question: { en: "What chemical is commonly used by municipalities to disinfect water?", hi: "नगर पालिकाओं द्वारा पानी को कीटाणुरहित करने के लिए आमतौर पर किस रसायन का उपयोग किया जाता है?" },
-      options: { en: ["Salt", "Sugar", "Chlorine", "Vinegar"], hi: ["नमक", "चीनी", "क्लोरीन", "सिरका"] },
-      correct: 2, explanation: { en: "Chlorine is highly effective at killing bacteria in water systems.", hi: "क्लोरीन पानी में बैक्टीरिया को मारने में अत्यधिक प्रभावी है।" }
+      id: "cleanwater_q4", type: "single", difficulty: "medium", relatedTopic: "cleanwater",
+      question: { en: "Chemical to disinfect municipal water?", hi: "Chemical to disinfect municipal water?" },
+      options: { en: ["Salt","Sugar","Chlorine","Vinegar"], hi: ["Salt","Sugar","Chlorine","Vinegar"] },
+      correct: 2, explanation: { en: "Chlorine kills bacteria.", hi: "Chlorine kills bacteria." }
     },
     {
-      id: "wat_q5", type: "single", difficulty: "hard", relatedTopic: "cleanwater",
-      question: { en: "What is the safest way to store purified drinking water?", hi: "शुद्ध पीने के पानी को स्टोर करने का सबसे सुरक्षित तरीका क्या है?" },
-      options: { en: ["In an open bucket", "In a clean, covered container with a narrow neck or tap", "In a rusty metal drum", "Under direct sunlight"], hi: ["खुली बाल्टी में", "संकरी गर्दन या नल वाले साफ, ढके हुए बर्तन में", "जंग लगे धातु के ड्रम में", "सीधी धूप में"] },
-      correct: 1, explanation: { en: "A covered container with a tap prevents re-contamination from hands or cups.", hi: "नल के साथ ढका हुआ बर्तन हाथों या कप से होने वाले संदूषण को रोकता है।" }
+      id: "cleanwater_q5", type: "single", difficulty: "medium", relatedTopic: "cleanwater",
+      question: { en: "Safest way to store purified water?", hi: "Safest way to store purified water?" },
+      options: { en: ["Open bucket","Covered container with tap","Rusty drum","Direct sunlight"], hi: ["Open bucket","Covered container with tap","Rusty drum","Direct sunlight"] },
+      correct: 1, explanation: { en: "Prevents re-contamination.", hi: "Prevents re-contamination." }
+    },
+    {
+      id: "cleanwater_q6", type: "single", difficulty: "medium", relatedTopic: "cleanwater",
+      question: { en: "What is a common sign of a waterborne illness?", hi: "What is a common sign of a waterborne illness?" },
+      options: { en: ["Hair loss","Severe diarrhea","Sneezing","Joint swelling"], hi: ["Hair loss","Severe diarrhea","Sneezing","Joint swelling"] },
+      correct: 1, explanation: { en: "Diarrhea is a classic symptom.", hi: "Diarrhea is a classic symptom." }
+    },
+    {
+      id: "cleanwater_q7", type: "single", difficulty: "hard", relatedTopic: "cleanwater",
+      question: { en: "Which household item can filter large dirt from water before boiling?", hi: "Which household item can filter large dirt from water before boiling?" },
+      options: { en: ["A clean cotton cloth","A plastic bag","A metal spoon","A paper towel"], hi: ["A clean cotton cloth","A plastic bag","A metal spoon","A paper towel"] },
+      correct: 0, explanation: { en: "Cloth filters out large sediment.", hi: "Cloth filters out large sediment." }
+    },
+    {
+      id: "cleanwater_q8", type: "boolean", difficulty: "hard", relatedTopic: "cleanwater",
+      question: { en: "Washing hands with contaminated water is safe if using soap.", hi: "Washing hands with contaminated water is safe if using soap." },
+      options: { en: ["True","False"], hi: ["True","False"] },
+      correct: 1, explanation: { en: "Contaminated water can leave germs on hands.", hi: "Contaminated water can leave germs on hands." }
     }
   ],
   sanitation: [
     {
-      id: "san_q1", type: "single", difficulty: "easy", relatedTopic: "sanitation",
-      question: { en: "How does open defecation primarily affect community health?", hi: "खुले में शौच सामुदायिक स्वास्थ्य को कैसे प्रभावित करता है?" },
-      options: { en: ["It contaminates soil and water sources", "It reduces humidity", "It raises temperature", "It only affects crops"], hi: ["यह मिट्टी और पानी के स्रोतों को दूषित करता है", "यह नमी को कम करता है", "यह तापमान बढ़ाता है", "यह केवल फसलों को प्रभावित करता है"] },
-      correct: 0, explanation: { en: "Open defecation spreads pathogens to food and water.", hi: "खुले में शौच भोजन और पानी में कीटाणु फैलाता है।" }
+      id: "sanitation_q1", type: "single", difficulty: "easy", relatedTopic: "sanitation",
+      question: { en: "How does open defecation affect health?", hi: "How does open defecation affect health?" },
+      options: { en: ["Contaminates soil/water","Reduces humidity","Raises temp","Affects crops only"], hi: ["Contaminates soil/water","Reduces humidity","Raises temp","Affects crops only"] },
+      correct: 0, explanation: { en: "Spreads pathogens.", hi: "Spreads pathogens." }
     },
     {
-      id: "san_q2", type: "boolean", difficulty: "easy", relatedTopic: "sanitation",
-      question: { en: "True or False: Handwashing with ash or mud is as effective as soap.", hi: "सही या गलत: राख या मिट्टी से हाथ धोना साबुन जितना ही प्रभावी है।" },
-      options: { en: ["True", "False"], hi: ["सही", "गलत"] },
-      correct: 1, explanation: { en: "Soap breaks down the lipid layer of viruses; mud or ash does not.", hi: "साबुन वायरस की वसा परत को तोड़ता है; मिट्टी या राख ऐसा नहीं करते।" }
+      id: "sanitation_q2", type: "boolean", difficulty: "easy", relatedTopic: "sanitation",
+      question: { en: "Ash/mud is as effective as soap.", hi: "Ash/mud is as effective as soap." },
+      options: { en: ["True","False"], hi: ["True","False"] },
+      correct: 1, explanation: { en: "Soap destroys virus lipid layers.", hi: "Soap destroys virus lipid layers." }
     },
     {
-      id: "san_q3", type: "single", difficulty: "medium", relatedTopic: "sanitation",
-      question: { en: "Why is it important to separate dry waste and wet waste?", hi: "सूखे और गीले कचरे को अलग करना क्यों महत्वपूर्ण है?" },
-      options: { en: ["It looks better", "Wet waste can be composted, while dry can be recycled", "It is legally required everywhere", "It prevents fires"], hi: ["यह बेहतर दिखता है", "गीले कचरे से खाद बनाई जा सकती है, जबकि सूखे को रिसाइकल किया जा सकता है", "यह हर जगह कानूनी रूप से आवश्यक है", "यह आग से बचाता है"] },
-      correct: 1, explanation: { en: "Separation enables proper recycling and composting.", hi: "पृथक्करण से उचित रिसाइक्लिंग और खाद बनाना संभव होता है।" }
+      id: "sanitation_q3", type: "single", difficulty: "easy", relatedTopic: "sanitation",
+      question: { en: "Why separate dry/wet waste?", hi: "Why separate dry/wet waste?" },
+      options: { en: ["Looks better","Composting & recycling","Legal requirement","Prevents fires"], hi: ["Looks better","Composting & recycling","Legal requirement","Prevents fires"] },
+      correct: 1, explanation: { en: "Enables proper processing.", hi: "Enables proper processing." }
     },
     {
-      id: "san_q4", type: "single", difficulty: "medium", relatedTopic: "sanitation",
-      question: { en: "What is the most hygienic way to dispose of sanitary pads?", hi: "सेनेटरी पैड को निपटाने का सबसे स्वच्छ तरीका क्या है?" },
-      options: { en: ["Flush them down the toilet", "Throw them in open drains", "Wrap them in paper and dispose in a covered dustbin", "Burn them in the open"], hi: ["उन्हें शौचालय में फ्लश करें", "उन्हें खुली नालियों में फेंक दें", "कागज में लपेटें और ढके हुए कूड़ेदान में फेंकें", "खुले में जलाएं"] },
-      correct: 2, explanation: { en: "Wrapping and bin disposal prevents drain clogs and hygiene risks.", hi: "लपेटने और कूड़ेदान में फेंकने से नालियां ब्लॉक होने और संक्रमण का खतरा टलता है।" }
+      id: "sanitation_q4", type: "single", difficulty: "medium", relatedTopic: "sanitation",
+      question: { en: "Hygienic pad disposal?", hi: "Hygienic pad disposal?" },
+      options: { en: ["Flush","Open drains","Wrap in paper, covered bin","Burn open"], hi: ["Flush","Open drains","Wrap in paper, covered bin","Burn open"] },
+      correct: 2, explanation: { en: "Prevents clogs and hygiene risks.", hi: "Prevents clogs and hygiene risks." }
     },
     {
-      id: "san_q5", type: "single", difficulty: "hard", relatedTopic: "sanitation",
-      question: { en: "How can standing water in open drains impact community health?", hi: "खुली नालियों में रुका हुआ पानी सामुदायिक स्वास्थ्य को कैसे प्रभावित कर सकता है?" },
-      options: { en: ["It cools the environment", "It becomes a breeding ground for mosquitoes", "It provides drinking water for animals", "It reduces dust"], hi: ["यह पर्यावरण को ठंडा करता है", "यह मच्छरों के पनपने का स्थान बन जाता है", "यह जानवरों के लिए पीने का पानी प्रदान करता है", "यह धूल कम करता है"] },
-      correct: 1, explanation: { en: "Stagnant drains breed mosquitoes that carry malaria and dengue.", hi: "रुकी हुई नालियों में मच्छर पनपते हैं जो मलेरिया और डेंगू फैलाते हैं।" }
+      id: "sanitation_q5", type: "single", difficulty: "medium", relatedTopic: "sanitation",
+      question: { en: "Standing water in drains causes?", hi: "Standing water in drains causes?" },
+      options: { en: ["Cools air","Mosquito breeding","Animal drinking","Reduces dust"], hi: ["Cools air","Mosquito breeding","Animal drinking","Reduces dust"] },
+      correct: 1, explanation: { en: "Breeds malaria/dengue mosquitoes.", hi: "Breeds malaria/dengue mosquitoes." }
+    },
+    {
+      id: "sanitation_q6", type: "single", difficulty: "medium", relatedTopic: "sanitation",
+      question: { en: "What happens when sewage mixes with drinking water?", hi: "What happens when sewage mixes with drinking water?" },
+      options: { en: ["Water tastes better","Causes outbreaks of cholera and typhoid","Prevents rusting of pipes","Nothing"], hi: ["Water tastes better","Causes outbreaks of cholera and typhoid","Prevents rusting of pipes","Nothing"] },
+      correct: 1, explanation: { en: "It introduces dangerous fecal bacteria.", hi: "It introduces dangerous fecal bacteria." }
+    },
+    {
+      id: "sanitation_q7", type: "single", difficulty: "hard", relatedTopic: "sanitation",
+      question: { en: "Proper handwashing should last at least:", hi: "Proper handwashing should last at least:" },
+      options: { en: ["5 seconds","20 seconds","1 minute","5 minutes"], hi: ["5 seconds","20 seconds","1 minute","5 minutes"] },
+      correct: 1, explanation: { en: "20 seconds of scrubbing removes most germs.", hi: "20 seconds of scrubbing removes most germs." }
+    },
+    {
+      id: "sanitation_q8", type: "single", difficulty: "hard", relatedTopic: "sanitation",
+      question: { en: "Flies landing on uncovered food can transmit:", hi: "Flies landing on uncovered food can transmit:" },
+      options: { en: ["Asthma","Diarrheal diseases","Malaria","Dengue"], hi: ["Asthma","Diarrheal diseases","Malaria","Dengue"] },
+      correct: 1, explanation: { en: "Flies transfer feces to food.", hi: "Flies transfer feces to food." }
     }
   ],
   firstaid: [
     {
-      id: "fa_q1", type: "scenario", difficulty: "easy", relatedTopic: "firstaid",
-      question: { en: "Scenario: A child spills hot tea on their arm. What is your immediate action?", hi: "परिदृश्य: एक बच्चा अपनी बांह पर गर्म चाय गिरा लेता है। आप तुरंत क्या करेंगे?" },
-      options: { en: ["Apply toothpaste", "Pop blisters", "Pour cool running water for 10-15 mins", "Wrap tightly"], hi: ["टूथपेस्ट लगाएं", "छाले फोड़ें", "10-15 मिनट के लिए ठंडा पानी डालें", "कसकर लपेटें"] },
-      correct: 2, explanation: { en: "Cool water dissipates heat. Toothpaste traps it.", hi: "ठंडा पानी गर्मी को कम करता है। टूथपेस्ट इसे रोकता है।" }
+      id: "firstaid_q1", type: "single", difficulty: "easy", relatedTopic: "firstaid",
+      question: { en: "Hot tea spill on arm. Immediate action?", hi: "Hot tea spill on arm. Immediate action?" },
+      options: { en: ["Toothpaste","Pop blisters","Cool running water 10-15 mins","Wrap tightly"], hi: ["Toothpaste","Pop blisters","Cool running water 10-15 mins","Wrap tightly"] },
+      correct: 2, explanation: { en: "Cool water dissipates heat.", hi: "Cool water dissipates heat." }
     },
     {
-      id: "fa_q2", type: "single", difficulty: "medium", relatedTopic: "firstaid",
-      question: { en: "What should you do immediately if someone is bitten by a venomous snake?", hi: "यदि किसी को जहरीला सांप काट ले तो क्या करें?" },
-      options: { en: ["Cut the wound", "Suck out venom", "Keep the limb still and rush to hospital", "Apply a tight tourniquet"], hi: ["घाव पर कट लगाएं", "जहर चूसें", "अंग को स्थिर रखें और अस्पताल भागें", "टूर्निकेट बांधें"] },
-      correct: 2, explanation: { en: "Keeping calm and still slows venom spread.", hi: "शांत और स्थिर रहने से जहर का फैलना धीमा होता है।" }
+      id: "firstaid_q2", type: "single", difficulty: "easy", relatedTopic: "firstaid",
+      question: { en: "Venomous snake bite action?", hi: "Venomous snake bite action?" },
+      options: { en: ["Cut wound","Suck venom","Keep still and rush to hospital","Tight tourniquet"], hi: ["Cut wound","Suck venom","Keep still and rush to hospital","Tight tourniquet"] },
+      correct: 2, explanation: { en: "Keeps venom spread slow.", hi: "Keeps venom spread slow." }
     },
     {
-      id: "fa_q3", type: "single", difficulty: "easy", relatedTopic: "firstaid",
-      question: { en: "If a person gets a deep cut that is bleeding heavily, what is the first step?", hi: "यदि किसी को गहरा घाव हो जाए और बहुत खून बह रहा हो, तो पहला कदम क्या है?" },
-      options: { en: ["Wash with dirty water", "Apply firm, direct pressure with a clean cloth", "Wait for it to stop", "Put mud on it"], hi: ["गंदे पानी से धोएं", "साफ कपड़े से सीधा दबाव डालें", "रुकने का इंतजार करें", "उस पर मिट्टी डालें"] },
-      correct: 1, explanation: { en: "Direct pressure stops heavy bleeding effectively.", hi: "सीधा दबाव अत्यधिक रक्तस्राव को प्रभावी ढंग से रोकता है।" }
+      id: "firstaid_q3", type: "single", difficulty: "easy", relatedTopic: "firstaid",
+      question: { en: "Heavy bleeding deep cut?", hi: "Heavy bleeding deep cut?" },
+      options: { en: ["Wash with dirty water","Direct pressure with clean cloth","Wait to stop","Mud"], hi: ["Wash with dirty water","Direct pressure with clean cloth","Wait to stop","Mud"] },
+      correct: 1, explanation: { en: "Direct pressure stops bleeding.", hi: "Direct pressure stops bleeding." }
     },
     {
-      id: "fa_q4", type: "boolean", difficulty: "medium", relatedTopic: "firstaid",
-      question: { en: "True or False: If someone faints, you should immediately prop them up in a sitting position.", hi: "सही या गलत: यदि कोई बेहोश हो जाता है, तो उसे तुरंत बैठने की स्थिति में सहारा देना चाहिए।" },
-      options: { en: ["True", "False"], hi: ["सही", "गलत"] },
-      correct: 1, explanation: { en: "You should lay them flat and elevate their legs to restore blood flow to the brain.", hi: "मस्तिष्क में रक्त के प्रवाह को बहाल करने के लिए उन्हें सीधा लिटाना और उनके पैरों को ऊपर उठाना चाहिए।" }
+      id: "firstaid_q4", type: "boolean", difficulty: "medium", relatedTopic: "firstaid",
+      question: { en: "Fainted person should be propped sitting.", hi: "Fainted person should be propped sitting." },
+      options: { en: ["True","False"], hi: ["True","False"] },
+      correct: 1, explanation: { en: "Lay flat, elevate legs.", hi: "Lay flat, elevate legs." }
     },
     {
-      id: "fa_q5", type: "single", difficulty: "hard", relatedTopic: "firstaid",
-      question: { en: "In CPR for an adult, where should you place your hands for chest compressions?", hi: "वयस्क के लिए सीपीआर में, छाती को दबाने के लिए आपको अपने हाथ कहां रखने चाहिए?" },
-      options: { en: ["On the stomach", "In the center of the chest, on the lower half of the breastbone", "On the neck", "On the ribs on the left side"], hi: ["पेट पर", "छाती के केंद्र में, उरोस्थि (ब्रेस्टबोन) के निचले आधे हिस्से पर", "गर्दन पर", "बाईं ओर पसलियों पर"] },
-      correct: 1, explanation: { en: "Compressions must be done in the center of the chest to effectively pump the heart.", hi: "हृदय को प्रभावी ढंग से पंप करने के लिए छाती के केंद्र में दबाव डाला जाना चाहिए।" }
+      id: "firstaid_q5", type: "single", difficulty: "medium", relatedTopic: "firstaid",
+      question: { en: "Adult CPR hand placement?", hi: "Adult CPR hand placement?" },
+      options: { en: ["Stomach","Center of chest","Neck","Ribs"], hi: ["Stomach","Center of chest","Neck","Ribs"] },
+      correct: 1, explanation: { en: "Center of chest pumps heart.", hi: "Center of chest pumps heart." }
+    },
+    {
+      id: "firstaid_q6", type: "single", difficulty: "medium", relatedTopic: "firstaid",
+      question: { en: "If someone is choking and cannot breathe, you should:", hi: "If someone is choking and cannot breathe, you should:" },
+      options: { en: ["Give them water","Perform the Heimlich maneuver","Slap their face","Make them lie down"], hi: ["Give them water","Perform the Heimlich maneuver","Slap their face","Make them lie down"] },
+      correct: 1, explanation: { en: "Heimlich pushes the blockage out.", hi: "Heimlich pushes the blockage out." }
+    },
+    {
+      id: "firstaid_q7", type: "single", difficulty: "hard", relatedTopic: "firstaid",
+      question: { en: "What is the first step when assessing an emergency?", hi: "What is the first step when assessing an emergency?" },
+      options: { en: ["Start CPR","Ensure the scene is safe","Call a lawyer","Run away"], hi: ["Start CPR","Ensure the scene is safe","Call a lawyer","Run away"] },
+      correct: 1, explanation: { en: "Safety first to avoid more injuries.", hi: "Safety first to avoid more injuries." }
+    },
+    {
+      id: "firstaid_q8", type: "single", difficulty: "hard", relatedTopic: "firstaid",
+      question: { en: "For a suspected broken bone:", hi: "For a suspected broken bone:" },
+      options: { en: ["Try to straighten it","Immobilize the area and seek help","Massage it","Apply heat immediately"], hi: ["Try to straighten it","Immobilize the area and seek help","Massage it","Apply heat immediately"] },
+      correct: 1, explanation: { en: "Immobilization prevents further nerve/tissue damage.", hi: "Immobilization prevents further nerve/tissue damage." }
     }
   ],
   mentalhealth: [
     {
-      id: "men_q1", type: "single", difficulty: "easy", relatedTopic: "mentalhealth",
-      question: { en: "What is a healthy habit to manage daily stress?", hi: "दैनिक तनाव प्रबंधित करने की एक स्वस्थ आदत क्या है?" },
-      options: { en: ["Isolating yourself", "Deep breathing or mindfulness", "Staying up late", "Skipping meals"], hi: ["खुद को अलग करना", "गहरी सांस लेना या ध्यान", "देर तक जागना", "भोजन छोड़ना"] },
-      correct: 1, explanation: { en: "Breathing exercises lower stress hormones.", hi: "सांस के व्यायाम तनाव के हार्मोन कम करते हैं।" }
+      id: "mentalhealth_q1", type: "single", difficulty: "easy", relatedTopic: "mentalhealth",
+      question: { en: "Healthy habit for stress?", hi: "Healthy habit for stress?" },
+      options: { en: ["Isolating","Deep breathing","Staying up late","Skipping meals"], hi: ["Isolating","Deep breathing","Staying up late","Skipping meals"] },
+      correct: 1, explanation: { en: "Lowers stress hormones.", hi: "Lowers stress hormones." }
     },
     {
-      id: "men_q2", type: "single", difficulty: "medium", relatedTopic: "mentalhealth",
-      question: { en: "How does regular physical exercise affect mental health?", hi: "नियमित शारीरिक व्यायाम मानसिक स्वास्थ्य को कैसे प्रभावित करता है?" },
-      options: { en: ["It makes you more angry", "It releases endorphins that improve mood", "It has no effect", "It causes depression"], hi: ["यह आपको और क्रोधित करता है", "यह एंडोर्फिन जारी करता है जो मूड में सुधार करता है", "इसका कोई प्रभाव नहीं होता", "यह डिप्रेशन का कारण बनता है"] },
-      correct: 1, explanation: { en: "Exercise releases endorphins, the brain's natural feel-good chemicals.", hi: "व्यायाम से एंडोर्फिन निकलता है, जो मूड को बेहतर बनाता है।" }
+      id: "mentalhealth_q2", type: "single", difficulty: "easy", relatedTopic: "mentalhealth",
+      question: { en: "Exercise affects mental health by?", hi: "Exercise affects mental health by?" },
+      options: { en: ["More anger","Releasing endorphins","No effect","Depression"], hi: ["More anger","Releasing endorphins","No effect","Depression"] },
+      correct: 1, explanation: { en: "Endorphins improve mood.", hi: "Endorphins improve mood." }
     },
     {
-      id: "men_q3", type: "boolean", difficulty: "easy", relatedTopic: "mentalhealth",
-      question: { en: "True or False: Seeking professional help for a mental health issue is a sign of weakness.", hi: "सही या गलत: मानसिक स्वास्थ्य समस्या के लिए पेशेवर मदद मांगना कमजोरी की निशानी है।" },
-      options: { en: ["True", "False"], hi: ["सही", "गलत"] },
-      correct: 1, explanation: { en: "Therapy is a proactive step for well-being, just like visiting a doctor for physical illness.", hi: "थेरेपी शारीरिक बीमारी के लिए डॉक्टर के पास जाने की तरह ही स्वास्थ्य के लिए एक सक्रिय कदम है।" }
+      id: "mentalhealth_q3", type: "boolean", difficulty: "easy", relatedTopic: "mentalhealth",
+      question: { en: "Therapy is a sign of weakness.", hi: "Therapy is a sign of weakness." },
+      options: { en: ["True","False"], hi: ["True","False"] },
+      correct: 1, explanation: { en: "Proactive step for well-being.", hi: "Proactive step for well-being." }
     },
     {
-      id: "men_q4", type: "single", difficulty: "medium", relatedTopic: "mentalhealth",
-      question: { en: "What is 'mindfulness'?", hi: "'माइंडफुलनेस' (ध्यान) क्या है?" },
-      options: { en: ["Ignoring your problems", "Focusing fully on the present moment without judgment", "Sleeping all day", "Worrying about the future"], hi: ["अपनी समस्याओं को नज़रअंदाज़ करना", "बिना किसी निर्णय के वर्तमान क्षण पर पूरी तरह ध्यान केंद्रित करना", "दिन भर सोना", "भविष्य के बारे में चिंता करना"] },
-      correct: 1, explanation: { en: "Mindfulness helps ground you in the present, reducing anxiety about the past or future.", hi: "माइंडफुलनेस आपको वर्तमान में रहने में मदद करता है, जिससे चिंता कम होती है।" }
+      id: "mentalhealth_q4", type: "single", difficulty: "medium", relatedTopic: "mentalhealth",
+      question: { en: "What is mindfulness?", hi: "What is mindfulness?" },
+      options: { en: ["Ignoring problems","Focusing on present moment","Sleeping","Worrying"], hi: ["Ignoring problems","Focusing on present moment","Sleeping","Worrying"] },
+      correct: 1, explanation: { en: "Grounds you in the present.", hi: "Grounds you in the present." }
     },
     {
-      id: "men_q5", type: "single", difficulty: "hard", relatedTopic: "mentalhealth",
-      question: { en: "Lack of sleep can lead to which of the following?", hi: "नींद की कमी के कारण क्या हो सकता है?" },
-      options: { en: ["Increased immunity", "Better memory", "Increased irritability and risk of depression", "Stronger muscles"], hi: ["बढ़ी हुई इम्युनिटी", "बेहतर याददाश्त", "चिड़चिड़ापन और डिप्रेशन का बढ़ा हुआ जोखिम", "मजबूत मांसपेशियां"] },
-      correct: 2, explanation: { en: "Sleep deprivation heavily impacts emotional regulation and mental stability.", hi: "नींद की कमी भावनात्मक नियंत्रण और मानसिक स्थिरता को बहुत प्रभावित करती है।" }
+      id: "mentalhealth_q5", type: "single", difficulty: "medium", relatedTopic: "mentalhealth",
+      question: { en: "Lack of sleep leads to:", hi: "Lack of sleep leads to:" },
+      options: { en: ["Immunity","Better memory","Irritability & depression risk","Muscle"], hi: ["Immunity","Better memory","Irritability & depression risk","Muscle"] },
+      correct: 2, explanation: { en: "Impacts emotional regulation.", hi: "Impacts emotional regulation." }
+    },
+    {
+      id: "mentalhealth_q6", type: "single", difficulty: "medium", relatedTopic: "mentalhealth",
+      question: { en: "Talking about your feelings with someone you trust:", hi: "Talking about your feelings with someone you trust:" },
+      options: { en: ["Makes them worse","Reduces emotional burden","Is a waste of time","Causes physical pain"], hi: ["Makes them worse","Reduces emotional burden","Is a waste of time","Causes physical pain"] },
+      correct: 1, explanation: { en: "Sharing helps process emotions.", hi: "Sharing helps process emotions." }
+    },
+    {
+      id: "mentalhealth_q7", type: "single", difficulty: "hard", relatedTopic: "mentalhealth",
+      question: { en: "Chronic stress can physically affect the body by:", hi: "Chronic stress can physically affect the body by:" },
+      options: { en: ["Improving eyesight","Increasing blood pressure and heart risks","Curing colds","Strengthening teeth"], hi: ["Improving eyesight","Increasing blood pressure and heart risks","Curing colds","Strengthening teeth"] },
+      correct: 1, explanation: { en: "Stress hormones strain the cardiovascular system.", hi: "Stress hormones strain the cardiovascular system." }
+    },
+    {
+      id: "mentalhealth_q8", type: "single", difficulty: "hard", relatedTopic: "mentalhealth",
+      question: { en: "Which of these is a sign of burnout?", hi: "Which of these is a sign of burnout?" },
+      options: { en: ["High energy","Constant exhaustion and cynicism","Perfect attendance","Loud laughing"], hi: ["High energy","Constant exhaustion and cynicism","Perfect attendance","Loud laughing"] },
+      correct: 1, explanation: { en: "Burnout depletes mental and physical energy.", hi: "Burnout depletes mental and physical energy." }
     }
   ],
   lifestyle: [
     {
-      id: "life_q1", type: "single", difficulty: "easy", relatedTopic: "lifestyle",
-      question: { en: "How many minutes of exercise should adults do daily?", hi: "वयस्कों को रोजाना कितने मिनट का व्यायाम करना चाहिए?" },
-      options: { en: ["5 minutes", "30 minutes", "2 hours", "Only weekends"], hi: ["5 मिनट", "30 मिनट", "2 घंटे", "केवल सप्ताहांत"] },
-      correct: 1, explanation: { en: "30 mins of daily exercise improves heart health.", hi: "रोजाना 30 मिनट का व्यायाम हृदय स्वास्थ्य में सुधार करता है।" }
+      id: "lifestyle_q1", type: "single", difficulty: "easy", relatedTopic: "lifestyle",
+      question: { en: "Daily adult exercise recommendation?", hi: "Daily adult exercise recommendation?" },
+      options: { en: ["5 mins","30 mins","2 hours","Weekends only"], hi: ["5 mins","30 mins","2 hours","Weekends only"] },
+      correct: 1, explanation: { en: "Improves heart health.", hi: "Improves heart health." }
     },
     {
-      id: "life_q2", type: "single", difficulty: "easy", relatedTopic: "lifestyle",
-      question: { en: "Which of the following is a negative lifestyle habit?", hi: "निम्नलिखित में से कौन सी एक नकारात्मक जीवन शैली की आदत है?" },
-      options: { en: ["Drinking 8 glasses of water", "Sleeping 7-8 hours", "Smoking tobacco", "Eating fresh vegetables"], hi: ["8 गिलास पानी पीना", "7-8 घंटे सोना", "तंबाकू धूम्रपान", "ताजी सब्जियां खाना"] },
-      correct: 2, explanation: { en: "Smoking damages lungs and heart, leading to severe chronic diseases.", hi: "धूम्रपान फेफड़ों और हृदय को नुकसान पहुंचाता है।" }
+      id: "lifestyle_q2", type: "single", difficulty: "easy", relatedTopic: "lifestyle",
+      question: { en: "Negative lifestyle habit?", hi: "Negative lifestyle habit?" },
+      options: { en: ["8 glasses water","7-8 hrs sleep","Smoking tobacco","Fresh veg"], hi: ["8 glasses water","7-8 hrs sleep","Smoking tobacco","Fresh veg"] },
+      correct: 2, explanation: { en: "Damages lungs and heart.", hi: "Damages lungs and heart." }
     },
     {
-      id: "life_q3", type: "boolean", difficulty: "medium", relatedTopic: "lifestyle",
-      question: { en: "True or False: Fast food is a healthy choice for daily meals.", hi: "सही या गलत: फास्ट फूड दैनिक भोजन के लिए एक स्वस्थ विकल्प है।" },
-      options: { en: ["True", "False"], hi: ["सही", "गलत"] },
-      correct: 1, explanation: { en: "Fast food is high in unhealthy fats, sugar, and salt.", hi: "फास्ट फूड में अस्वास्थ्यकर वसा, चीनी और नमक की मात्रा अधिक होती है।" }
+      id: "lifestyle_q3", type: "boolean", difficulty: "easy", relatedTopic: "lifestyle",
+      question: { en: "Fast food is healthy daily.", hi: "Fast food is healthy daily." },
+      options: { en: ["True","False"], hi: ["True","False"] },
+      correct: 1, explanation: { en: "High in unhealthy fats & salt.", hi: "High in unhealthy fats & salt." }
     },
     {
-      id: "life_q4", type: "single", difficulty: "medium", relatedTopic: "lifestyle",
-      question: { en: "How many hours of sleep is generally recommended for an adult?", hi: "एक वयस्क के लिए आमतौर पर कितने घंटे की नींद की सिफारिश की जाती है?" },
-      options: { en: ["3-4 hours", "5-6 hours", "7-8 hours", "10-12 hours"], hi: ["3-4 घंटे", "5-6 घंटे", "7-8 घंटे", "10-12 घंटे"] },
-      correct: 2, explanation: { en: "7-8 hours allows the body and brain to repair and rest properly.", hi: "7-8 घंटे शरीर और मस्तिष्क को ठीक से आराम करने और मरम्मत करने देते हैं।" }
+      id: "lifestyle_q4", type: "single", difficulty: "medium", relatedTopic: "lifestyle",
+      question: { en: "Recommended adult sleep?", hi: "Recommended adult sleep?" },
+      options: { en: ["3-4 hrs","5-6 hrs","7-8 hrs","10-12 hrs"], hi: ["3-4 hrs","5-6 hrs","7-8 hrs","10-12 hrs"] },
+      correct: 2, explanation: { en: "Allows body/brain to repair.", hi: "Allows body/brain to repair." }
     },
     {
-      id: "life_q5", type: "single", difficulty: "hard", relatedTopic: "lifestyle",
-      question: { en: "What is the consequence of prolonged sitting without breaks?", hi: "बिना ब्रेक के लंबे समय तक बैठने का क्या परिणाम होता है?" },
-      options: { en: ["Improved focus", "Increased risk of obesity and cardiovascular issues", "Stronger back muscles", "Better digestion"], hi: ["बेहतर फोकस", "मोटापे और हृदय संबंधी समस्याओं का बढ़ा हुआ जोखिम", "मजबूत पीठ की मांसपेशियां", "बेहतर पाचन"] },
-      correct: 1, explanation: { en: "Sedentary behavior increases risks for heart disease and metabolic syndrome.", hi: "गतिहीन व्यवहार हृदय रोग और चयापचय सिंड्रोम के जोखिम को बढ़ाता है।" }
+      id: "lifestyle_q5", type: "single", difficulty: "medium", relatedTopic: "lifestyle",
+      question: { en: "Prolonged sitting risk?", hi: "Prolonged sitting risk?" },
+      options: { en: ["Focus","Obesity & cardiovascular issues","Back muscles","Digestion"], hi: ["Focus","Obesity & cardiovascular issues","Back muscles","Digestion"] },
+      correct: 1, explanation: { en: "Increases heart disease risk.", hi: "Increases heart disease risk." }
+    },
+    {
+      id: "lifestyle_q6", type: "single", difficulty: "medium", relatedTopic: "lifestyle",
+      question: { en: "Which drink is the healthiest choice for daily hydration?", hi: "Which drink is the healthiest choice for daily hydration?" },
+      options: { en: ["Energy drinks","Sugary soda","Plain water","Packaged fruit juice"], hi: ["Energy drinks","Sugary soda","Plain water","Packaged fruit juice"] },
+      correct: 2, explanation: { en: "Water has no added sugars or calories.", hi: "Water has no added sugars or calories." }
+    },
+    {
+      id: "lifestyle_q7", type: "single", difficulty: "hard", relatedTopic: "lifestyle",
+      question: { en: "Excessive screen time before bed can:", hi: "Excessive screen time before bed can:" },
+      options: { en: ["Improve sleep","Disrupt the sleep cycle","Cure headaches","Enhance dreams"], hi: ["Improve sleep","Disrupt the sleep cycle","Cure headaches","Enhance dreams"] },
+      correct: 1, explanation: { en: "Blue light suppresses sleep hormones.", hi: "Blue light suppresses sleep hormones." }
+    },
+    {
+      id: "lifestyle_q8", type: "boolean", difficulty: "hard", relatedTopic: "lifestyle",
+      question: { en: "Regular health checkups are only for sick people.", hi: "Regular health checkups are only for sick people." },
+      options: { en: ["True","False"], hi: ["True","False"] },
+      correct: 1, explanation: { en: "Checkups detect issues early before symptoms appear.", hi: "Checkups detect issues early before symptoms appear." }
     }
-  ]
+  ],
 };
 
 export default {

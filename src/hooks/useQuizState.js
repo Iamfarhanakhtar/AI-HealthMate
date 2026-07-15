@@ -74,11 +74,10 @@ export function useQuizState() {
   const startQuiz = useCallback(() => {
     const questionsList = quizQuestions[selectedCategoryId] || [];
     
-    // Filter questions by difficulty or fall back if none match that exact difficulty
-    let filtered = questionsList.filter(q => q.difficulty === selectedDifficulty);
-    if (filtered.length === 0) {
-      filtered = questionsList; // Fallback
-    }
+    // Do not aggressively filter by difficulty so the user gets a full assessment.
+    // The difficulty selector in the UI can remain as a preference/starting point,
+    // but we want to show all available questions for the category (e.g. 8 questions).
+    let filtered = questionsList;
 
     if (filtered.length === 0) {
       alert("No questions available for this category yet.");
