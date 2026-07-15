@@ -1,4 +1,6 @@
-// Reusable Bilingual Quiz Dataset
+const fs = require('fs');
+
+const data = `// Reusable Bilingual Quiz Dataset
 // Categories: General Healthcare, Dengue, Malaria, Nutrition, Vaccination, Clean Water, Sanitation, First Aid, Mental Health, Healthy Lifestyle
 
 export const quizCategories = [
@@ -341,3 +343,7 @@ export default {
   quizCategories,
   quizQuestions
 };
+`;
+
+fs.writeFileSync('/Users/farhan/Desktop/IP3/src/utils/quizData.js', data);
+console.log('Quiz data rewritten successfully!');
