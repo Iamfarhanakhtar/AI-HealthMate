@@ -12,8 +12,8 @@ export function QuestionCard({
   isLast, 
   language 
 }) {
-  const displayQuestion = question.question[language];
-  const options = question.options[language];
+  const displayQuestion = question?.question?.[language] || question?.question?.en || "Question text unavailable";
+  const options = question?.options?.[language] || question?.options?.en || [];
 
   return (
     <div className="p-5 sm:p-6 rounded-2xl bg-surface-container-low/40 border border-outline-variant/20 space-y-6 max-w-2xl mx-auto shadow-2xl backdrop-blur-md">
@@ -94,7 +94,7 @@ export function QuestionCard({
               <span className="text-red-400">✗ Incorrect</span>
             )}
           </div>
-          <p>{question.explanation[language]}</p>
+          <p>{question?.explanation?.[language] || question?.explanation?.en || "No explanation provided."}</p>
         </div>
       )}
 

@@ -54,7 +54,7 @@ export function QuizReview({ questions, userAnswers, language }) {
                 <div className="flex gap-2.5 items-center min-w-0">
                   {statusIcon}
                   <span className="truncate text-on-surface font-semibold flex-1">
-                    Q{idx + 1}: {q.question[language]}
+                    Q{idx + 1}: {q?.question?.[language] || q?.question?.en || "Missing Question"}
                   </span>
                 </div>
                 {isOpen ? <ChevronUp className="w-4 h-4 text-outline" /> : <ChevronDown className="w-4 h-4 text-outline" />}
@@ -64,8 +64,8 @@ export function QuizReview({ questions, userAnswers, language }) {
                 <div className="px-4 pb-4 pt-1 text-xs text-on-surface-variant leading-relaxed space-y-3 border-t border-outline-variant/10 bg-surface-container-low/10">
                   
                   {/* Options List */}
-                  <div className="space-y-1">
-                    {q.options[language].map((option, optIdx) => {
+                  <div className="space-y-1.5 mb-4">
+                    {(q?.options?.[language] || q?.options?.en || []).map((option, optIdx) => {
                       const isCorrectOpt = q.correct === optIdx;
                       const isSelectedOpt = userAnsIdx === optIdx;
                       
@@ -85,7 +85,7 @@ export function QuizReview({ questions, userAnswers, language }) {
                   {/* Explanation */}
                   <div className="p-3 rounded-lg bg-surface-container-low/40 border border-outline-variant/10">
                     <span className="font-mono text-[9px] uppercase tracking-wider text-cyan-400 font-semibold block mb-0.5">Explanation</span>
-                    <p>{q.explanation[language]}</p>
+                    <p>{q?.explanation?.[language] || q?.explanation?.en || "No explanation provided."}</p>
                   </div>
                 </div>
               )}

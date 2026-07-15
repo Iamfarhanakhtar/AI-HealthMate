@@ -209,7 +209,7 @@ export function Quiz() {
                     {categoryStats.map((cat) => {
                       const CatIcon = ICON_MAP[cat.icon] || BookOpen;
                       const isSelected = selectedCategoryId === cat.id;
-                      const displayTitle = language === 'en' ? cat.title.en : cat.title.hi;
+                      const displayTitle = cat ? (language === 'en' ? (cat.en || "Category") : (cat.hi || cat.en || "श्रेणी")) : "Category";
                       return (
                         <button
                           key={cat.id}
@@ -354,7 +354,7 @@ export function Quiz() {
                       {quizHistory.slice(0, 5).map((attempt, idx) => {
                         const dateFormatted = new Date(attempt.date).toLocaleDateString();
                         const matchingCat = quizCategories.find(c => c.id === attempt.category);
-                        const catLabel = matchingCat ? (language === 'en' ? matchingCat.title.en : matchingCat.title.hi) : attempt.category;
+                        const catLabel = matchingCat ? (language === 'en' ? (matchingCat.en || "Category") : (matchingCat.hi || matchingCat.en || "श्रेणी")) : attempt.category;
                         
                         return (
                           <tr key={idx} className="border-b border-outline-variant/10 hover:bg-white/5 transition-colors">
