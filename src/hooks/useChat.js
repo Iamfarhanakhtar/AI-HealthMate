@@ -42,9 +42,49 @@ export function useChat() {
     };
   }, []);
 
+  // One-time offline migration script
+  const performMigration = () => {
+    try {
+      const migrationKey = "aiHealthMateChatMigrationVersion";
+      const targetVersion = "gemini-live-v1";
+      
+      if (localStorage.getItem(migrationKey) === targetVersion) {
+        return; // Already migrated
+      }
+
+      const stored = localStorage.getItem(CONVERSATIONS_KEY);
+      if (stored) {
+        let history = JSON.parse(stored);
+        
+        // Filter out conversations that contain offline mode phrasing
+        history = history.filter(conv => {
+          if (!conv.messages) return false;
+          const hasOfflineMessage = conv.messages.some(msg => {
+            if (!msg.content) return false;
+            const text = msg.content.toLowerCase();
+            return (
+              text.includes("i am currently in offline mode") ||
+              text.includes("offline mode") ||
+              text.includes("local fallback") ||
+              text.includes("couldn't find a specific guide")
+            );
+          });
+          return !hasOfflineMessage;
+        });
+        
+        localStorage.setItem(CONVERSATIONS_KEY, JSON.stringify(history));
+      }
+      
+      localStorage.setItem(migrationKey, targetVersion);
+    } catch (e) {
+      console.error("Migration failed:", e);
+    }
+  };
+
   // Load conversations from local storage on mount
   useEffect(() => {
     try {
+      performMigration();
       const stored = localStorage.getItem(CONVERSATIONS_KEY);
       const history = stored ? JSON.parse(stored) : [];
       setConversations(history);
