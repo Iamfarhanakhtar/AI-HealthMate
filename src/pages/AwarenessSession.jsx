@@ -118,6 +118,7 @@ function AwarenessSession() {
     expectedCount: 30,
     estimatedDuration: 45
   });
+  const [configErrors, setConfigErrors] = useState({});
 
   // Active Presentation state
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
@@ -143,6 +144,8 @@ function AwarenessSession() {
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (sessionState !== "active") return;
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+      
       if (e.key === "ArrowRight" || e.key === " ") {
         e.preventDefault();
         handleNext();
@@ -188,6 +191,7 @@ function AwarenessSession() {
           expectedCount: 50,
           estimatedDuration: 40
         });
+        setConfigErrors({});
       } else {
         setConfig({
           sessionName: "",
@@ -297,49 +301,72 @@ function AwarenessSession() {
             <form 
               onSubmit={(e) => {
                 e.preventDefault();
+                const errors = {};
+                if (!config.sessionName.trim()) errors.sessionName = "Session Name is required";
+                if (!config.presenterName.trim()) errors.presenterName = "Presenter Name is required";
+                if (!config.orgName.trim()) errors.orgName = "Organization Name is required";
+                
+                if (Object.keys(errors).length > 0) {
+                  setConfigErrors(errors);
+                  return;
+                }
+                setConfigErrors({});
                 setSessionState("overview");
               }} 
               className="p-6 rounded-2xl bg-surface-container-low/40 border border-outline-variant/20 space-y-4 shadow-xl"
+              noValidate
             >
               <h3 className="font-bold text-sm text-on-surface mb-2">{t.setupTitle}</h3>
               
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-1">
-                  <label className="text-[10px] uppercase font-mono tracking-widest text-cyan-400 font-semibold">{t.sessionName}</label>
+                  <label className="text-[10px] uppercase font-mono tracking-widest text-cyan-400 font-semibold">{t.sessionName} *</label>
                   <input
                     type="text"
-                    required
                     value={config.sessionName}
-                    onChange={(e) => setConfig(prev => ({ ...prev, sessionName: e.target.value }))}
+                    onChange={(e) => {
+                      setConfig(prev => ({ ...prev, sessionName: e.target.value }));
+                      if (configErrors.sessionName) setConfigErrors(prev => ({ ...prev, sessionName: null }));
+                    }}
                     className="w-full bg-surface-container px-3.5 py-2.5 rounded-xl border border-outline-variant/30 text-xs text-on-surface focus:border-cyan-500/50 outline-none"
                     placeholder="e.g. Village Mosquito Awareness Campaign"
+                    aria-invalid={!!configErrors.sessionName}
                   />
+                  {configErrors.sessionName && <p className="text-[10px] text-red-400 font-semibold">{configErrors.sessionName}</p>}
                 </div>
 
                 <div className="space-y-1">
-                  <label className="text-[10px] uppercase font-mono tracking-widest text-cyan-400 font-semibold">{t.presenter}</label>
+                  <label className="text-[10px] uppercase font-mono tracking-widest text-cyan-400 font-semibold">{t.presenter} *</label>
                   <input
                     type="text"
-                    required
                     value={config.presenterName}
-                    onChange={(e) => setConfig(prev => ({ ...prev, presenterName: e.target.value }))}
+                    onChange={(e) => {
+                      setConfig(prev => ({ ...prev, presenterName: e.target.value }));
+                      if (configErrors.presenterName) setConfigErrors(prev => ({ ...prev, presenterName: null }));
+                    }}
                     className="w-full bg-surface-container px-3.5 py-2.5 rounded-xl border border-outline-variant/30 text-xs text-on-surface focus:border-cyan-500/50 outline-none"
                     placeholder="e.g. Rahul Sharma"
+                    aria-invalid={!!configErrors.presenterName}
                   />
+                  {configErrors.presenterName && <p className="text-[10px] text-red-400 font-semibold">{configErrors.presenterName}</p>}
                 </div>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-1">
-                  <label className="text-[10px] uppercase font-mono tracking-widest text-cyan-400 font-semibold">{t.org}</label>
+                  <label className="text-[10px] uppercase font-mono tracking-widest text-cyan-400 font-semibold">{t.org} *</label>
                   <input
                     type="text"
-                    required
                     value={config.orgName}
-                    onChange={(e) => setConfig(prev => ({ ...prev, orgName: e.target.value }))}
+                    onChange={(e) => {
+                      setConfig(prev => ({ ...prev, orgName: e.target.value }));
+                      if (configErrors.orgName) setConfigErrors(prev => ({ ...prev, orgName: null }));
+                    }}
                     className="w-full bg-surface-container px-3.5 py-2.5 rounded-xl border border-outline-variant/30 text-xs text-on-surface focus:border-cyan-500/50 outline-none"
                     placeholder="e.g. Rural Primary School"
+                    aria-invalid={!!configErrors.orgName}
                   />
+                  {configErrors.orgName && <p className="text-[10px] text-red-400 font-semibold">{configErrors.orgName}</p>}
                 </div>
 
                 <div className="space-y-1">
