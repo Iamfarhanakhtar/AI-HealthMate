@@ -15,12 +15,18 @@ export function useChat() {
   const [error, setError] = useState(null);
   const [offlineMode, setOfflineMode] = useState(!navigator.onLine);
   const [isKeyConfigured, setIsKeyConfigured] = useState(isGeminiConfigured());
+  const [providerStatus, setProviderStatus] = useState(
+    !navigator.onLine ? 'offline' : (isGeminiConfigured() ? 'live' : 'missing_key')
+  );
 
   const refreshKeyStatus = useCallback(() => {
     const configured = isGeminiConfigured();
     setIsKeyConfigured(configured);
     if (configured && navigator.onLine) {
       setOfflineMode(false);
+      setProviderStatus('live');
+    } else if (!configured) {
+      setProviderStatus('missing_key');
     }
   }, []);
 
@@ -30,8 +36,16 @@ export function useChat() {
 
   // Monitor online status
   useEffect(() => {
-    const handleOnline = () => setOfflineMode(false);
-    const handleOffline = () => setOfflineMode(true);
+    const handleOnline = () => {
+      setOfflineMode(false);
+      setProviderStatus(isKeyConfigured ? 'live' : 'missing_key');
+      console.debug(`[AI HealthMate] Network restored. Provider status: ${isKeyConfigured ? 'live' : 'missing_key'}`);
+    };
+    const handleOffline = () => {
+      setOfflineMode(true);
+      setProviderStatus('offline');
+      console.debug(`[AI HealthMate] Network offline. Provider status: offline`);
+    };
 
     window.addEventListener('online', handleOnline);
     window.addEventListener('offline', handleOffline);
@@ -40,7 +54,7 @@ export function useChat() {
       window.removeEventListener('online', handleOnline);
       window.removeEventListener('offline', handleOffline);
     };
-  }, []);
+  }, [isKeyConfigured]);
 
   // One-time offline migration script
   const performMigration = () => {
@@ -299,15 +313,18 @@ export function useChat() {
     setMessages(prev => [...prev, assistantPlaceholder]);
 
     if (!navigator.onLine) {
+      setProviderStatus('offline');
       await handleOfflineFallback(userText, assistantMsgId, 'offline');
       return;
     } else if (!isGeminiConfigured()) {
+      setProviderStatus('missing_key');
       await handleOfflineFallback(userText, assistantMsgId, 'missing_key');
       return;
     }
 
     // Online Mode - Stream from Gemini API
     try {
+      console.debug(`[AI HealthMate] Attempting Live Gemini connection. Key exists: ${isKeyConfigured}`);
       let fullTextAccumulator = "";
       const streamGenerator = geminiService.sendMessageStream(userText, messages);
 
@@ -356,20 +373,25 @@ export function useChat() {
           return updated;
         });
 
+        setProviderStatus('live');
         return finalMsgs;
       });
 
       analytics.logEvent('Response Generated', { provider: 'gemini_api' });
     } catch (err) {
+      console.debug(`[AI HealthMate] Gemini connection failed. Error category: ${err.message || 'UNKNOWN'}`);
       console.error("Chat communication failure:", err);
       
       let reason = 'unknown';
       if (err.message === 'RATE_LIMIT') {
         reason = 'rate_limit';
+        setProviderStatus('temporarily_unavailable');
       } else if (err.message === 'API_KEY_MISSING' || err.message === 'INVALID_KEY') {
         reason = 'missing_key';
+        setProviderStatus('missing_key');
       } else {
         reason = 'api_error';
+        setProviderStatus('temporarily_unavailable');
       }
 
       await handleOfflineFallback(userText, assistantMsgId, reason);
@@ -408,6 +430,7 @@ export function useChat() {
     error,
     offlineMode,
     isKeyConfigured,
+    providerStatus,
     sendMessage,
     startNewChat,
     selectConversation,

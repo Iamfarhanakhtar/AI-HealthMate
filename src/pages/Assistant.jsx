@@ -22,6 +22,7 @@ function Assistant() {
     error,
     offlineMode,
     isKeyConfigured,
+    providerStatus,
     sendMessage,
     startNewChat,
     selectConversation,
@@ -123,8 +124,7 @@ function Assistant() {
         
         {/* Assistant status header */}
         <AIAvatar 
-          offlineMode={offlineMode} 
-          isKeyConfigured={isKeyConfigured}
+          providerStatus={providerStatus}
           onOpenSettings={() => setShowSettingsModal(true)}
         />
 

@@ -1,29 +1,29 @@
 import React from 'react';
 import { BrainCircuit, Radio, WifiOff, Settings, AlertCircle, Database } from 'lucide-react';
 
-export function AIAvatar({ offlineMode, isKeyConfigured, onOpenSettings }) {
+export function AIAvatar({ providerStatus, onOpenSettings }) {
   // Determine connection status text and icon
   let statusBadge = null;
 
-  if (!navigator.onLine) {
+  if (providerStatus === 'offline') {
     statusBadge = (
       <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs">
         <WifiOff className="w-3.5 h-3.5" />
         <span className="font-medium hidden sm:inline">Offline Mode</span>
       </div>
     );
-  } else if (!isKeyConfigured) {
+  } else if (providerStatus === 'missing_key') {
     statusBadge = (
       <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-red-500/10 border border-red-500/20 text-red-400 text-xs">
         <Settings className="w-3.5 h-3.5" />
         <span className="font-medium hidden sm:inline">Configuration Required</span>
       </div>
     );
-  } else if (offlineMode) {
+  } else if (providerStatus === 'temporarily_unavailable') {
     statusBadge = (
       <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs">
-        <BrainCircuit className="w-3.5 h-3.5" />
-        <span className="font-medium hidden sm:inline">Local Knowledge Base</span>
+        <AlertCircle className="w-3.5 h-3.5" />
+        <span className="font-medium hidden sm:inline">Live AI temporarily unavailable</span>
       </div>
     );
   } else {
@@ -35,6 +35,19 @@ export function AIAvatar({ offlineMode, isKeyConfigured, onOpenSettings }) {
     );
   }
 
+  const showConfigureButton = providerStatus === 'missing_key';
+  const indicatorColor = (providerStatus === 'offline' || providerStatus === 'temporarily_unavailable') 
+    ? 'bg-amber-500' 
+    : providerStatus === 'missing_key' 
+      ? 'bg-red-500' 
+      : 'bg-emerald-500';
+
+  const indicatorPingColor = (providerStatus === 'offline' || providerStatus === 'temporarily_unavailable') 
+    ? 'bg-amber-400' 
+    : providerStatus === 'missing_key' 
+      ? 'bg-red-400' 
+      : 'bg-emerald-400';
+
   return (
     <div className="flex items-center justify-between px-6 py-4 border-b border-outline-variant/30 bg-surface-container-lowest/60 backdrop-blur-md">
       <div className="flex items-center gap-3">
@@ -44,8 +57,8 @@ export function AIAvatar({ offlineMode, isKeyConfigured, onOpenSettings }) {
             <BrainCircuit className="w-5 h-5 text-cyan-400" />
           </div>
           {/* Status Indicator Dot */}
-          <span className={`absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full border-2 border-surface-container-lowest flex items-center justify-center ${!navigator.onLine || offlineMode ? 'bg-amber-500' : !isKeyConfigured ? 'bg-red-500' : 'bg-emerald-500'}`}>
-            <span className={`absolute w-full h-full rounded-full opacity-75 animate-ping ${!navigator.onLine || offlineMode ? 'bg-amber-400' : !isKeyConfigured ? 'bg-red-400' : 'bg-emerald-400'}`}></span>
+          <span className={`absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full border-2 border-surface-container-lowest flex items-center justify-center ${indicatorColor}`}>
+            <span className={`absolute w-full h-full rounded-full opacity-75 animate-ping ${indicatorPingColor}`}></span>
           </span>
         </div>
  
@@ -63,14 +76,16 @@ export function AIAvatar({ offlineMode, isKeyConfigured, onOpenSettings }) {
       {/* Dynamic connection status badge and settings button */}
       <div className="flex items-center gap-2.5">
         {statusBadge}
-        <button
-          onClick={onOpenSettings}
-          className="p-1.5 sm:px-3 sm:py-1.5 rounded-xl bg-surface-container hover:bg-surface-container-high border border-outline-variant/30 text-on-surface hover:text-white transition-all cursor-pointer flex items-center justify-center gap-1.5 text-xs font-semibold shadow-lg shadow-black/10"
-          title="Configure Gemini API Key"
-        >
-          <Settings className="w-3.5 h-3.5 text-cyan-400" />
-          <span className="hidden sm:inline">Configure Key</span>
-        </button>
+        {showConfigureButton && (
+          <button
+            onClick={onOpenSettings}
+            className="p-1.5 sm:px-3 sm:py-1.5 rounded-xl bg-surface-container hover:bg-surface-container-high border border-outline-variant/30 text-on-surface hover:text-white transition-all cursor-pointer flex items-center justify-center gap-1.5 text-xs font-semibold shadow-lg shadow-black/10"
+            title="Configure Gemini API Key"
+          >
+            <Settings className="w-3.5 h-3.5 text-cyan-400" />
+            <span className="hidden sm:inline">Configure Key</span>
+          </button>
+        )}
       </div>
     </div>
   );
