@@ -31,7 +31,7 @@ function CallToAction() {
             <Button
               onClick={() => navigate('/awareness-session')}
               variant="tertiary"
-              iconLeft={<span className="material-symbols-outlined text-sm" aria-hidden="true">school</span>}
+              iconLeft={<MaterialIcon icon="school" className="text-sm" />}
             >
               Start Guided Session Mode
             </Button>

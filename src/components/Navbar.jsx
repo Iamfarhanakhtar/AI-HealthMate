@@ -61,7 +61,7 @@ function Navbar() {
         <div className="max-w-[1200px] mx-auto px-6 flex justify-between items-center">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 group" aria-label="Go to homepage">
-            <span className="material-symbols-outlined text-primary text-3xl" aria-hidden="true">&#xe123;</span>
+            <MaterialIcon icon="&#xe123;" className="text-primary text-3xl" />
             <span className="font-display-lg text-[20px] font-bold text-primary tracking-tight">
               AI HealthMate
             </span>
@@ -99,7 +99,7 @@ function Navbar() {
               aria-label="Open navigation menu"
               aria-expanded={isOpen}
             >
-              <span className="material-symbols-outlined text-2xl" aria-hidden="true">&#xe5d2;</span>
+              <MaterialIcon icon="&#xe5d2;" className="text-2xl" />
             </button>
           </div>
         </div>
@@ -139,7 +139,7 @@ function Navbar() {
                   className="p-2 text-on-surface-variant hover:text-white focus:outline-none focus:ring-2 focus:ring-primary/50 rounded-lg transition-colors"
                   aria-label="Close navigation menu"
                 >
-                  <span className="material-symbols-outlined text-2xl" aria-hidden="true">&#xe5cd;</span>
+                  <MaterialIcon icon="&#xe5cd;" className="text-2xl" />
                 </button>
               </div>
 

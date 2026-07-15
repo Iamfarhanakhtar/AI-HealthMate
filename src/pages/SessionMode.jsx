@@ -204,7 +204,7 @@ function SessionMode() {
             >
               <GlassPanel glowVariant="cyan" className="p-8">
                 <div className="flex items-center gap-2 mb-4">
-                  <span className="material-symbols-outlined text-primary text-3xl" aria-hidden="true">school</span>
+                  <MaterialIcon icon="school" className="text-primary text-3xl" />
                   <h1 className="font-display-lg text-2xl font-bold text-secondary">
                     Initialize Awareness Session
                   </h1>
@@ -296,7 +296,7 @@ function SessionMode() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                 <GlassPanel className="p-5 flex flex-col gap-3">
-                  <span className="material-symbols-outlined text-primary text-3xl" aria-hidden="true">pest_control</span>
+                  <MaterialIcon icon="pest_control" className="text-primary text-3xl" />
                   <h4 className="font-title-md font-bold text-secondary text-[16px]">Dengue & Mosquito Prevention</h4>
                   <ul className="space-y-1.5 pl-4 list-disc text-body-sm text-on-surface-variant text-[13px] leading-relaxed">
                     <li>Drain standing pools of water from tires, pots, and coolers weekly.</li>
@@ -306,7 +306,7 @@ function SessionMode() {
                 </GlassPanel>
 
                 <GlassPanel className="p-5 flex flex-col gap-3">
-                  <span className="material-symbols-outlined text-[#36ffc4] text-3xl" aria-hidden="true">water_drop</span>
+                  <MaterialIcon icon="water_drop" className="text-[#36ffc4] text-3xl" />
                   <h4 className="font-title-md font-bold text-secondary text-[16px]">Water Safety & Sanitation</h4>
                   <ul className="space-y-1.5 pl-4 list-disc text-body-sm text-on-surface-variant text-[13px] leading-relaxed">
                     <li>Boil drinking water for at least 1 minute (rolling boil).</li>
@@ -340,7 +340,7 @@ function SessionMode() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
                 <GlassPanel className="p-4 border-l-4 border-l-red-500/40">
                   <h4 className="font-title-md font-bold text-secondary text-[15px] flex items-center gap-2">
-                    <span className="material-symbols-outlined text-red-400 text-lg" aria-hidden="true">medical_services</span>
+                    <MaterialIcon icon="medical_services" className="text-red-400 text-lg" />
                     Snake Bites Care
                   </h4>
                   <p className="text-[12px] text-on-surface-variant mt-2 leading-relaxed">
@@ -350,7 +350,7 @@ function SessionMode() {
 
                 <GlassPanel className="p-4 border-l-4 border-l-primary/40">
                   <h4 className="font-title-md font-bold text-secondary text-[15px] flex items-center gap-2">
-                    <span className="material-symbols-outlined text-primary text-lg" aria-hidden="true">local_fire_department</span>
+                    <MaterialIcon icon="local_fire_department" className="text-primary text-lg" />
                     Thermal Burn Care
                   </h4>
                   <p className="text-[12px] text-on-surface-variant mt-2 leading-relaxed">
@@ -502,7 +502,7 @@ function SessionMode() {
               ) : (
                 // Quiz completed successfully
                 <GlassPanel className="p-6 text-center">
-                  <span className="material-symbols-outlined text-4xl text-[#36ffc4] mb-3" aria-hidden="true">check_circle</span>
+                  <MaterialIcon icon="check_circle" className="text-4xl text-[#36ffc4] mb-3" />
                   <h4 className="font-title-md text-lg text-secondary font-bold">Assessments Concluded!</h4>
                   <p className="text-body-sm text-on-surface-variant text-[13px] mt-1 leading-normal">
                     The group scored <strong>{qScore}</strong> out of <strong>{sessionQuiz.questions.length}</strong> correct.

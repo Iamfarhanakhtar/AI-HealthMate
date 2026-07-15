@@ -105,7 +105,7 @@ function Quizzes() {
                   onClick={() => startQuiz(quiz.id)}
                   variant="primary"
                   className="w-full sm:w-auto"
-                  iconRight={<span className="material-symbols-outlined text-sm font-bold" aria-hidden="true">play_arrow</span>}
+                  iconRight={<MaterialIcon icon="play_arrow" className="text-sm font-bold" />}
                 >
                   Start Assessment
                 </Button>
@@ -129,7 +129,7 @@ function Quizzes() {
                 onClick={resetQuiz}
                 className="text-xs text-on-surface-variant hover:text-primary transition-colors flex items-center gap-1 mb-6 cursor-pointer"
               >
-                <span className="material-symbols-outlined text-[16px]" aria-hidden="true">arrow_back</span>
+                <MaterialIcon icon="arrow_back" className="text-[16px]" />
                 Cancel Quiz
               </button>
 
@@ -214,7 +214,7 @@ function Quizzes() {
                       onClick={nextQuestion}
                       variant="primary"
                       className="mt-6 w-full sm:w-auto ml-auto block"
-                      iconRight={<span className="material-symbols-outlined text-sm" aria-hidden="true">&#xe5c8;</span>}
+                      iconRight={<MaterialIcon icon="&#xe5c8;" className="text-sm" />}
                     >
                       {currentQuestionIndex + 1 === activeQuiz.questions.length ? "Finish Quiz" : "Next Question"}
                     </Button>
@@ -341,7 +341,7 @@ function Quizzes() {
                   }}
                   className="text-xs text-on-surface-variant hover:text-primary transition-colors flex items-center gap-1 mt-10 mx-auto cursor-pointer"
                 >
-                  <span className="material-symbols-outlined text-[16px]" aria-hidden="true">arrow_back</span>
+                  <MaterialIcon icon="arrow_back" className="text-[16px]" />
                   Back to Quiz Dashboard
                 </button>
               )}

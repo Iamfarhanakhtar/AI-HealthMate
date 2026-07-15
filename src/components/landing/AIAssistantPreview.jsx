@@ -58,7 +58,7 @@ function AIAssistantPreview() {
           <Button
             onClick={() => navigate('/assistant')}
             variant="primary"
-            iconRight={<span className="material-symbols-outlined text-sm" aria-hidden="true">smart_toy</span>}
+            iconRight={<MaterialIcon icon="smart_toy" className="text-sm" />}
           >
             Launch Active AI Companion
           </Button>

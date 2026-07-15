@@ -137,7 +137,7 @@ function CertificateCard({
         onClick={handlePrint}
         variant="primary"
         className="w-full sm:w-auto"
-        iconLeft={<span className="material-symbols-outlined text-sm" aria-hidden="true">print</span>}
+        iconLeft={<MaterialIcon icon="print" className="text-sm" />}
       >
         Print Certificate
       </Button>

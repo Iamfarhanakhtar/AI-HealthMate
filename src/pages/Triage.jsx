@@ -84,7 +84,7 @@ function Triage() {
         <div className="lg:col-span-7 flex flex-col gap-6 text-left">
           <GlassPanel className="p-6">
             <h3 className="font-title-md text-lg text-secondary font-bold mb-4 flex items-center gap-2">
-              <span className="material-symbols-outlined text-primary" aria-hidden="true">checklist</span>
+              <MaterialIcon icon="checklist" className="text-primary" />
               Select Symptoms
             </h3>
             
@@ -108,7 +108,7 @@ function Triage() {
                     <div className={`w-5 h-5 rounded-md border flex items-center justify-center flex-shrink-0 transition-colors ${
                       isChecked ? 'border-primary bg-primary text-on-primary' : 'border-outline-variant bg-transparent'
                     }`}>
-                      {isChecked && <span className="material-symbols-outlined text-[14px] font-bold" aria-hidden="true">check</span>}
+                      {isChecked && <MaterialIcon icon="check" className="text-[14px] font-bold" />}
                     </div>
                     <span className="text-[13px] font-medium leading-none">{symptom}</span>
                   </div>
@@ -122,7 +122,7 @@ function Triage() {
                 disabled={selectedSymptoms.length === 0}
                 variant="primary"
                 className="w-full sm:w-auto"
-                iconRight={<span className="material-symbols-outlined text-sm font-bold" aria-hidden="true">insights</span>}
+                iconRight={<MaterialIcon icon="insights" className="text-sm font-bold" />}
               >
                 Analyze Symptoms
               </Button>
@@ -160,7 +160,7 @@ function Triage() {
 
                     {/* Severity alert badge */}
                     <div className={`mt-3 py-1.5 px-3 rounded-lg border text-xs font-semibold flex items-center gap-2 ${severityColors[triageReport.severity]}`}>
-                      <span className="material-symbols-outlined text-[16px]" aria-hidden="true">info</span>
+                      <MaterialIcon icon="info" className="text-[16px]" />
                       Severity Rating: {triageReport.severity.toUpperCase()}
                     </div>
 

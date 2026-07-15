@@ -151,7 +151,7 @@ function Explore() {
                           {/* Symptoms */}
                           <div className="flex flex-col gap-3">
                             <h3 className="font-title-md text-[15px] font-bold text-[#e3d4ff] flex items-center gap-2">
-                              <span className="material-symbols-outlined text-[18px]" aria-hidden="true">emergency</span>
+                              <MaterialIcon icon="emergency" className="text-[18px]" />
                               Symptoms to Watch
                             </h3>
                             <ul className="space-y-1.5">
@@ -167,7 +167,7 @@ function Explore() {
                           {/* Prevention */}
                           <div className="flex flex-col gap-3">
                             <h3 className="font-title-md text-[15px] font-bold text-[#36ffc4] flex items-center gap-2">
-                              <span className="material-symbols-outlined text-[18px]" aria-hidden="true">verified</span>
+                              <MaterialIcon icon="verified" className="text-[18px]" />
                               Prevention Actions
                             </h3>
                             <ul className="space-y-1.5">
@@ -183,7 +183,7 @@ function Explore() {
                           {/* Home Care / Triage Advice */}
                           <div className="flex flex-col gap-3">
                             <h3 className="font-title-md text-[15px] font-bold text-primary flex items-center gap-2">
-                              <span className="material-symbols-outlined text-[18px]" aria-hidden="true">clinical_notes</span>
+                              <MaterialIcon icon="clinical_notes" className="text-[18px]" />
                               Care Instructions
                             </h3>
                             <ul className="space-y-1.5">
@@ -204,7 +204,7 @@ function Explore() {
             })
           ) : (
             <div className="text-center py-16 text-on-surface-variant">
-              <span className="material-symbols-outlined text-5xl opacity-40" aria-hidden="true">find_in_page</span>
+              <MaterialIcon icon="find_in_page" className="text-5xl opacity-40" />
               <p className="mt-2 text-body-md">No topics found matching your query.</p>
             </div>
           )}
