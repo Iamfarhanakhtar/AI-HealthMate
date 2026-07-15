@@ -1,333 +1,168 @@
-import React, { useState, useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Star, CheckCircle, MessageSquare, Send, Globe, ChevronLeft } from 'lucide-react';
-import Container from '../components/UI/Container';
+import React, { useState, useContext } from 'react';
+import { PlatformContext } from '../context/PlatformContext';
 import SectionTitle from '../components/UI/SectionTitle';
-import useImpactState from '../hooks/useImpactState';
-import { feedbackChoices } from '../utils/impactData';
+import Container from '../components/UI/Container';
+import GlassPanel from '../components/UI/GlassPanel';
+import Input from '../components/UI/Input';
+import Textarea from '../components/UI/Textarea';
+import Button from '../components/UI/Button';
 
 function CommunityFeedback() {
-  const navigate = useNavigate();
-  const { submitFeedback } = useImpactState();
+  const { addFeedback } = useContext(PlatformContext);
   
-  // Find language
-  const language = localStorage.getItem('ai_healthmate_language') || 'en';
-
-  const [form, setForm] = useState({
-    name: "",
-    ageGroup: "18-25",
-    occupation: "Student",
-    location: "",
-    overallRating: 5,
-    assistantRating: 5,
-    libraryRating: 5,
-    guideRating: 5,
-    quizRating: 5,
-    mostUsefulFeature: "AI Assistant",
-    whatLearned: "",
-    recommend: "Yes",
-    suggestions: "",
+  const [formData, setFormData] = useState({
+    name: '',
+    location: '',
+    feedback: '',
+    rating: 0,
     consent: false
   });
+  
+  const [errors, setErrors] = useState({});
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const [submitted, setSubmitted] = useState(false);
-
-  // Translation maps
-  const t = useMemo(() => {
-    return {
-      en: {
-        title: "Community Feedback Survey",
-        subtitle: "Help us measure educational impact and improve AI HealthMate for your community.",
-        name: "Name (Optional)",
-        age: "Age Group",
-        occupation: "Occupation",
-        location: "Location / District (Optional)",
-        feature: "Most Useful Feature",
-        learned: "What did you learn today?",
-        learnedPlaceholder: "Describe any new first aid tips or disease prevention steps you discovered...",
-        recommend: "Would you recommend AI HealthMate to others?",
-        suggestions: "Suggestions for improvement",
-        suggestionsPlaceholder: "Any features or additional local health topics you would like to see...",
-        consent: "I consent to sharing this feedback anonymously for social internship records.",
-        submit: "Submit Feedback",
-        overall: "Overall Platform Rating",
-        assistant: "AI Assistant Chat",
-        library: "Disease Awareness Library",
-        guide: "Emergency First Aid Guide",
-        quiz: "Assessment Quiz Experience",
-        thankYou: "Thank You!",
-        successDesc: "Your feedback has been logged successfully. It contributes directly to our internship awareness analytics.",
-        back: "Go to Impact Dashboard"
-      },
-      hi: {
-        title: "सामुदायिक प्रतिक्रिया सर्वेक्षण",
-        subtitle: "शैक्षिक प्रभाव को मापने और अपने समुदाय के लिए AI HealthMate को बेहतर बनाने में हमारी मदद करें।",
-        name: "नाम (वैकल्पिक)",
-        age: "आयु वर्ग",
-        occupation: "व्यवसाय",
-        location: "स्थान / जिला (वैकल्पिक)",
-        feature: "सबसे उपयोगी विशेषता",
-        learned: "आपने आज क्या सीखा?",
-        learnedPlaceholder: "बताएं कि आपने प्राथमिक चिकित्सा या बीमारी की रोकथाम के कौन से नए तरीके सीखे...",
-        recommend: "क्या आप दूसरों को AI HealthMate की सिफारिश करेंगे?",
-        suggestions: "सुधार के लिए सुझाव",
-        suggestionsPlaceholder: "कोई भी विशेषता या स्थानीय स्वास्थ्य विषय जो आप देखना चाहते हैं...",
-        consent: "मैं सामाजिक इंटर्नशिप रिकॉर्ड के लिए गुमनाम रूप से इस प्रतिक्रिया को साझा करने की सहमति देता हूं।",
-        submit: "प्रतिक्रिया सबमिट करें",
-        overall: "समग्र मंच रेटिंग",
-        assistant: "AI सहायक चैट",
-        library: "रोग जागरूकता लाइब्रेरी",
-        guide: "आपातकालीन प्राथमिक चिकित्सा गाइड",
-        quiz: "मूल्यांकन प्रश्नोत्तरी अनुभव",
-        thankYou: "धन्यवाद!",
-        successDesc: "आपकी प्रतिक्रिया सफलतापूर्वक दर्ज कर ली गई है। यह सीधे हमारे इंटर्नशिप जागरूकता विश्लेषण में योगदान देती है।",
-        back: "प्रभाव डैशबोर्ड पर जाएं"
-      }
-    }[language];
-  }, [language]);
-
-  const handleStarClick = (moduleKey, val) => {
-    setForm(prev => ({ ...prev, [moduleKey]: val }));
+  const validate = () => {
+    const newErrors = {};
+    if (!formData.feedback.trim()) {
+      newErrors.feedback = "Health concerns or feedback is required.";
+    }
+    if (formData.rating === 0) {
+      newErrors.rating = "Please provide an overall rating.";
+    }
+    if (!formData.consent) {
+      newErrors.consent = "You must provide consent to submit this feedback.";
+    }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!form.consent) {
-      alert(language === 'en' ? "Please accept the consent checkbox to submit." : "कृपया सबमिट करने के लिए सहमति चेकबॉक्स स्वीकार करें।");
-      return;
+    if (validate()) {
+      // Store in localStorage
+      const prevFeedback = JSON.parse(localStorage.getItem('healthmate_feedback') || '[]');
+      const newEntry = { ...formData, id: Date.now(), date: new Date().toISOString() };
+      localStorage.setItem('healthmate_feedback', JSON.stringify([...prevFeedback, newEntry]));
+      
+      // Update global context metrics
+      if (addFeedback) addFeedback(newEntry);
+      
+      setIsSubmitted(true);
+      // Reset form
+      setFormData({ name: '', location: '', feedback: '', rating: 0, consent: false });
     }
-    submitFeedback(form);
-    setSubmitted(true);
-  };
-
-  const renderStars = (moduleKey, currentVal) => {
-    return (
-      <div className="flex gap-1.5 mt-1">
-        {[1, 2, 3, 4, 5].map((star) => (
-          <button
-            key={star}
-            type="button"
-            onClick={() => handleStarClick(moduleKey, star)}
-            className="focus:outline-none cursor-pointer p-0.5 hover:scale-110 transition-transform"
-          >
-            <Star 
-              className={`w-5 h-5 ${
-                star <= currentVal 
-                  ? 'text-cyan-400 fill-cyan-400' 
-                  : 'text-outline-variant hover:text-cyan-300'
-              }`} 
-            />
-          </button>
-        ))}
-      </div>
-    );
   };
 
   return (
-    <Container className="py-10 max-w-3xl">
-      
-      {/* Dynamic Back button */}
-      <button
-        onClick={() => navigate('/community-impact')}
-        className="mb-6 text-xs text-cyan-400 hover:text-cyan-300 flex items-center gap-1 cursor-pointer font-semibold uppercase tracking-wider"
-      >
-        <ChevronLeft className="w-4 h-4" />
-        {language === 'en' ? 'Back to Impact Dashboard' : 'डैशबोर्ड पर वापस जाएं'}
-      </button>
-
+    <Container className="py-10">
       <SectionTitle
-        title={t.title}
-        subtitle={t.subtitle}
+        title="Community Feedback Form"
+        subtitle="Share Your Voice"
       />
-
-      <div className="mt-8">
-        {submitted ? (
-          /* SUCCESS BANNER */
-          <div className="p-8 rounded-2xl bg-surface-container-low/40 border border-emerald-500/25 text-center space-y-5 animate-fade-in shadow-2xl">
-            <CheckCircle className="w-16 h-16 text-emerald-400 mx-auto animate-pulse" />
-            <h2 className="text-xl sm:text-2xl font-bold text-white">{t.thankYou}</h2>
-            <p className="text-sm text-on-surface-variant max-w-md mx-auto leading-relaxed">
-              {t.successDesc}
-            </p>
-            <button
-              onClick={() => navigate('/community-impact')}
-              className="px-6 py-2.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-on-primary font-bold text-xs transition-colors cursor-pointer"
-            >
-              {t.back}
-            </button>
-          </div>
-        ) : (
-          /* FORM SUBMISSION */
-          <form onSubmit={handleSubmit} className="p-6 rounded-2xl bg-surface-container-low/40 border border-outline-variant/20 space-y-6 text-left shadow-xl">
-            
-            {/* Demographic Row A */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="space-y-1">
-                <label className="text-[10px] uppercase font-mono tracking-widest text-cyan-400 font-semibold">{t.name}</label>
-                <input
-                  type="text"
-                  value={form.name}
-                  onChange={(e) => setForm(prev => ({ ...prev, name: e.target.value }))}
-                  className="w-full bg-surface-container px-3.5 py-2.5 rounded-xl border border-outline-variant/30 text-xs text-on-surface focus:border-cyan-500/50 outline-none"
-                  placeholder="e.g. Rahul Kumar"
-                />
-              </div>
-
-              <div className="space-y-1">
-                <label className="text-[10px] uppercase font-mono tracking-widest text-cyan-400 font-semibold">{t.location}</label>
-                <input
-                  type="text"
-                  value={form.location}
-                  onChange={(e) => setForm(prev => ({ ...prev, location: e.target.value }))}
-                  className="w-full bg-surface-container px-3.5 py-2.5 rounded-xl border border-outline-variant/30 text-xs text-on-surface focus:border-cyan-500/50 outline-none"
-                  placeholder="e.g. Pune, Maharashtra"
-                />
-              </div>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-6">
+        <GlassPanel className="p-6">
+          {isSubmitted ? (
+            <div className="flex flex-col items-center justify-center py-10 text-center gap-4 animate-fade-in" role="alert" aria-live="polite">
+              <span className="material-symbols-outlined text-5xl text-emerald-400">check_circle</span>
+              <h3 className="text-xl font-bold text-emerald-400">Thank You!</h3>
+              <p className="text-sm text-on-surface-variant">Your feedback has been successfully submitted and will help us improve.</p>
+              <Button variant="secondary" onClick={() => setIsSubmitted(false)} className="mt-4">
+                Submit Another Response
+              </Button>
             </div>
-
-            {/* Demographic Row B */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="space-y-1">
-                <label className="text-[10px] uppercase font-mono tracking-widest text-cyan-400 font-semibold">{t.age}</label>
-                <select
-                  value={form.ageGroup}
-                  onChange={(e) => setForm(prev => ({ ...prev, ageGroup: e.target.value }))}
-                  className="w-full bg-surface-container px-3.5 py-2.5 rounded-xl border border-outline-variant/30 text-xs text-on-surface focus:border-cyan-500/50 outline-none"
-                >
-                  {feedbackChoices.ageGroups.map(a => <option key={a} value={a}>{a}</option>)}
-                </select>
-              </div>
-
-              <div className="space-y-1">
-                <label className="text-[10px] uppercase font-mono tracking-widest text-cyan-400 font-semibold">{t.occupation}</label>
-                <select
-                  value={form.occupation}
-                  onChange={(e) => setForm(prev => ({ ...prev, occupation: e.target.value }))}
-                  className="w-full bg-surface-container px-3.5 py-2.5 rounded-xl border border-outline-variant/30 text-xs text-on-surface focus:border-cyan-500/50 outline-none"
-                >
-                  {feedbackChoices.occupations.map(o => <option key={o} value={o}>{o}</option>)}
-                </select>
-              </div>
-            </div>
-
-            {/* Multi Star Ratings Matrix */}
-            <div className="space-y-4 border-t border-b border-outline-variant/15 py-4">
-              <h4 className="text-[10px] uppercase font-mono tracking-widest text-cyan-400 font-bold">Healthcare Modules Rating</h4>
+          ) : (
+            <form onSubmit={handleSubmit} className="flex flex-col gap-5" noValidate>
               
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="space-y-1">
-                  <span className="text-xs font-semibold text-on-surface-variant">{t.overall}</span>
-                  {renderStars("overallRating", form.overallRating)}
-                </div>
-
-                <div className="space-y-1">
-                  <span className="text-xs font-semibold text-on-surface-variant">{t.assistant}</span>
-                  {renderStars("assistantRating", form.assistantRating)}
-                </div>
-
-                <div className="space-y-1">
-                  <span className="text-xs font-semibold text-on-surface-variant">{t.library}</span>
-                  {renderStars("libraryRating", form.libraryRating)}
-                </div>
-
-                <div className="space-y-1">
-                  <span className="text-xs font-semibold text-on-surface-variant">{t.guide}</span>
-                  {renderStars("guideRating", form.guideRating)}
-                </div>
-
-                <div className="space-y-1">
-                  <span className="text-xs font-semibold text-on-surface-variant">{t.quiz}</span>
-                  {renderStars("quizRating", form.quizRating)}
-                </div>
+              {/* Optional Fields */}
+              <div className="flex flex-col gap-4">
+                <Input 
+                  label="Your Name (Optional)" 
+                  placeholder="e.g. Ramesh Patel" 
+                  value={formData.name}
+                  onChange={(e) => setFormData({...formData, name: e.target.value})}
+                />
+                <Input 
+                  label="Village / School Location (Optional)" 
+                  placeholder="e.g. Sonapur High School" 
+                  value={formData.location}
+                  onChange={(e) => setFormData({...formData, location: e.target.value})}
+                />
               </div>
-            </div>
 
-            {/* Surveys choice selection */}
-            <div className="space-y-4">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="space-y-1">
-                  <label className="text-[10px] uppercase font-mono tracking-widest text-cyan-400 font-semibold">{t.feature}</label>
-                  <select
-                    value={form.mostUsefulFeature}
-                    onChange={(e) => setForm(prev => ({ ...prev, mostUsefulFeature: e.target.value }))}
-                    className="w-full bg-surface-container px-3.5 py-2.5 rounded-xl border border-outline-variant/30 text-xs text-on-surface focus:border-cyan-500/50 outline-none"
-                  >
-                    {feedbackChoices.features.map(f => <option key={f} value={f}>{f}</option>)}
-                  </select>
+              {/* Required Feedback */}
+              <div className="flex flex-col gap-1">
+                <Textarea 
+                  label="Health Concerns or Feedback *" 
+                  placeholder="Share any sanitations topics or general issues..." 
+                  value={formData.feedback}
+                  onChange={(e) => {
+                    setFormData({...formData, feedback: e.target.value});
+                    if (errors.feedback) setErrors({...errors, feedback: null});
+                  }}
+                  aria-invalid={!!errors.feedback}
+                  aria-describedby={errors.feedback ? "feedback-error" : undefined}
+                />
+                {errors.feedback && <span id="feedback-error" className="text-red-400 text-xs font-semibold">{errors.feedback}</span>}
+              </div>
+
+              {/* Required Rating */}
+              <div className="flex flex-col gap-2">
+                <label className="text-sm font-semibold text-on-surface">Overall Rating *</label>
+                <div className="flex gap-2" role="radiogroup" aria-label="Overall Rating">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <button
+                      key={star}
+                      type="button"
+                      role="radio"
+                      aria-checked={formData.rating === star}
+                      onClick={() => {
+                        setFormData({...formData, rating: star});
+                        if (errors.rating) setErrors({...errors, rating: null});
+                      }}
+                      className="focus:outline-none focus:ring-2 focus:ring-primary/50 rounded-full"
+                      aria-label={`${star} Star${star > 1 ? 's' : ''}`}
+                    >
+                      <span className={`material-symbols-outlined text-2xl transition-colors ${formData.rating >= star ? 'text-amber-400 fill-amber-400' : 'text-on-surface-variant/40'}`}
+                            style={{ fontVariationSettings: formData.rating >= star ? "'FILL' 1" : "'FILL' 0" }}>
+                        star
+                      </span>
+                    </button>
+                  ))}
                 </div>
+                {errors.rating && <span className="text-red-400 text-xs font-semibold">{errors.rating}</span>}
+              </div>
 
-                <div className="space-y-1">
-                  <label className="text-[10px] uppercase font-mono tracking-widest text-cyan-400 font-semibold">{t.recommend}</label>
-                  <div className="flex gap-4 mt-2">
-                    {["Yes", "No"].map((opt) => (
-                      <label key={opt} className="flex items-center gap-1.5 text-xs text-on-surface-variant cursor-pointer">
-                        <input
-                          type="radio"
-                          name="recommend"
-                          value={opt}
-                          checked={form.recommend === opt}
-                          onChange={(e) => setForm(prev => ({ ...prev, recommend: e.target.value }))}
-                          className="accent-cyan-500"
-                        />
-                        <span>{opt}</span>
-                      </label>
-                    ))}
+              {/* Required Consent */}
+              <div className="flex flex-col gap-1 mt-2">
+                <label className="flex items-start gap-3 cursor-pointer group">
+                  <div className="pt-0.5">
+                    <input 
+                      type="checkbox" 
+                      className="peer sr-only"
+                      checked={formData.consent}
+                      onChange={(e) => {
+                        setFormData({...formData, consent: e.target.checked});
+                        if (errors.consent) setErrors({...errors, consent: null});
+                      }}
+                      aria-invalid={!!errors.consent}
+                    />
+                    <div className="w-5 h-5 rounded border-2 border-outline-variant flex items-center justify-center peer-checked:border-primary peer-checked:bg-primary transition-all peer-focus:ring-2 peer-focus:ring-primary/50 group-hover:border-primary">
+                      {formData.consent && <span className="material-symbols-outlined text-on-primary text-[16px] font-bold">check</span>}
+                    </div>
                   </div>
-                </div>
+                  <span className="text-xs text-on-surface-variant leading-relaxed">
+                    I consent to sharing this feedback to help improve the AI HealthMate platform. *
+                  </span>
+                </label>
+                {errors.consent && <span className="text-red-400 text-xs font-semibold ml-8">{errors.consent}</span>}
               </div>
 
-              {/* What did you learn */}
-              <div className="space-y-1">
-                <label className="text-[10px] uppercase font-mono tracking-widest text-cyan-400 font-semibold">{t.learned}</label>
-                <textarea
-                  value={form.whatLearned}
-                  onChange={(e) => setForm(prev => ({ ...prev, whatLearned: e.target.value }))}
-                  className="w-full bg-surface-container p-3 rounded-xl border border-outline-variant/30 text-xs text-on-surface focus:border-cyan-500/50 outline-none h-20 resize-none"
-                  placeholder={t.learnedPlaceholder}
-                  required
-                />
-              </div>
-
-              {/* Suggestions */}
-              <div className="space-y-1">
-                <label className="text-[10px] uppercase font-mono tracking-widest text-cyan-400 font-semibold">{t.suggestions}</label>
-                <textarea
-                  value={form.suggestions}
-                  onChange={(e) => setForm(prev => ({ ...prev, suggestions: e.target.value }))}
-                  className="w-full bg-surface-container p-3 rounded-xl border border-outline-variant/30 text-xs text-on-surface focus:border-cyan-500/50 outline-none h-20 resize-none"
-                  placeholder={t.suggestionsPlaceholder}
-                />
-              </div>
-            </div>
-
-            {/* Consent checkbox */}
-            <div className="flex items-start gap-2.5 pt-2">
-              <input
-                type="checkbox"
-                id="consent"
-                checked={form.consent}
-                onChange={(e) => setForm(prev => ({ ...prev, consent: e.target.checked }))}
-                className="mt-0.5 accent-cyan-500 shrink-0 cursor-pointer"
-                required
-              />
-              <label htmlFor="consent" className="text-[10px] text-outline-variant leading-relaxed select-none cursor-pointer">
-                {t.consent}
-              </label>
-            </div>
-
-            {/* Submit btn */}
-            <button
-              type="submit"
-              className="w-full py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-on-primary font-bold text-sm transition-all flex items-center justify-center gap-1.5 shadow-lg shadow-cyan-500/10 cursor-pointer"
-            >
-              <Send className="w-4 h-4" />
-              <span>{t.submit}</span>
-            </button>
-
-          </form>
-        )}
+              <Button type="submit" variant="primary" className="mt-2">Submit Feedback</Button>
+            </form>
+          )}
+        </GlassPanel>
+        <div id="feedback-bulletin-container"></div>
       </div>
-
     </Container>
   );
 }

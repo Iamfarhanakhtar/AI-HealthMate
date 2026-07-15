@@ -13,7 +13,7 @@ function Navbar() {
     { label: "Health Guide", path: "/health-guide" },
     { label: "Quiz", path: "/quiz" },
     { label: "Community Impact", path: "/community-impact" },
-    { label: "Feedback", path: "/contact" }
+    { label: "Feedback", path: "/community-feedback" }
   ];
 
   const mobileLinks = [

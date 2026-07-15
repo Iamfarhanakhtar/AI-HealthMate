@@ -16,6 +16,6 @@ export const ROUTES = {
   HEALTH_GUIDE: "/health-guide",
   QUIZ: "/quiz",
   COMMUNITY_IMPACT: "/community-impact",
-  CONTACT: "/contact",
+  COMMUNITY_FEEDBACK: "/community-feedback",
   AWARENESS_SESSION: "/awareness-session"
 };

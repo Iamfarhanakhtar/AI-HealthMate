@@ -1,5 +1,5 @@
 import React, { Suspense, lazy } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import Layout from './components/Layout';
 import LoadingSpinner from './components/UI/LoadingSpinner';
 
@@ -11,7 +11,7 @@ const HealthGuide = lazy(() => import('./pages/HealthGuide'));
 const Quiz = lazy(() => import('./pages/Quiz'));
 const CommunityImpact = lazy(() => import('./pages/CommunityImpact'));
 const CommunityFeedback = lazy(() => import('./pages/CommunityFeedback'));
-const Contact = lazy(() => import('./pages/Contact'));
+
 const AwarenessSession = lazy(() => import('./pages/AwarenessSession'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
@@ -31,7 +31,7 @@ function App() {
           <Route path="/quiz" element={<Quiz />} />
           <Route path="/community-impact" element={<CommunityImpact />} />
           <Route path="/community-feedback" element={<CommunityFeedback />} />
-          <Route path="/contact" element={<Contact />} />
+          <Route path="/contact" element={<Navigate to="/community-feedback" replace />} />
           <Route path="/awareness-session" element={<AwarenessSession />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

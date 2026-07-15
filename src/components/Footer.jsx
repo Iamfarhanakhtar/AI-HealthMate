@@ -12,7 +12,7 @@ function Footer() {
           <Link to="/health-library" className="text-outline hover:text-primary">Library</Link>
           <Link to="/health-guide" className="text-outline hover:text-primary">Triage</Link>
           <Link to="/quiz" className="text-outline hover:text-primary">Quiz</Link>
-          <Link to="/contact" className="text-outline hover:text-primary">Feedback</Link>
+          <Link to="/community-feedback" className="text-outline hover:text-primary">Feedback</Link>
         </div>
       </div>
     </footer>
