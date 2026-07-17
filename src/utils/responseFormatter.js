@@ -38,11 +38,11 @@ export const responseFormatter = {
     // Normalize markers for easy regex splitting
     // Support either [TAG] or **Tag** patterns
     const cleanText = text
-      .replace(/\[SUMMARY\]|\*\*Summary:\*\*|\*\*Summary\*\*/gi, '|||SUMMARY|||')
-      .replace(/\[KEY_POINTS\]|\*\*Key Points:\*\*|\*\*Key Points\*\*|\*\*Key Symptoms:\*\*|\*\*Key Symptoms\*\*/gi, '|||KEY_POINTS|||')
-      .replace(/\[PREVENTION\]|\*\*Prevention Tips:\*\*|\*\*Prevention Tips\*\*|\*\*Prevention:\*\*|\*\*Prevention\*\*/gi, '|||PREVENTION|||')
-      .replace(/\[CONSULT\]|\*\*When to Consult a Doctor:\*\*|\*\*When to Consult a Doctor\*\*|\*\*When to Consult:\*\*|\*\*When to Consult\*\*/gi, '|||CONSULT|||')
-      .replace(/\[DISCLAIMER\]|\*\*Educational Disclaimer:\*\*|\*\*Educational Disclaimer\*\*|\*\*Disclaimer:\*\*|\*\*Disclaimer\*\*/gi, '|||DISCLAIMER|||');
+      .replace(/\[SUMMARY\]|\*\*Summary:\*\*|\*\*Summary\*\*/gi, '|||SUMMARY: ')
+      .replace(/\[KEY_POINTS\]|\*\*Key Points:\*\*|\*\*Key Points\*\*|\*\*Key Symptoms:\*\*|\*\*Key Symptoms\*\*/gi, '|||KEY_POINTS: ')
+      .replace(/\[PREVENTION\]|\*\*Prevention Tips:\*\*|\*\*Prevention Tips\*\*|\*\*Prevention:\*\*|\*\*Prevention\*\*/gi, '|||PREVENTION: ')
+      .replace(/\[CONSULT\]|\*\*When to Consult a Doctor:\*\*|\*\*When to Consult a Doctor\*\*|\*\*When to Consult:\*\*|\*\*When to Consult\*\*/gi, '|||CONSULT: ')
+      .replace(/\[DISCLAIMER\]|\*\*Educational Disclaimer:\*\*|\*\*Educational Disclaimer\*\*|\*\*Disclaimer:\*\*|\*\*Disclaimer\*\*/gi, '|||DISCLAIMER: ');
 
     // Split text by normalized tags
     const segments = cleanText.split('|||');
