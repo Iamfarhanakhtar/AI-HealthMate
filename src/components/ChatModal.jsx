@@ -2,19 +2,13 @@ import React, { useState, useEffect, useRef, useContext } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Send, X, Bot, User, ShieldAlert } from 'lucide-react';
 import { PlatformContext } from '../context/PlatformContext';
+import useChat from '../hooks/useChat';
 
 function ChatModal() {
   const { incrementAIQuestions } = useContext(PlatformContext);
+  const { messages, isLoading, sendMessage } = useChat();
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState([
-    {
-      sender: 'bot',
-      text: "Hello! I am your AI HealthMate Assistant. I can help answer questions on Dengue, Malaria, Typhoid, Nutrition, Water Safety, and First Aid. How can I help you learn today?",
-      time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-    }
-  ]);
   const [inputValue, setInputValue] = useState("");
-  const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef(null);
 
   // Auto scroll to bottom of chat
@@ -22,63 +16,14 @@ function ChatModal() {
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
     }
-  }, [messages, isTyping]);
-
-  const chatbotResponses = {
-    dengue: "Dengue is a mosquito-borne viral infection. Prevention is key: empty stagnant water from containers, clear debris, and cover water tanks. Warning signs include high fever, pain behind the eyes, and joint aches. Rest, stay hydrated, and consult a doctor immediately if bleeding occurs.",
-    malaria: "Malaria is transmitted by infected female Anopheles mosquitoes. Best prevention is sleeping under Insecticide-Treated Nets (ITNs), clearing weed bushes, and cleaning drainage pools. Go for a rapid blood test if you experience high shaking chills and fever.",
-    typhoid: "Typhoid fever is a waterborne bacterial infection. Avoid raw or open street food, drink boiled water, and ensure food preparation hygiene. The full prescribed antibiotic course must be completed, even if you feel better.",
-    covid: "COVID-19 spreads via respiratory droplets. Wash hands frequently, wear masks in congested areas, keep indoor rooms well-ventilated, and complete your vaccinations.",
-    nutrition: "Balanced nutrition fights anemia and malnutrition. Eat affordable iron-rich green leafy vegetables (spinach), pulses, eggs, and citrus fruits (Vitamin C helps absorb iron). Infants should be exclusively breastfed for 6 months.",
-    water: "Always purify water before consumption: boil for 1 minute or use chlorine tablets. Keep storage containers covered and scrub them regularly to prevent diarrhea and cholera.",
-    firstaid: "For snake bites: keep victim calm and still, remove tight jewelry, wash gently, and transport immediately. Do NOT cut or suck out venom. For minor burns: cool under running tap water for 10-20 mins. Do NOT apply toothpaste or oils.",
-    mental: "Mental wellness is part of health. Try deep breathing (Pranayama) daily, talk openly about stress with friends/teachers, and seek professional counseling if anxiety interferes with daily life.",
-    default: "I can help with topics like Dengue, Malaria, Typhoid, Water Safety, Hygiene, Nutrition, and Emergency First Aid. Could you clarify your question about these public health topics?"
-  };
+  }, [messages, isLoading, isOpen]);
 
   const handleSend = () => {
-    if (!inputValue.trim()) return;
-
-    const userText = inputValue;
-    const userTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    if (!inputValue.trim() || isLoading) return;
     
-    // Add user message
-    setMessages(prev => [...prev, { sender: 'user', text: userText, time: userTime }]);
+    incrementAIQuestions(); // Increment impact stats
+    sendMessage(inputValue);
     setInputValue("");
-    setIsTyping(true);
-    incrementAIQuestions(); // Increment impact stats!
-
-    // Determine bot response based on keywords
-    let responseText = chatbotResponses.default;
-    const cleanText = userText.toLowerCase();
-
-    if (cleanText.includes("dengue") || cleanText.includes("mosquito")) {
-      responseText = chatbotResponses.dengue;
-    } else if (cleanText.includes("malaria")) {
-      responseText = chatbotResponses.malaria;
-    } else if (cleanText.includes("typhoid") || cleanText.includes("enteric")) {
-      responseText = chatbotResponses.typhoid;
-    } else if (cleanText.includes("covid") || cleanText.includes("corona")) {
-      responseText = chatbotResponses.covid;
-    } else if (cleanText.includes("nutrition") || cleanText.includes("anemia") || cleanText.includes("food") || cleanText.includes("diet")) {
-      responseText = chatbotResponses.nutrition;
-    } else if (cleanText.includes("water") || cleanText.includes("wash") || cleanText.includes("hygiene") || cleanText.includes("diarrhea")) {
-      responseText = chatbotResponses.water;
-    } else if (cleanText.includes("first aid") || cleanText.includes("snake") || cleanText.includes("burn") || cleanText.includes("cpr") || cleanText.includes("bite")) {
-      responseText = chatbotResponses.firstaid;
-    } else if (cleanText.includes("stress") || cleanText.includes("mental") || cleanText.includes("anxiety")) {
-      responseText = chatbotResponses.mental;
-    }
-
-    // Simulate typewriter delay
-    setTimeout(() => {
-      setIsTyping(false);
-      setMessages(prev => [...prev, {
-        sender: 'bot',
-        text: responseText,
-        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-      }]);
-    }, 1500);
   };
 
   const handleKeyDown = (e) => {
@@ -142,10 +87,23 @@ function ChatModal() {
 
             {/* Message Pane */}
             <div className="flex-1 overflow-y-auto p-4 space-y-4">
+              {messages.length === 0 && (
+                <div className="flex justify-start items-start gap-2.5">
+                  <div className="p-1.5 rounded bg-primary/10 text-primary mt-1">
+                    <Bot size={14} />
+                  </div>
+                  <div className="flex flex-col max-w-[80%] gap-1">
+                    <div className="p-3 rounded-2xl text-[13px] leading-relaxed bg-[#191c22]/80 border border-white/5 text-on-surface rounded-tl-none">
+                      Hello! I am your AI HealthMate Assistant. I can help answer questions on Dengue, Malaria, Typhoid, Nutrition, Water Safety, and First Aid. How can I help you learn today?
+                    </div>
+                  </div>
+                </div>
+              )}
               {messages.map((msg, index) => {
                 const isBot = msg.sender === 'bot';
+                const formattedTime = msg.timestamp ? new Date(msg.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '';
                 return (
-                  <div key={index} className={`flex ${isBot ? 'justify-start' : 'justify-end'} items-start gap-2.5`}>
+                  <div key={msg.id || index} className={`flex ${isBot ? 'justify-start' : 'justify-end'} items-start gap-2.5`}>
                     {isBot && (
                       <div className="p-1.5 rounded bg-primary/10 text-primary mt-1">
                         <Bot size={14} />
@@ -157,10 +115,10 @@ function ChatModal() {
                           ? 'bg-[#191c22]/80 border border-white/5 text-on-surface rounded-tl-none' 
                           : 'bg-gradient-to-r from-primary to-secondary-container text-on-primary rounded-tr-none font-medium'
                       }`}>
-                        {msg.text}
+                        {msg.content}
                       </div>
                       <span className={`text-[9px] text-outline self-end`}>
-                        {msg.time}
+                        {formattedTime}
                       </span>
                     </div>
                     {!isBot && (
@@ -172,7 +130,7 @@ function ChatModal() {
                 );
               })}
 
-              {isTyping && (
+              {isLoading && (
                 <div className="flex justify-start items-center gap-2.5">
                   <div className="p-1.5 rounded bg-primary/10 text-primary">
                     <Bot size={14} />
@@ -200,7 +158,7 @@ function ChatModal() {
               />
               <button
                 onClick={handleSend}
-                disabled={!inputValue.trim()}
+                disabled={!inputValue.trim() || isLoading}
                 aria-label="Send message"
                 className="p-2.5 rounded-full bg-primary text-on-primary hover:shadow-[0_0_12px_rgba(0,242,255,0.3)] disabled:opacity-50 disabled:shadow-none transition-all cursor-pointer"
               >
