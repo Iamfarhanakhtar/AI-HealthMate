@@ -115,7 +115,47 @@ function ChatModal() {
                           ? 'bg-[#191c22]/80 border border-white/5 text-on-surface rounded-tl-none' 
                           : 'bg-gradient-to-r from-primary to-secondary-container text-on-primary rounded-tr-none font-medium'
                       }`}>
-                        {msg.content}
+                        {isBot && msg.parsedContent ? (
+                          <div className="flex flex-col gap-2">
+                            {msg.parsedContent.summary && (
+                              <div className="whitespace-pre-wrap">{msg.parsedContent.summary}</div>
+                            )}
+                            {msg.parsedContent.keyPoints && msg.parsedContent.keyPoints.length > 0 && (
+                              <div className="mt-1">
+                                <span className="font-semibold text-cyan-400 text-[11px] uppercase tracking-wider">Key Points</span>
+                                <ul className="space-y-1 mt-1">
+                                  {msg.parsedContent.keyPoints.map((point, i) => (
+                                    <li key={i} className="flex items-start gap-1.5">
+                                      <span className="text-cyan-400 mt-1 text-[10px]">●</span>
+                                      <span className="text-on-surface-variant text-xs">{point}</span>
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+                            )}
+                            {msg.parsedContent.prevention && msg.parsedContent.prevention.length > 0 && (
+                              <div className="mt-1">
+                                <span className="font-semibold text-emerald-400 text-[11px] uppercase tracking-wider">Prevention</span>
+                                <ul className="space-y-1 mt-1">
+                                  {msg.parsedContent.prevention.map((tip, i) => (
+                                    <li key={i} className="flex items-start gap-1.5">
+                                      <span className="text-emerald-400 mt-1 text-[10px]">●</span>
+                                      <span className="text-on-surface-variant text-xs">{tip}</span>
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+                            )}
+                            {msg.parsedContent.consult && (
+                              <div className="mt-1 p-2 rounded bg-red-500/10 border border-red-500/20 text-xs">
+                                <strong className="text-red-400 block mb-0.5">Consult Doctor:</strong>
+                                <span className="text-on-surface-variant">{msg.parsedContent.consult}</span>
+                              </div>
+                            )}
+                          </div>
+                        ) : (
+                          <div className="whitespace-pre-wrap">{msg.content}</div>
+                        )}
                       </div>
                       <span className={`text-[9px] text-outline self-end`}>
                         {formattedTime}
